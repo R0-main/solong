@@ -1,16 +1,31 @@
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -I./MLX42/MLX42 -ldl -lglfw -pthread -lm 
+CFLAGS = -Wall -Werror -Wextra -Iminilibx_linux
 
-# MLX_LIB = ./MLX42/build/libmlx42.a
+EXEC = game.out
+MLX_LIB = ./minilibx_linux/libmlx_Linux.a
 
 SRCS = ./src/main.c
 
 OBJS = ${SRCS:.c=.o}
 
 all : compile
-	
+
 compile: $(OBJS)
-	$(CC) $(OBJS) ./minilibx_linux/libmlx_Linux.a -lXext -lX11 -Iminilibx_linux -lm -lz 
+	$(CC) $(OBJS) ${MLX_LIB} -lXext -lX11 -lm -lz -o ${EXEC}
 
 %.o : %.c
-	$(CC) -Wall -Wextra -Werror -Iminilibx_linux -Iminilibx_linux -O3 -c $< -o $@
+	$(CC) ${CFLAGS} -c $< -o $@
+
+run : compile ${EXEC}
+	./${EXEC}
+
+dev : compile ${EXEC}
+	valgrind --leak-check=full --show-leak-kinds=all ./${EXEC}
+
+clean :
+	rm -rf ${OBJS}
+
+fclean : clean
+	rm -rf ${EXEC}
+
+.PHONY : run compile all dev
