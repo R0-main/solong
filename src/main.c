@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:01:04 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/03 08:13:36 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/03 08:15:56 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@
 // 	// mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 // }
 
-#define HEIGHT 540
-#define WIDTH 780
+// define those from parsing
+#define HEIGHT 920
+#define WIDTH 1280
 
 typedef struct s_vars
 {
@@ -78,7 +79,8 @@ int	close_win(int keycode, t_vars *vars)
 	}
 	else if (keycode == 114)
 	{
-		mlx_string_put(vars->mlx, vars->win, 15, 15, 0xFFFFFFFF, "fqwfwqfqfqfqwfq");
+		mlx_string_put(vars->mlx, vars->win, 15, 15, 0xFFFFFFFF,
+			"fqwfwqfqfqfqwfq");
 	}
 	else if (keycode == 108)
 	{
