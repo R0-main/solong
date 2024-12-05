@@ -6,12 +6,14 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:42:59 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/05 13:30:48 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/05 17:00:55 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "game.h"
 #include "ft_printf.h"
+#include "game.h"
+#include "get_next_line.h"
+#include <unistd.h>
 
 static int	check_valid_map(t_map *map)
 {
@@ -22,11 +24,66 @@ static int	check_valid_map(t_map *map)
 	return (0);
 }
 
+static int	update_map(t_map *map, int index, char *line)
+{
+	size_t	l_len;
+
+	if (!line)
+		return (1);
+	l_len = ft_strlen(line);
+	if (line[l_len - 1] == '\n')
+	{
+		map->buffer[index] = ft_substr(line, 0, ft_strlen(line) - 1);
+		free(line);
+	}
+	else
+		map->buffer[index] = line;
+	return (0);
+}
+
+static int	get_lines_count(int fd)
+{
+	int		count;
+	char	*line;
+
+	count = 0;
+	line = malloc(1);
+	while (line != NULL)
+	{
+		free(line);
+		line = get_next_line(fd);
+		count++;
+	}
+	free(line);
+	return (count);
+}
+
 int	parse_map(char *path)
 {
 	t_map	*map;
+	int		fd;
+	int		i;
+	int		line_count;
 
-	ft_printf("%s", path);
+	i = 0;
 	map = get_map();
+	fd = open(path, O_RDONLY);
+	if (fd == 1)
+		return (1);
+	line_count = get_lines_count(fd);
+	map->height = line_count;
+	close(fd);
+	map->buffer = malloc(sizeof(char *) * (line_count + 1));
+	if (!map->buffer)
+		return (1);
+	map->buffer[line_count] = NULL;
+	fd = open(path, O_RDONLY);
+	if (fd == 1)
+		return (1);
+	map = get_map();
+	while (1)
+		if (update_map(map, i++, get_next_line(fd)))
+			break ;
+	close(fd);
 	return (check_valid_map(map));
 }

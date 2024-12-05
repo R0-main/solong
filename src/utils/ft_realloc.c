@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_2d_buffer.c                                   :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 13:05:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/05 16:54:35 by rguigneb         ###   ########.fr       */
+/*   Created: 2024/12/05 16:13:49 by rguigneb          #+#    #+#             */
+/*   Updated: 2024/12/05 16:16:02 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+// #include "libft.h"
 
-void	free_2d_buffer(void **_2d_buffer, int len)
-{
-	int	x;
+// void	*ft_realloc(void *pointer, int new_size)
+// {
 
-	x = 0;
-	while (x < len - 1 && _2d_buffer[x])
-	{
-		free(_2d_buffer[x]);
-		x++;
-	}
-	free(_2d_buffer);
-}
+// }

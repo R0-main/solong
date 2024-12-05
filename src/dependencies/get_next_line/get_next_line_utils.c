@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 14:56:55 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/11/29 16:42:25 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:11:53 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,6 @@ void	ft_bzero(void *s, size_t n)
 {
 	while (n-- > 0)
 		*(char *)s++ = 0;
-}
-
-size_t	ft_strlen(char *str)
-{
-	size_t	i;
-
-	if (!str)
-		return (0);
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
 }
 
 char	*ft_strncatdup(char *src, char *second, size_t max)

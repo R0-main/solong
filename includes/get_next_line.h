@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 14:56:50 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/11/26 19:01:15 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:11:34 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include "libft.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
@@ -38,6 +39,5 @@ char		*get_next_line(int fd);
 long long	get_next_line_index(char *str);
 void		ft_bzero(void *s, size_t n);
 char		*ft_strncatdup(char *src, char *second, size_t max);
-size_t		ft_strlen(char *str);
 
 #endif

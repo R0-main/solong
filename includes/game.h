@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/05 13:30:28 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:56:16 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_map
 
 int			parse_map(char *path);
 t_map		*get_map(void);
-int			free_map();
+int			free_map(void);
+void		print_map(void);
 
 #endif

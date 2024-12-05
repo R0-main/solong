@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:01:04 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/05 13:37:30 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:57:08 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int	close_win(int keycode, t_mlx *mlx)
 	}
 	else if (keycode == 103)
 	{
+		print_map();
 		// init_bg(mlx);
 	}
 	else if (keycode == 114)

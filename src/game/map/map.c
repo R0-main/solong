@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:43:30 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/05 13:34:15 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:57:29 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,15 @@ t_map	*get_map(void)
 	static t_map	map = {};
 
 	return (&map);
+}
+
+void	print_map(void)
+{
+	int		i;
+	t_map	*map;
+
+	i = 0;
+	map = get_map();
+	while (i < map->height - 1)
+		printf("%s\n", map->buffer[i++]);
 }
