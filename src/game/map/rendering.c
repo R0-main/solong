@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 13:05:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/05 18:00:28 by rguigneb         ###   ########.fr       */
+/*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
+/*   Updated: 2024/12/05 17:50:59 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
+#include "game.h"
 
-# define UTILS_H
+void	render_map(t_mlx *mlx)
+{
+	int	x;
+	int	y;
+	t_map	*map;
 
-# include <stdio.h>
-# include <stdlib.h>
+	x = 0;
+	y = 0;
+	map = get_map();
+	while (y < map->height - 1)
+	{
+		while (x < map->witdh - 1)
+		{
 
-int		endswith(char *str, char *substr);
-void	free_2d_buffer(void **_2d_buffer, int len);
-
-#endif
+		}
+	}
+}

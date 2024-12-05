@@ -16,6 +16,7 @@ SRCS = ./src/main.c\
 		./src/game/map/parser.c\
 		./src/game/map/map.c\
 		./src/utils/free_2d_buffer.c\
+		./src/utils/endswith.c\
 		$(GNL_SRCS)
 
 OBJS = ${SRCS:.c=.o}

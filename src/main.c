@@ -6,18 +6,19 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:01:04 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/05 16:57:08 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/05 18:03:12 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
+#include "game.h"
 #include "mlx.h"
 #include "mlx_int.h"
+#include "mlx_wrapper.h"
 #include "textures.h"
+#include "utils.h"
 #include <stdio.h>
 #include <unistd.h>
-#include "mlx_wrapper.h"
-#include "game.h"
-#include "ft_printf.h"
 
 // define those from parsing
 
@@ -115,13 +116,13 @@ int	close_win(int keycode, t_mlx *mlx)
 		load_img(mlx);
 		printf("tried to load img\n");
 	}
-	printf("pressed : %d\n", keycode);
+	ft_printf("pressed : %d\n", keycode);
 	return (0);
 }
 
 int	main_loop(t_mlx *mlx)
 {
-	static int is_init = 0;
+	static int	is_init = 0;
 
 	if (is_init == 0)
 	{
@@ -142,11 +143,17 @@ int	main(int ac, char **av)
 		ft_printf("[ERROR] : Please provide a map in .ber\n");
 		return (1);
 	}
+	if (!endswith(av[1], ".ber"))
+	{
+		ft_printf("[ERROR] : Please provide a valid .ber map !");
+		return (1);
+	}
 	if (parse_map(av[1]))
 	{
-		// error
+		free_map();
+		ft_printf("[ERROR] : Error in the map file !\n");
+		return (1);
 	}
-
 	mlx = mlx_init();
 	mlx_window = NULL;
 	if (mlx != 0)
