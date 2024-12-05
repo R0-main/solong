@@ -1,0 +1,52 @@
+CC = clang
+CFLAGS = -Wall -Werror -Wextra -Iincludes
+
+EXEC = game.out
+MLX_LIB = ./minilibx_linux/libmlx_Linux.a
+
+DEPENDENCIES_PATH = ./src/dependencies
+
+GNL_SRCS = $(DEPENDENCIES_PATH)/get_next_line/get_next_line.c\
+		$(DEPENDENCIES_PATH)/get_next_line/get_next_line_utils.c
+
+SRCS = ./src/main.c\
+		./src/textures.c\
+		./src/textures_loader.c\
+		./src/game/game.c\
+		./src/game/map/parser.c\
+		./src/game/map/map.c\
+		./src/utils/free_2d_buffer.c\
+		$(GNL_SRCS)
+
+OBJS = ${SRCS:.c=.o}
+
+# also compile libft
+FT_PRINTF_PATH = ./src/dependencies/ft_printf
+FT_PRINTF = ./src/dependencies/ft_printf/libftprintf.a
+
+all : compile
+
+compile: $(OBJS) $(FT_PRINTF)
+	$(CC) $(OBJS) ${MLX_LIB} $(FT_PRINTF) -lXext -lX11 -lm -lz -o ${EXEC}
+
+%.o : %.c
+	$(CC) ${CFLAGS} -c $< -o $@
+
+${FT_PRINTF} :
+	make -C $(FT_PRINTF_PATH) --no-print-directory
+	cp $(FT_PRINTF) $@
+
+run : compile ${EXEC}
+	./${EXEC}
+
+dev : compile ${EXEC}
+	valgrind --leak-check=full --show-leak-kinds=all ./${EXEC} ./maps/packman.ber
+	make fclean
+
+clean :
+	rm -rf ${OBJS}
+
+fclean : clean
+	rm -rf ${EXEC}
+
+.PHONY : run compile all dev

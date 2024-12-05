@@ -1,0 +1,11 @@
+{
+	"files.associations": {
+		"mlx.h": "c",
+		"mlx_int.h": "c",
+		"stdio.h": "c",
+		"unistd.h": "c",
+		"textures.h": "c",
+		"utils.h": "c",
+		"game.h": "c"
+	}
+}
