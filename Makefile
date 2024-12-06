@@ -10,19 +10,21 @@ GNL_SRCS = $(DEPENDENCIES_PATH)/get_next_line/get_next_line.c\
 		$(DEPENDENCIES_PATH)/get_next_line/get_next_line_utils.c
 
 SRCS = ./src/main.c\
-		./src/textures.c\
-		./src/textures_loader.c\
+		./src/mlx_wrapper/textures.c\
+		./src/mlx_wrapper/textures_loader.c\
 		./src/game/game.c\
 		./src/game/map/parser.c\
 		./src/game/map/map.c\
+		./src/game/map/rendering.c\
 		./src/utils/free_2d_buffer.c\
 		./src/utils/endswith.c\
+		./src/utils/delay.c\
 		$(GNL_SRCS)
 
 OBJS = ${SRCS:.c=.o}
 
 # also compile libft
-FT_PRINTF_PATH = ./src/dependencies/ft_printf
+FT_PRINTF_PATH = ./src/dezpendencies/ft_printf
 FT_PRINTF = ./src/dependencies/ft_printf/libftprintf.a
 
 all : compile

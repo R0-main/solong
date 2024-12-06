@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:24:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/05 12:35:58 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/06 18:53:21 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	load_assets(void *mlx)
 	load_texture(mlx, "assets/grass.xpm", GRASS_TEXTURE);
 	load_texture(mlx, "assets/test.xpm", PLAYER_TEXTURE);
 	load_texture(mlx, "assets/grass122.xpm", SARAH_TEXTURE);
+	load_texture(mlx, "assets/tile_022.xpm", TILE_TEXTURE);
+	load_texture(mlx, "assets/test_tile.xpm", TEST_TILE_TEXTURE);
 }
 
 void	unload_assets(void *mlx)

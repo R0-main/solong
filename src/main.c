@@ -6,12 +6,12 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:01:04 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/05 18:03:12 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:07:57 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "game.h"
+#include "ft_printf.h"
 #include "mlx.h"
 #include "mlx_int.h"
 #include "mlx_wrapper.h"
@@ -103,7 +103,11 @@ int	close_win(int keycode, t_mlx *mlx)
 	}
 	else if (keycode == 103)
 	{
-		print_map();
+		// print_map();
+		// mlx_put_image_to_window(mlx->mlx, mlx->win, get_texture(TILE_TEXTURE), )
+		put_img_to_rendering_buffer(get_game_instance(), get_texture(TILE_TEXTURE), WIDTH - 32, HEIGHT - 32);
+		render_next_frame(mlx);
+		//put_transparent_texture_on_window(TILE_TEXTURE, mlx, WIDTH / 2, HEIGHT / 2);
 		// init_bg(mlx);
 	}
 	else if (keycode == 114)
@@ -129,6 +133,9 @@ int	main_loop(t_mlx *mlx)
 		game_init(mlx);
 		is_init = 1;
 	}
+	render_next_frame(mlx);
+	delay(1000000);
+	// sleep(0);
 	return (0);
 }
 
@@ -168,6 +175,7 @@ int	main(int ac, char **av)
 		mlx_loop(mlx);
 		unload_assets(mlx);
 		mlx_destroy_window(mlx, mlx_window);
+		mlx_destroy_image(mlx, get_game_instance()->rendering_buffer);
 	}
 	free_map();
 	mlx_destroy_display(mlx);

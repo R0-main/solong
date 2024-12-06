@@ -6,36 +6,28 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:30:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/05 12:41:07 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:58:16 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 
-int	init_bg(t_mlx *mlx)
+t_game	*get_game_instance(void)
 {
-	t_img	*img;
-	int		i;
-	int		j;
+	static t_game	game_instance = {};
 
-	i = 0;
-	j = 0;
-	img = get_texture(GRASS_TEXTURE);
-	while (i < WIDTH)
-	{
-		j = 0;
-		while (j < HEIGHT)
-		{
-			mlx_put_image_to_window(mlx->mlx, mlx->win, img, i, j);
-			j += img->height;
-		}
-		i += img->width;
-	}
-	return (0);
+	return (&game_instance);
 }
 
 int	game_init(t_mlx *mlx)
 {
-	init_bg(mlx);
+	t_game	*game;
+
+	game = get_game_instance();
+	game->map = get_map();
+	print_map();
+	game->rendering_buffer = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
+	game->mlx = mlx;
+	draw_bg(game);
 	return (0);
 }

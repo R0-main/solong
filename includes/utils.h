@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 13:05:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/05 18:00:28 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:06:59 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@
 
 int		endswith(char *str, char *substr);
 void	free_2d_buffer(void **_2d_buffer, int len);
+void	delay(int loop);
 
 #endif

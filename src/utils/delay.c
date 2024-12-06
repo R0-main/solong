@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_wrapper.h                                      :+:      :+:    :+:   */
+/*   delay.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 12:33:15 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/06 16:31:11 by rguigneb         ###   ########.fr       */
+/*   Created: 2024/12/06 17:05:33 by rguigneb          #+#    #+#             */
+/*   Updated: 2024/12/06 17:58:03 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLX_WRAPPER_H
-
-# define MLX_WRAPPER_H
-
-# define HEIGHT 800
-# define WIDTH 1024
-
-typedef struct s_mlx
+void	delay(int loop)
 {
-	void	*mlx;
-	void	*win;
-	int		height;
-	int		width;
-}			t_mlx;
+	int	i;
 
-#endif
+	i = 0;
+	while (i < loop)
+		i++;
+}

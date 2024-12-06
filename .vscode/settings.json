@@ -7,6 +7,9 @@
 		"textures.h": "c",
 		"utils.h": "c",
 		"game.h": "c",
-		"get_next_line.h": "c"
+		"get_next_line.h": "c",
+		"random": "c",
+		"mlx_wrapper.h": "c",
+		"ft_printf.h": "c"
 	}
 }
