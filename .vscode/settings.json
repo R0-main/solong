@@ -10,6 +10,7 @@
 		"get_next_line.h": "c",
 		"random": "c",
 		"mlx_wrapper.h": "c",
-		"ft_printf.h": "c"
+		"ft_printf.h": "c",
+		"a.out.h": "c"
 	}
 }

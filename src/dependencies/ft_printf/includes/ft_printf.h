@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 15:42:59 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/11/27 14:21:11 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/07 10:38:58 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_unsigned_putnbr(unsigned int n);
 void	ft_print_hex_x(unsigned long num_hex, int pre);
 void	ft_print_hex_big_x(unsigned long num_hex, int pre);
 
-size_t	get_number_len(long n);
+size_t	get_len_num(long n);
 size_t	get_hex_len(unsigned long num, int pre);
 
 int		handle_char(va_list args);

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 12:02:25 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/11/29 11:58:18 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/07 10:39:01 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	handle_percent(const char *format, va_list args, int i, int *total_len)
 		*total_len += handle_address(args);
 }
 
-size_t	get_number_len(long n)
+size_t	get_len_num(long n)
 {
 	size_t	i;
 
@@ -94,7 +94,7 @@ int	get_format_len(const char *format)
 	{
 		if (format[i] == '%' && format[i + 1])
 		{
-			i ++;
+			i++;
 		}
 		else
 		{

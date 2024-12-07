@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/06 16:57:54 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/07 10:04:44 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,8 @@ t_map				*get_map(void);
 int					free_map(void);
 void				print_map(void);
 int					draw_bg(t_game *game);
+
+// KEYBINDS
+void				on_key_pressed(int key);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:06:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/06 19:26:58 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/07 15:25:42 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@
 # include "mlx.h"
 # include "mlx_int.h"
 
-# define TILE_X 32
-# define TILE_Y 32
+# define TILE_X 92
+# define TILE_Y 81
 
 typedef enum e_textures
 {
+	BLACK_SCREEN_TEXTURE,
 	GRASS_TEXTURE,
 	PLAYER_TEXTURE,
 	SARAH_TEXTURE,
@@ -39,11 +40,13 @@ typedef struct s_textures_atlas
 
 t_textures_atlas	*get_textures_atlas(void);
 int					load_texture(void *mlx, const char *path, int id);
+void				load_black_screen_texture(void *mlx);
 t_img				*get_texture(int id);
 void				put_img_to_rendering_buffer(t_game *game, t_img *img,
 						int ox, int oy);
 void				load_assets(void *mlx);
 void				unload_assets(void *mlx);
+void				reset_rendering_buffer(t_game *game);
 
 void				put_transparent_texture_on_window(int id, t_mlx *mlx,
 						int ox, int oy);

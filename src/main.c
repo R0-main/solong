@@ -6,12 +6,12 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:01:04 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/06 17:07:57 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/07 18:38:51 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "game.h"
 #include "ft_printf.h"
+#include "game.h"
 #include "mlx.h"
 #include "mlx_int.h"
 #include "mlx_wrapper.h"
@@ -28,58 +28,6 @@ typedef struct s_free_img_mlx
 	t_img	*img;
 }			t_free_img_mlx;
 
-// slow
-int	init_window_bg(t_mlx *mlx)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (++i < WIDTH)
-	{
-		j = -1;
-		while (++j < HEIGHT)
-		{
-			mlx_pixel_put(mlx->mlx, mlx->win, i, j, 0x00FF0000);
-		}
-	}
-	return (0);
-}
-
-int	load_img(t_mlx *mlx)
-{
-	t_img	*img;
-	int		h;
-	int		w;
-
-	img = mlx_xpm_file_to_image(mlx->mlx, "./assets/test.xpm", &w, &h);
-	if (!img)
-	{
-		printf("img loading failed\n");
-		return (1);
-	}
-	mlx_put_image_to_window(mlx->mlx, mlx->win, img, w, h);
-	return (0);
-}
-
-int	reset_bg(unsigned int color, t_mlx *mlx)
-{
-	t_img	*img;
-
-	img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
-	(void)color;
-	mlx_put_image_to_window(mlx->mlx, mlx->win, img, 0, 0);
-	mlx_pixel_put(mlx->mlx, mlx->win, 5, 5, 0xFFFFFFFF);
-	return (0);
-}
-
-int	free_img(t_free_img_mlx *free_img_vars)
-{
-	mlx_destroy_image(free_img_vars->mlx->mlx, free_img_vars->img);
-	// free(free_img_vars->img);
-	return (0);
-}
-
 int	destroy_close(t_mlx *mlx)
 {
 	mlx_loop_end(mlx->mlx);
@@ -93,21 +41,22 @@ int	close_win(int keycode, t_mlx *mlx)
 		mlx_loop_end(mlx->mlx);
 		// free(mlx->mlx);
 	}
-	else if (keycode == 113)
-	{
-		init_window_bg(mlx);
-	}
 	else if (keycode == 101)
 	{
-		mlx_clear_window(mlx->mlx, mlx->win);
+		// mlx_clear_window(mlx->mlx, mlx->win);
+		mlx_put_image_to_window(mlx->mlx, mlx->win,
+			get_texture(BLACK_SCREEN_TEXTURE), 0, 0);
 	}
 	else if (keycode == 103)
 	{
 		// print_map();
-		// mlx_put_image_to_window(mlx->mlx, mlx->win, get_texture(TILE_TEXTURE), )
-		put_img_to_rendering_buffer(get_game_instance(), get_texture(TILE_TEXTURE), WIDTH - 32, HEIGHT - 32);
-		render_next_frame(mlx);
-		//put_transparent_texture_on_window(TILE_TEXTURE, mlx, WIDTH / 2, HEIGHT / 2);
+		// mlx_put_image_to_window(mlx->mlx, mlx->win,
+		// 	get_texture(TILE_TEXTURE), )
+		// put_img_to_rendering_buffer(get_game_instance(),
+		// 	get_texture(TILE_TEXTURE), WIDTH - 32, HEIGHT - 32);
+		// render_next_frame(mlx);
+		// // put_transparent_texture_on_window(TILE_TEXTURE, mlx, WIDTH / 2,
+		// 	HEIGHT / 2);
 		// init_bg(mlx);
 	}
 	else if (keycode == 114)
@@ -115,11 +64,7 @@ int	close_win(int keycode, t_mlx *mlx)
 		mlx_string_put(mlx->mlx, mlx->win, 15, 15, 0xFFFFFFFF,
 			"fqwfwqfqfqfqwfq");
 	}
-	else if (keycode == 108)
-	{
-		load_img(mlx);
-		printf("tried to load img\n");
-	}
+	on_key_pressed(keycode);
 	ft_printf("pressed : %d\n", keycode);
 	return (0);
 }
@@ -127,14 +72,19 @@ int	close_win(int keycode, t_mlx *mlx)
 int	main_loop(t_mlx *mlx)
 {
 	static int	is_init = 0;
+	static int	loop = 1000000;
 
 	if (is_init == 0)
 	{
 		game_init(mlx);
 		is_init = 1;
 	}
-	render_next_frame(mlx);
-	delay(1000000);
+	else if (loop >= 500)
+	{
+		render_next_frame(mlx);
+		loop = 0;
+	}
+	loop++;
 	// sleep(0);
 	return (0);
 }

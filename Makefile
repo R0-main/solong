@@ -16,6 +16,7 @@ SRCS = ./src/main.c\
 		./src/game/map/parser.c\
 		./src/game/map/map.c\
 		./src/game/map/rendering.c\
+		./src/game/keybinds/keybinds.c\
 		./src/utils/free_2d_buffer.c\
 		./src/utils/endswith.c\
 		./src/utils/delay.c\
@@ -24,7 +25,7 @@ SRCS = ./src/main.c\
 OBJS = ${SRCS:.c=.o}
 
 # also compile libft
-FT_PRINTF_PATH = ./src/dezpendencies/ft_printf
+FT_PRINTF_PATH = ./src/dependencies/ft_printf
 FT_PRINTF = ./src/dependencies/ft_printf/libftprintf.a
 
 all : compile
@@ -36,7 +37,7 @@ compile: $(OBJS) $(FT_PRINTF)
 	$(CC) ${CFLAGS} -c $< -o $@
 
 ${FT_PRINTF} :
-	make -C $(FT_PRINTF_PATH) --no-print-directory
+	make re -C $(FT_PRINTF_PATH) --no-print-directory
 	cp $(FT_PRINTF) $@
 
 run : compile ${EXEC}
@@ -45,6 +46,9 @@ run : compile ${EXEC}
 dev : compile ${EXEC}
 	valgrind --leak-check=full --show-leak-kinds=all ./${EXEC} ./maps/packman.ber
 	make fclean
+
+clean_lib :
+	make flcean -C $(FT_PRINTF_PATH) --no-print-directory
 
 clean :
 	rm -rf ${OBJS}

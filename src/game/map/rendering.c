@@ -6,11 +6,12 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/06 19:58:30 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/07 19:22:43 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
+#include "libft.h"
 
 // void	render_map(t_mlx *mlx)
 // {
@@ -38,6 +39,15 @@ static t_coordinates	get_to_world_coord(int x, int y)
 	return (coords);
 }
 
+int	reset_bg(t_game *game)
+{
+	t_img	*img;
+
+	img = get_texture(BLACK_SCREEN_TEXTURE);
+	put_img_to_rendering_buffer(game, img, 0, 0);
+	return (0);
+}
+
 int	draw_bg(t_game *game)
 {
 	t_img			*img;
@@ -46,22 +56,21 @@ int	draw_bg(t_game *game)
 	t_coordinates	coords;
 
 	y = 0;
-	x = 0;
-	(void)game;
 	img = get_texture(TILE_TEXTURE);
 	while (y < game->map->height)
 	{
 		x = 0;
-		while (x <  game->map->witdh)
+		while (x < game->map->witdh)
 		{
-			coords = get_to_world_coord(x, y);
-			put_img_to_rendering_buffer(game, img, (coords.x - TILE_X / 2) + (game->map->witdh * TILE_X) / 2, coords.y);
-			// put_img_to_rendering_buffer(game, img, x, y + 16);
-			// put_img_to_rendering_buffer(game, img, x, y + 48);
-			// put_img_to_rendering_buffer(game, img, x + 16, y + 64);
-			// put_img_to_rendering_buffer(game, img, x + 16, y + 48);
-			// mlx_put_image_to_window(mlx->mlx, mlx->win, img, y, x);
-			// put_transparent_texture_on_window(TILE_TEXTURE, mlx, i, j);
+			coords = get_to_world_coord(x + game->camera_offsets.x, y
+					+ game->camera_offsets.y);
+			coords.x = ((coords.x - TILE_X / 2) + (game->map->witdh * TILE_X)
+					/ 2);
+			// goofy :  && coords.y < HEIGHT - TILE_Y
+			put_img_to_rendering_buffer(game, img, coords.x, coords.y);
+			// if (coords.x >= 0 && coords.y >= 0)
+			// {
+			// }
 			x += 1;
 		}
 		y += 1;
@@ -81,6 +90,12 @@ void	render_next_frame(t_mlx *mlx)
 	t_game	*game;
 
 	game = get_game_instance();
+	reset_rendering_buffer(game);
+	// mlx_clear_window(mlx->mlx, mlx->win);
 	draw_bg(game);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, game->rendering_buffer, 0, 0);
+	// mlx_string_put(mlx->mlx, mlx->win, 50, 650, 0xFFFFFFFF,
+	// 	ft_itoa(game->camera_offsets.x));
+	// mlx_string_put(mlx->mlx, mlx->win, 50, 675, 0xFFFFFFFF,
+	// 	ft_itoa(game->camera_offsets.y));
 }
