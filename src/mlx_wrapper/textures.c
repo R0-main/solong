@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:14:38 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/07 18:34:31 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:58:42 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,49 @@ void	reset_rendering_buffer(t_game *game)
 		i++;
 	}
 }
+
+void	put_img_to_into_img(t_img *dest_img, t_img *img, int ox, int oy)
+{
+	int	pixel_bits;
+	int	line_bytes;
+	int	endian;
+	int	pixel_bits1;
+	int	line_bytes1;
+	int	endian1;
+	int	pixel;
+	int	buffer_pixel;
+
+	// int		pixel_1;
+	mlx_get_data_addr(dest_img, &pixel_bits, &line_bytes,
+		&endian);
+	mlx_get_data_addr(img, &pixel_bits1, &line_bytes1, &endian1);
+	// if (dest_img->width < img->width || dest_img->height < img->height)
+	// 	return;
+	for (int y = 0; y < img->height; ++y)
+	{
+		for (int x = 0; x < img->width; ++x)
+		{
+			if (y + oy < 0 || x + ox < 0 )
+				continue ;
+			buffer_pixel = ((y + oy) * line_bytes) + ((x + ox) * 4);
+			pixel = (y * line_bytes1) + (x * 4);
+			if (dest_img->width < x + ox || dest_img->height < y + oy )
+				continue;
+			if (img->data[pixel] != 120 && (img->data[pixel] == 0
+					&& img->data[pixel + 1] == 0 && img->data[pixel + 2] == 0
+					&& img->data[pixel + 3] == 0))
+				continue ;
+			dest_img->data[buffer_pixel] = img->data[pixel];
+			dest_img->data[buffer_pixel + 1] = img->data[pixel
+				+ 1];
+			dest_img->data[buffer_pixel + 2] = img->data[pixel
+				+ 2];
+			dest_img->data[buffer_pixel + 3] = img->data[pixel
+				+ 3];
+		}
+	}
+}
+
 
 void	put_img_to_rendering_buffer(t_game *game, t_img *img, int ox, int oy)
 {

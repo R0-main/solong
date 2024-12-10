@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:33:15 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/07 19:22:09 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:28:10 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 # define MLX_WRAPPER_H
 
-# define HEIGHT 500
-# define WIDTH 500
+# define HEIGHT 1000
+# define WIDTH 1000
 
 typedef struct s_mlx
 {

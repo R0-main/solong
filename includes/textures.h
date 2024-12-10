@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:06:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/07 15:25:42 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/10 16:03:11 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ void				reset_rendering_buffer(t_game *game);
 
 void				put_transparent_texture_on_window(int id, t_mlx *mlx,
 						int ox, int oy);
+
+void				put_img_to_into_img(t_img *dest_img, t_img *img, int ox,
+						int oy);
+
+int					test_game(t_game *game);
 
 // load("assets/grass.xpm", textures_atlas, GRASS_TEXTURE)
 

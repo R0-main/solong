@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/07 10:04:44 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:17:14 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_game
 	t_img			*rendering_buffer;
 	t_mlx			*mlx;
 	t_map			*map;
+	t_img			*map_img;
 }					t_game;
 
 # include "textures.h"
