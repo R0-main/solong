@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:30:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/10 15:18:26 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:02:05 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	game_init(t_mlx *mlx)
 	game->mlx = mlx;
 	game->camera_offsets.x = -(game->map->witdh / 2);
 	game->camera_offsets.y = (game->map->height / 4);
-	draw_bg(game);
+	// draw_bg(game);
 	test_game(game);
 	return (0);
 }
