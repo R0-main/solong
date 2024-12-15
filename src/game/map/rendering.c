@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/10 16:04:39 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/14 11:07:16 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ int	draw_bg(t_game *game)
 					+ game->camera_offsets.y);
 			coords.x = ((coords.x - TILE_X / 2) + (game->map->witdh * TILE_X)
 					/ 2);
-			// goofy :  && coords.y < HEIGHT - TILE_Y
-			put_img_to_rendering_buffer(game, img, coords.x, coords.y);
+				put_img_to_rendering_buffer(game, img, coords.x, coords.y);
+			// if (coords.x <= 0 && coords.y < HEIGHT - TILE_Y)
 			x += 1;
 		}
 		y += 1;
