@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:06:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/27 12:58:17 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/27 15:36:16 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void				put_img_to_into_img(t_img *dest_img, t_img *img, int ox,
 int					init_map_img(t_game *game);
 
 int					get_pixel_index(t_img *asset, t_coordinates coords);
+int32_t				*get_pixel(t_img *asset, t_coordinates coords);
 
 // load("assets/grass.xpm", textures_atlas, GRASS_TEXTURE)
 

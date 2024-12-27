@@ -12,6 +12,15 @@
 		"mlx_wrapper.h": "c",
 		"ft_printf.h": "c",
 		"a.out.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"rendering.h": "c",
+		"array": "c",
+		"string": "c",
+		"string_view": "c",
+		"math.h": "c",
+		"deque": "c",
+		"unordered_map": "c",
+		"vector": "c",
+		"initializer_list": "c"
 	}
 }

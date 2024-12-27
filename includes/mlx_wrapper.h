@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:33:15 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/27 14:22:29 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/27 16:48:39 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 # define MLX_WRAPPER_H
 
-# define HEIGHT 1000
-# define WIDTH 1000
+# define HEIGHT 520
+# define WIDTH 856
+
+# define PIXEL_DEF 4 // 1 pixel = 4 pixels now
 
 typedef struct s_mlx
 {

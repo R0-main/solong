@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:14:38 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/27 14:40:13 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/27 15:35:16 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,18 @@ int	get_pixel_index(t_img *asset, t_coordinates coords)
 	mlx_get_data_addr(asset, &pixel_bits, &line_bytes, &endian);
 	pixel = (coords.y * line_bytes) + (coords.x * 4);
 	return (pixel);
+}
+
+int32_t	*get_pixel(t_img *asset, t_coordinates coords)
+{
+	int	pixel_bits;
+	int	line_bytes;
+	int	endian;
+	int	pixel;
+
+	mlx_get_data_addr(asset, &pixel_bits, &line_bytes, &endian);
+	pixel = (coords.y * line_bytes) + (coords.x * 4);
+	return ((int32_t *)(asset->data + pixel));
 }
 
 t_textures_atlas	*get_textures_atlas(void)
