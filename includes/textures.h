@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:06:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/15 09:21:30 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/27 12:58:17 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 typedef enum e_textures
 {
+	MAP,
 	BLACK_SCREEN_TEXTURE,
 	GRASS_TEXTURE,
 	PLAYER_TEXTURE,
@@ -45,6 +46,7 @@ t_img				*get_texture(int id);
 void				put_img_to_rendering_buffer(t_game *game, t_img *img,
 						int ox, int oy);
 void				load_assets(void *mlx);
+void				add_asset(int id, t_img *img);
 void				unload_assets(void *mlx);
 void				reset_rendering_buffer(t_game *game);
 
@@ -54,7 +56,9 @@ void				put_transparent_texture_on_window(int id, t_mlx *mlx,
 void				put_img_to_into_img(t_img *dest_img, t_img *img, int ox,
 						int oy);
 
-int					test_game(t_game *game);
+int					init_map_img(t_game *game);
+
+int					get_pixel_index(t_img *asset, t_coordinates coords);
 
 // load("assets/grass.xpm", textures_atlas, GRASS_TEXTURE)
 

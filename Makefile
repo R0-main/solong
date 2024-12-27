@@ -16,10 +16,12 @@ SRCS = ./src/main.c\
 		./src/game/map/parser.c\
 		./src/game/map/map.c\
 		./src/game/map/rendering.c\
+		./src/game/world/world.c\
 		./src/game/keybinds/keybinds.c\
 		./src/utils/free_2d_buffer.c\
 		./src/utils/endswith.c\
 		./src/utils/delay.c\
+		./src/utils/maths/ft_abs.c\
 		$(GNL_SRCS)
 
 OBJS = ${SRCS:.c=.o}

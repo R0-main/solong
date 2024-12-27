@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 09:35:40 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/10 15:44:24 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/26 11:55:11 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,16 @@
 void	on_key_pressed(int key)
 {
 	t_game	*game;
+	// t_coordinates	coords;
 
 	game = get_game_instance();
+	// coords = get_to_world_coord(game->camera_offsets.x, game->camera_offsets.y);
 	// printf("x: %d\n", game->camera_offsets.x);
 	// printf("y: %d\n", game->camera_offsets.y);
+	// if (coords.x + 1 <= game->map->witdh || coords.y + 1 <= game->map->height)
+	// 	return ;
+	// if (coords.x - 1 >= game->map->witdh || coords.y - 1 >= game->map->height)
+	// 	return ;
 	if (key == W_KEY || key == UP_ARROW_KEY)
 	{
 		// forward
@@ -44,5 +50,5 @@ void	on_key_pressed(int key)
 		game->camera_offsets.x -= 1;
 		// game->camera_offsets.y += 1;
 	}
-	printf("x : %d | y : %d\n", game->camera_offsets.x, game->camera_offsets.y);
+	printf("x : %d | y : %d h : %d\n", game->camera_offsets.x, game->camera_offsets.y, game->map->height);
 }

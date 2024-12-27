@@ -11,6 +11,7 @@
 		"random": "c",
 		"mlx_wrapper.h": "c",
 		"ft_printf.h": "c",
-		"a.out.h": "c"
+		"a.out.h": "c",
+		"libft.h": "c"
 	}
 }

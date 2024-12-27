@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:01:04 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/10 16:04:18 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/27 14:19:59 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	close_win(int keycode, t_mlx *mlx)
 	}
 	else if (keycode == 103)
 	{
-		test_game(get_game_instance());
+		// test_game(get_game_instance());
 		// print_map();
 		// mlx_put_image_to_window(mlx->mlx, mlx->win,
 		// 	get_texture(TILE_TEXTURE), )
@@ -82,9 +82,9 @@ int	main_loop(t_mlx *mlx)
 	}
 	else if (loop >= 350)
 	{
-		render_next_frame(mlx);
 		loop = 0;
 	}
+	render_next_frame(mlx);
 	loop++;
 	// sleep(0);
 	return (0);
