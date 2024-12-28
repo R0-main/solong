@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:01:04 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/27 14:19:59 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/28 12:07:09 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ int	main_loop(t_mlx *mlx)
 		game_init(mlx);
 		is_init = 1;
 	}
-	else if (loop >= 350)
+	else
 	{
-		loop = 0;
+		render_next_frame(mlx);
 	}
-	render_next_frame(mlx);
+	
 	loop++;
 	// sleep(0);
 	return (0);

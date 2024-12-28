@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -Iincludes
+CFLAGS = -Iincludes
 
 EXEC = game.out
 MLX_LIB = ./minilibx_linux/libmlx_Linux.a

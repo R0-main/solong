@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:14:38 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/27 15:35:16 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/28 13:04:04 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	get_pixel_index(t_img *asset, t_coordinates coords)
 	pixel = (coords.y * line_bytes) + (coords.x * 4);
 	return (pixel);
 }
+
 
 int32_t	*get_pixel(t_img *asset, t_coordinates coords)
 {
@@ -201,41 +202,41 @@ void	put_img_to_into_img(t_img *dest_img, t_img *img, int ox, int oy)
 }
 
 
-void	put_img_to_rendering_buffer(t_game *game, t_img *img, int ox, int oy)
-{
-	int	pixel_bits;
-	int	line_bytes;
-	int	endian;
-	int	pixel_bits1;
-	int	line_bytes1;
-	int	endian1;
-	int	pixel;
-	int	buffer_pixel;
+// void	put_img_to_rendering_buffer(t_game *game, t_img *img, int ox, int oy)
+// {
+// 	int	pixel_bits;
+// 	int	line_bytes;
+// 	int	endian;
+// 	int	pixel_bits1;
+// 	int	line_bytes1;
+// 	int	endian1;
+// 	int	pixel;
+// 	int	buffer_pixel;
 
-	mlx_get_data_addr(game->rendering_buffer, &pixel_bits, &line_bytes,
-		&endian);
-	mlx_get_data_addr(img, &pixel_bits1, &line_bytes1, &endian1);
-	for (int y = 0; y < img->height; ++y)
-	{
-		for (int x = 0; x < img->width; ++x)
-		{
-			if (y + oy < 0 || x + ox < 0)
-				continue ;
-			buffer_pixel = ((y + oy) * line_bytes) + ((x + ox) * 4);
-			pixel = (y * line_bytes1) + (x * 4);
-			if (y + oy > HEIGHT || x + ox > WIDTH)
-				continue ;
-			if (img->data[pixel] != 120 && (img->data[pixel] == 0
-					&& img->data[pixel + 1] == 0 && img->data[pixel + 2] == 0
-					&& img->data[pixel + 3] == 0))
-				continue ;
-			game->rendering_buffer->data[buffer_pixel] = img->data[pixel];
-			game->rendering_buffer->data[buffer_pixel + 1] = img->data[pixel
-				+ 1];
-			game->rendering_buffer->data[buffer_pixel + 2] = img->data[pixel
-				+ 2];
-			game->rendering_buffer->data[buffer_pixel + 3] = img->data[pixel
-				+ 3];
-		}
-	}
-}
+// 	mlx_get_data_addr(game->rendering_buffer, &pixel_bits, &line_bytes,
+// 		&endian);
+// 	mlx_get_data_addr(img, &pixel_bits1, &line_bytes1, &endian1);
+// 	for (int y = 0; y < img->height; ++y)
+// 	{
+// 		for (int x = 0; x < img->width; ++x)
+// 		{
+// 			if (y + oy < 0 || x + ox < 0)
+// 				continue ;
+// 			buffer_pixel = ((y + oy) * line_bytes) + ((x + ox) * 4);
+// 			pixel = (y * line_bytes1) + (x * 4);
+// 			if (y + oy > HEIGHT || x + ox > WIDTH)
+// 				continue ;
+// 			if (img->data[pixel] != 120 && (img->data[pixel] == 0
+// 					&& img->data[pixel + 1] == 0 && img->data[pixel + 2] == 0
+// 					&& img->data[pixel + 3] == 0))
+// 				continue ;
+// 			game->rendering_buffer->data[buffer_pixel] = img->data[pixel];
+// 			game->rendering_buffer->data[buffer_pixel + 1] = img->data[pixel
+// 				+ 1];
+// 			game->rendering_buffer->data[buffer_pixel + 2] = img->data[pixel
+// 				+ 2];
+// 			game->rendering_buffer->data[buffer_pixel + 3] = img->data[pixel
+// 				+ 3];
+// 		}
+// 	}
+// }

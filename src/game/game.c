@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:30:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/27 15:25:24 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/28 12:53:01 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ int	game_init(t_mlx *mlx)
 	game->map = get_map();
 	print_map();
 	game->rendering_buffer = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
+	if (!game->rendering_buffer)
+		return (1);
+	game->rendering_buffer_data.endian = 0;
+	game->rendering_buffer_data.line_bytes = 0;
+	game->rendering_buffer_data.pixel_bits = 0;
+	mlx_get_data_addr(game->rendering_buffer, &game->rendering_buffer_data.pixel_bits, &game->rendering_buffer_data.line_bytes, &game->rendering_buffer_data.endian);
 	game->mlx = mlx;
 	game->camera_offsets.x = 0; // -(game->map->witdh / 2);
 	game->camera_offsets.y = 0; // game->map->height / 4);

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 14:59:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/27 16:09:06 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/28 13:02:21 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,8 @@ void				add_to_rendering_proccess(t_rendering_element *r_elem,
 						t_game *game);
 
 void				proccess_rendering_buffer(t_game *game);
+
+void				put_img_to_rendering_buffer(t_game *game,
+						t_rendering_element *r_elem);
 
 #endif

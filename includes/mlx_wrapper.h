@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:33:15 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/27 16:48:39 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/28 12:50:19 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define HEIGHT 520
 # define WIDTH 856
 
-# define PIXEL_DEF 4 // 1 pixel = 4 pixels now
+# define PIXEL_DEF 1 // 1 pixel = 4 pixels now
 
 typedef struct s_mlx
 {
@@ -26,6 +26,13 @@ typedef struct s_mlx
 	int		height;
 	int		width;
 }			t_mlx;
+
+typedef struct s_img_data
+{
+	int		line_bytes;
+    int 	pixel_bits;
+    int 	endian;
+}			t_img_data;
 
 # define ESC_KEY            53  // Touche Echap
 # define ENTER_KEY          36  // Touche Entrée
