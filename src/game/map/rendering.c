@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/28 13:35:15 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/28 18:12:08 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ void	render_asset(t_game *game, t_img *asset, t_coordinates position)
 	add_to_rendering_proccess(r_elem, game);
 }
 
+struct		test
+{
+	int32_t	a;
+	int32_t	b;
+	int32_t	c;
+	int32_t	d;
+	int32_t	e;
+};
+
 int	draw_map(t_game *game)
 {
 	int					y;
@@ -33,21 +42,31 @@ int	draw_map(t_game *game)
 	while (y < game->rendering_buffer->height)
 	{
 		x = 0;
-		while (x < game->rendering_buffer->width)
-		{
-			// coords = get_to_world_coord(x + game->camera_offsets.x, y
-			// 		+ game->camera_offsets.y);
-			// coords.x = ((coords.x + TILE_X / 2) + (game->map->witdh * TILE_X)
-			// 		/ 2);
-			// r_elem = create_rendering_element(get_texture(TILE_TEXTURE),
-			// 		(t_coordinates){x, y});
-			// if (!r_elem)
-			// 	return (1);
-			// put_img_to_rendering_buffer(game, r_elem);
-			// free(r_elem);
-			// render_asset(game, get_texture(TILE_TEXTURE), (t_coordinates){x, y});
-			x += 1;
-		}
+		int pixel = (y * game->rendering_buffer_data.line_bytes / 4) + (x);
+		*(struct test *)(game->rendering_buffer->data + pixel) =
+			(struct test){
+				0xFFFFFFFF,
+				0xFFFFFFFF,
+				0xFFFFFFFF,
+				0xFFFFFFFF,
+				0xFFFFFFFF,
+			};// while (x < game->rendering_buffer->width)
+				// {
+				// 	// coords = get_to_world_coord(x + game->camera_offsets.x, y
+				// 	// 		+ game->camera_offsets.y);
+				// 	// coords.x = ((coords.x + TILE_X / 2) + (game->map->witdh
+								//  TILE_X)
+				// 	// 		/ 2);
+				// 	// r_elem = create_rendering_element(get_texture(TILE_TEXTURE),
+				// 	// 		(t_coordinates){x, y});
+				// 	// if (!r_elem)
+				// 	// 	return (1);
+				// 	// put_img_to_rendering_buffer(game, r_elem);
+				// 	// free(r_elem);
+				// 	// render_asset(game, get_texture(TILE_TEXTURE),
+						// (t_coordinates){x, y});
+				// 	x += 1;
+				// }
 		y += 1;
 	}
 	return (0);
@@ -56,7 +75,7 @@ int	draw_map(t_game *game)
 void	render_next_frame(t_mlx *mlx)
 {
 	double				time_taken;
-	static float			max;
+	static float		max;
 	t_game				*game;
 	t_rendering_element	*test;
 	t_rendering_element	*test1;
@@ -74,7 +93,7 @@ void	render_next_frame(t_mlx *mlx)
 	game->rendering_buffer = mlx_new_image(game->mlx->mlx, WIDTH, HEIGHT);
 	if (!game->rendering_buffer)
 		return ;
-	draw_map(game);
+	// draw_map(game);
 	render_asset(game, get_texture(PLAYER_TEXTURE), (t_coordinates){100
 		+ game->camera_offsets.x, 100 + game->camera_offsets.y});
 	// printf("height : %d\n", game->rendering_queue->position.x);
