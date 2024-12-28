@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 15:03:05 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/28 13:01:39 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/28 13:26:18 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	put_img_to_rendering_buffer(t_game *game, t_rendering_element *r_elem)
 		while (x < r_elem->img->width)
 		{
 			pixel = (y * img_data.line_bytes / 4) + (x);
-			if (is_between(r_elem->position, POSITION_ZERO, POSITION_MAX))
+			if (is_between((t_coordinates){r_elem->position.x + x, r_elem->position.y + y}, POSITION_ZERO, POSITION_MAX))
 			{
 				buffer_pixel = ((r_elem->position.y + y)
 						* (game->rendering_buffer_data.line_bytes / 4))
@@ -154,26 +154,29 @@ void	proccess_rendering_buffer(t_game *game)
 {
 	t_rendering_element	*r_elem;
 	int					i;
+	int					y;
 	int					color;
-	double				time_taken;
 
 	if (!game->rendering_buffer)
 		return ;
-	clock_t start, end;
-	start = clock();
 	i = 0;
 	color = 0x00000000;
 	// while (i < HEIGHT * WIDTH)
 	// {
-	// 	((int32_t *)game->rendering_buffer->data)[i] = color | 0x00FF;
-	// 	((int32_t *)game->rendering_buffer->data)[i + 1] = color | 0x00FF;
-	// 	((int32_t *)game->rendering_buffer->data)[i + 2] = color | 0x00FF;
-	// 	((int32_t *)game->rendering_buffer->data)[i + 3] = color | 0x00FF;
-	// 	((int32_t *)game->rendering_buffer->data)[i + 4] = color | 0x00FF;
-	// 	((int32_t *)game->rendering_buffer->data)[i + 5] = color | 0x00FF;
-	// 	((int32_t *)game->rendering_buffer->data)[i + 6] = color | 0x00FF;
-	// 	((int32_t *)game->rendering_buffer->data)[i + 7] = color | 0x00FF;
-	// 	i += 8;
+	// 	// y = 0;
+	// 	// while (y < 1)
+	// 	// {
+	// 	// 	y++;
+	// 	// }
+	// 	((int32_t *)game->rendering_buffer->data)[i] = color++ | 0x00FF;
+	// 	// ((int32_t *)game->rendering_buffer->data)[i + 1] = color | 0x00FF;
+	// 	// ((int32_t *)game->rendering_buffer->data)[i + 2] = color | 0x00FF;
+	// 	// ((int32_t *)game->rendering_buffer->data)[i + 3] = color | 0x00FF;
+	// 	// ((int32_t *)game->rendering_buffer->data)[i + 4] = color | 0x00FF;
+	// 	// ((int32_t *)game->rendering_buffer->data)[i + 5] = color | 0x00FF;
+	// 	// ((int32_t *)game->rendering_buffer->data)[i + 6] = color | 0x00FF;
+	// 	// ((int32_t *)game->rendering_buffer->data)[i + 7] = color | 0x00FF;
+	// 	i += 1;
 	// }
 	// y = 0;
 	// while (y < HEIGHT)
@@ -205,7 +208,4 @@ void	proccess_rendering_buffer(t_game *game)
 	// 		//     }
 	// 		// }
 	free_rendering_queue(game);
-	end = clock();
-	time_taken = ((double)(end - start) / CLOCKS_PER_SEC) * 1000.0;
-	printf("Temps d'exécution : %.3f ms\n", time_taken);
 }
