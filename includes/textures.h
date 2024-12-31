@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:06:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/28 13:02:18 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/31 11:32:53 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "mlx.h"
 # include "mlx_int.h"
 
-# define TILE_X 92
-# define TILE_Y 81
+# define TILE_X 52
+# define TILE_Y 46
 
 typedef enum e_textures
 {
@@ -38,6 +38,16 @@ typedef struct s_textures_atlas
 {
 	t_img			*atlas[MAX_TEXTURES];
 }					t_textures_atlas;
+
+typedef struct s_pixels_optimisation
+{
+	int32_t			a;
+	int32_t			b;
+	int32_t			c;
+	int32_t			d;
+	int32_t			e;
+	int32_t			f;
+}					t_pixels_optimisation;
 
 t_textures_atlas	*get_textures_atlas(void);
 int					load_texture(void *mlx, const char *path, int id);

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/28 18:12:08 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/31 16:18:02 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,66 +22,90 @@ void	render_asset(t_game *game, t_img *asset, t_coordinates position)
 	add_to_rendering_proccess(r_elem, game);
 }
 
-struct		test
+struct t
 {
-	int32_t	a;
-	int32_t	b;
-	int32_t	c;
-	int32_t	d;
-	int32_t	e;
+	int32_t buffer;
+	int32_t map_buffer;
 };
 
 int	draw_map(t_game *game)
 {
-	int					y;
-	int					x;
-	t_coordinates		coords;
-	t_rendering_element	*r_elem;
+	int		i;
+	int		y;
+	int		x;
+	int		y1;
+	int		x1;
+	int32_t	*buffer;
+	int32_t	*map_buffer;
+	int		pixel;
+	int		b_pixel;
+	int		c;
+	int		d;
 
+	i = 0;
+	x = 0;
 	y = 0;
-	while (y < game->rendering_buffer->height)
+	x1 = 0;
+	y1 = 0;
+	buffer = (int32_t *)game->rendering_buffer->data;
+	map_buffer = (int32_t *)game->map->map_img->data;
+	c = game->rendering_buffer_data.line_bytes / 4;
+	d = game->map->map_img_data.line_bytes / 4;
+	while (y < HEIGHT)
 	{
 		x = 0;
-		int pixel = (y * game->rendering_buffer_data.line_bytes / 4) + (x);
-		*(struct test *)(game->rendering_buffer->data + pixel) =
-			(struct test){
-				0xFFFFFFFF,
-				0xFFFFFFFF,
-				0xFFFFFFFF,
-				0xFFFFFFFF,
-				0xFFFFFFFF,
-			};// while (x < game->rendering_buffer->width)
-				// {
-				// 	// coords = get_to_world_coord(x + game->camera_offsets.x, y
-				// 	// 		+ game->camera_offsets.y);
-				// 	// coords.x = ((coords.x + TILE_X / 2) + (game->map->witdh
-								//  TILE_X)
-				// 	// 		/ 2);
-				// 	// r_elem = create_rendering_element(get_texture(TILE_TEXTURE),
-				// 	// 		(t_coordinates){x, y});
-				// 	// if (!r_elem)
-				// 	// 	return (1);
-				// 	// put_img_to_rendering_buffer(game, r_elem);
-				// 	// free(r_elem);
-				// 	// render_asset(game, get_texture(TILE_TEXTURE),
-						// (t_coordinates){x, y});
-				// 	x += 1;
-				// }
+		while (x < WIDTH)
+		{
+			pixel = ((y + game->camera_offsets.y) * d) + (x
+					+ game->camera_offsets.x);
+			b_pixel = (y * c) + (x);
+			buffer[b_pixel] = map_buffer[pixel];
+			x++;
+		}
 		y += 1;
 	}
 	return (0);
 }
 
+int	init_map_img(t_game *game)
+{
+	t_img			*img;
+	t_img			*map;
+	int				y;
+	int				x;
+	int				i;
+	t_coordinates	coords;
+
+	i = 0;
+	y = 0;
+	map = mlx_new_image(game->mlx->mlx, game->map->witdh * TILE_X,
+			game->map->height * TILE_Y);
+	game->map->map_img = map;
+	img = get_texture(TILE_TEXTURE);
+	while (y < game->map->height)
+	{
+		x = 0;
+		while (x < game->map->witdh)
+		{
+			coords = get_to_world_coord(x, y);
+			coords.x = ((coords.x - TILE_X / 2) + (game->map->witdh * TILE_X)
+					/ 2);
+			// goofy :  && coords.y < HEIGHT - TILE_Y
+			put_img_to_into_img(map, img, coords.x, coords.y);
+			i++;
+			x += 2;
+		}
+		y += 2;
+	}
+	printf("%d\n", i);
+	return (0);
+}
+
 void	render_next_frame(t_mlx *mlx)
 {
-	double				time_taken;
-	static float		max;
-	t_game				*game;
-	t_rendering_element	*test;
-	t_rendering_element	*test1;
-	t_rendering_element	*test2;
-	t_rendering_element	*test3;
-	t_rendering_element	*test4;
+	double			time_taken;
+	static float	max;
+	t_game			*game;
 
 	// t_rendering_element	*test2;
 	clock_t start, end;
@@ -93,7 +117,8 @@ void	render_next_frame(t_mlx *mlx)
 	game->rendering_buffer = mlx_new_image(game->mlx->mlx, WIDTH, HEIGHT);
 	if (!game->rendering_buffer)
 		return ;
-	// draw_map(game);
+	draw_map(game);
+	render_asset(game, get_texture(MAP), (t_coordinates){-150, -150});
 	render_asset(game, get_texture(PLAYER_TEXTURE), (t_coordinates){100
 		+ game->camera_offsets.x, 100 + game->camera_offsets.y});
 	// printf("height : %d\n", game->rendering_queue->position.x);

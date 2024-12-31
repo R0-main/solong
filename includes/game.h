@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/28 13:24:44 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/30 11:41:39 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct s_map
 	int							witdh;
 	t_coordinates				player_spawnpoint;
 	t_coordinates				exit_coords;
+	t_img						*map_img;
+	t_img_data					map_img_data;
 }								t_map;
 
 typedef struct s_rendering_element
@@ -58,7 +60,6 @@ typedef struct s_game
 	t_img_data					rendering_buffer_data;
 	t_mlx						*mlx;
 	t_map						*map;
-	t_img						*map_img;
 	t_rendering_element			*rendering_queue;
 }								t_game;
 

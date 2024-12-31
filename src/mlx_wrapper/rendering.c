@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 15:03:05 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/28 18:26:22 by rguigneb         ###   ########.fr       */
+/*   Updated: 2024/12/31 15:22:24 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,24 +151,17 @@ void	put_img_to_rendering_buffer(t_game *game, t_rendering_element *r_elem)
 	}
 }
 
-typedef struct		s_pixels_optimisation
-{
-	int32_t			a;
-	int32_t			b;
-	int32_t			c;
-	int32_t			d;
-	int32_t			e;
-	int32_t			f;
-}					t_pixels_optimisation;
-
-void	put_img_to_rendering_buffer_once(t_game *game, t_rendering_element *r_elem)
+void	put_img_to_rendering_buffer_once(t_game *game,
+		t_rendering_element *r_elem)
 {
 	t_img_data	img_data;
 	int			i;
 	int			pixel;
 	int			buffer_pixel;
 	int			y;
+	int32_t		*img_buffer;
 
+	img_buffer = r_elem->img->data;
 	i = 0;
 	mlx_get_data_addr(r_elem->img, &img_data.pixel_bits, &img_data.line_bytes,
 		&img_data.endian);
@@ -176,25 +169,27 @@ void	put_img_to_rendering_buffer_once(t_game *game, t_rendering_element *r_elem)
 	{
 		if (i % r_elem->img->width == 0)
 			y++;
-		*((t_pixels_optimisation *)game->rendering_buffer->data + i + (y * img_data.line_bytes)) = (t_pixels_optimisation){
-			r_elem->img->data[i],
-			r_elem->img->data[i + 1],
-			r_elem->img->data[i + 2],
-			r_elem->img->data[i + 3],
-			r_elem->img->data[i + 4],
-			r_elem->img->data[i + 5],
+		*((t_pixels_optimisation *)game->rendering_buffer->data + i + (y
+					* img_data.line_bytes)) = (t_pixels_optimisation){
+			img_buffer[i], img_buffer[i + 1], img_buffer[i + 2], img_buffer[i
+				+ 3], img_buffer[i + 4], img_buffer[i + 5],
+			// img_buffer[i + 6],
+			// img_buffer[i + 7],
 		};
 		i++;
 	}
 }
 
+#define IDK_HOW_TO_NAME_THAT (HEIGHT * WIDTH) / 6
+
 void	proccess_rendering_buffer(t_game *game)
 {
-	t_rendering_element	*r_elem;
-	int					i;
-	int					y;
-	int					color;
-	double				time_taken;
+	t_rendering_element		*r_elem;
+	int						i;
+	int						y;
+	int						color;
+	double					time_taken;
+	t_pixels_optimisation	*buffer;
 
 	if (!game->rendering_buffer)
 		return ;
@@ -202,44 +197,19 @@ void	proccess_rendering_buffer(t_game *game)
 	color = 0x00FF0000;
 	clock_t start, end;
 	start = clock();
-	while (i < (HEIGHT * WIDTH) / 6)
-	{
-		// y = 0;
-		// while (y < 1)
-		// {
-		// 	y++;
-		// }
-		*((t_pixels_optimisation *)game->rendering_buffer->data + i) = (t_pixels_optimisation){
-			color,
-			color,
-			color,
-			color,
-			color,
-			color,
-			// color,
-			// color,
-			// color,
-			// color,
-			// color,
-			// color,
-			// color,
-			// color,
-			// color,
-			// color,
-			// color,
-			// color,
-			// color,
-			// color,
-		};
-		// ((int32_t *)game->rendering_buffer->data)[i] = color++;
-		// ((int32_t *)game->rendering_buffer->data)[i + 2] = color | 0x00FF;
-		// ((int32_t *)game->rendering_buffer->data)[i + 3] = color | 0x00FF;
-		// ((int32_t *)game->rendering_buffer->data)[i + 4] = color | 0x00FF;
-		// ((int32_t *)game->rendering_buffer->data)[i + 5] = color | 0x00FF;
-		// ((int32_t *)game->rendering_buffer->data)[i + 6] = color | 0x00FF;
-		// ((int32_t *)game->rendering_buffer->data)[i + 7] = color | 0x00FF;
-		i += 1;
-	}
+	buffer = (t_pixels_optimisation *)game->rendering_buffer->data;
+	// while (i < IDK_HOW_TO_NAME_THAT)
+	// {
+	// 	buffer[i] = (t_pixels_optimisation){
+	// 		color,
+	// 		color,
+	// 		color,
+	// 		color,
+	// 		color,
+	// 		color,
+	// 	};
+	// 	i += 1;
+	// }
 	end = clock();
 	time_taken = ((double)(end - start) / CLOCKS_PER_SEC) * 1000.0;
 	printf("Temps d'exécution : %.3f ms\n", time_taken);
@@ -255,7 +225,7 @@ void	proccess_rendering_buffer(t_game *game)
 	r_elem = game->rendering_queue;
 	while (r_elem)
 	{
-		put_img_to_rendering_buffer_once(game, r_elem);
+		// put_img_to_rendering_buffer(game, r_elem);
 		r_elem = r_elem->next;
 	}
 	// // int32_t color = 0x00FF0000; // Rouge
