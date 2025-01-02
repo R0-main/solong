@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/31 16:18:02 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/02 11:01:10 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int	draw_map(t_game *game)
 	int		i;
 	int		y;
 	int		x;
-	int		y1;
-	int		x1;
 	int32_t	*buffer;
 	int32_t	*map_buffer;
 	int		pixel;
@@ -45,8 +43,6 @@ int	draw_map(t_game *game)
 	i = 0;
 	x = 0;
 	y = 0;
-	x1 = 0;
-	y1 = 0;
 	buffer = (int32_t *)game->rendering_buffer->data;
 	map_buffer = (int32_t *)game->map->map_img->data;
 	c = game->rendering_buffer_data.line_bytes / 4;
@@ -60,9 +56,15 @@ int	draw_map(t_game *game)
 					+ game->camera_offsets.x);
 			b_pixel = (y * c) + (x);
 			buffer[b_pixel] = map_buffer[pixel];
-			x++;
+			b_pixel = ((y + 1) * c) + (x);
+			buffer[b_pixel] = map_buffer[pixel];
+			b_pixel = ((y + 1) * c) + (x + 1);
+			buffer[b_pixel] = map_buffer[pixel];
+			b_pixel = (y * c) + (x + 1);
+			buffer[b_pixel] = map_buffer[pixel];
+			x += 2;
 		}
-		y += 1;
+		y += 2;
 	}
 	return (0);
 }
@@ -107,7 +109,6 @@ void	render_next_frame(t_mlx *mlx)
 	static float	max;
 	t_game			*game;
 
-	// t_rendering_element	*test2;
 	clock_t start, end;
 	// Début de la mesure
 	start = clock();
@@ -118,13 +119,10 @@ void	render_next_frame(t_mlx *mlx)
 	if (!game->rendering_buffer)
 		return ;
 	draw_map(game);
-	render_asset(game, get_texture(MAP), (t_coordinates){-150, -150});
 	render_asset(game, get_texture(PLAYER_TEXTURE), (t_coordinates){100
 		+ game->camera_offsets.x, 100 + game->camera_offsets.y});
-	// printf("height : %d\n", game->rendering_queue->position.x);
 	proccess_rendering_buffer(game);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, game->rendering_buffer, 0, 0);
-	// mlx_put_image_to_window(mlx->mlx, mlx->win, get_texture(MAP), 0, 0);
 	// Calcul du temps écoulé en millisecondes
 	end = clock();
 	time_taken = ((double)(end - start) / CLOCKS_PER_SEC) * 1000.0;
