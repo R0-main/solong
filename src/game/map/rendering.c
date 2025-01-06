@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/02 11:01:10 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/06 10:09:08 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,37 +69,50 @@ int	draw_map(t_game *game)
 	return (0);
 }
 
-int	init_map_img(t_game *game)
+void	generate_tiles(t_game *game, t_img *map)
 {
 	t_img			*img;
-	t_img			*map;
 	int				y;
 	int				x;
-	int				i;
 	t_coordinates	coords;
+	t_coordinates	maxCoords;
 
-	i = 0;
-	y = 0;
-	map = mlx_new_image(game->mlx->mlx, game->map->witdh * TILE_X,
-			game->map->height * TILE_Y);
-	game->map->map_img = map;
+	maxCoords = get_to_world_coord(game->map->witdh, 0);
 	img = get_texture(TILE_TEXTURE);
+	x = game->map->height;
+	y = 0;
 	while (y < game->map->height)
 	{
 		x = 0;
 		while (x < game->map->witdh)
 		{
 			coords = get_to_world_coord(x, y);
-			coords.x = ((coords.x - TILE_X / 2) + (game->map->witdh * TILE_X)
-					/ 2);
-			// goofy :  && coords.y < HEIGHT - TILE_Y
+			// coords.x = ((coords.x - TILE_X / 2) + (game->map->witdh * TILE_X)
+			// 		/ 2);
+			coords.x += (maxCoords.x * 2);
 			put_img_to_into_img(map, img, coords.x, coords.y);
-			i++;
-			x += 2;
+			x += 1;
 		}
-		y += 2;
+		y += 1;
 	}
-	printf("%d\n", i);
+}
+
+int	init_map_img(t_game *game)
+{
+	t_img			*map;
+	int				i;
+	t_coordinates	lenX;
+	t_coordinates	lenY;
+
+	lenX = get_to_world_coord(game->map->witdh, 0);
+	lenY = get_to_world_coord(game->map->witdh, game->map->height);
+	map = mlx_new_image(game->mlx->mlx, ((lenX.x * 2) + game->map->witdh * TILE_X) + TILE_X, lenY.y
+			+ TILE_Y * 0.5);
+	generate_tiles(game, map);
+	// exit(1);
+	// map = NULL;
+	game->map->map_img = map;
+	add_asset(MAP, map);
 	return (0);
 }
 
@@ -132,5 +145,6 @@ void	render_next_frame(t_mlx *mlx)
 	}
 	if (max == 0)
 		max += 0.01;
-	printf("Temps d'exécution : %.3f ms | max : %.3f m\n", time_taken, max);
+	printf("Temps d'exécution : %.3f ms | max : %.3f ms | fps : %.0f\n",
+		time_taken, max, 1000 / time_taken);
 }
