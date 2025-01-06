@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/06 10:27:48 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/06 10:40:43 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,6 @@ struct t
 	int32_t buffer;
 	int32_t map_buffer;
 };
-
-int	get_max_x(t_game *game)
-{
-	t_coordinates	maxCoords;
-	t_coordinates	maxCoords1;
-
-	maxCoords = get_to_world_coord(game->map->witdh, 0);
-	maxCoords1 = get_to_world_coord(0, game->map->height);
-
-	if (maxCoords1.x > 0)
-		return (ft_abs(maxCoords1.x) - maxCoords.x);
-	else
-		return (maxCoords.x - maxCoords1.x);
-}
-
-int	get_min_x(t_game *game)
-{
-	t_coordinates	maxCoords;
-
-	maxCoords = get_to_world_coord(1, game->map->height);
-
-	return (ft_abs(maxCoords.x));
-}
 
 int	draw_map(t_game *game)
 {
@@ -99,8 +76,6 @@ void	generate_tiles(t_game *game, t_img *map)
 	int				x;
 	t_coordinates	coords;
 
-
-
 	img = get_texture(TILE_TEXTURE);
 	x = game->map->height;
 	y = 0;
@@ -109,7 +84,7 @@ void	generate_tiles(t_game *game, t_img *map)
 		x = 0;
 		while (x < game->map->witdh)
 		{
-			coords = get_to_world_coord(x, y);
+			coords = get_to_world_coord(game, x, y);
 			// coords.x = ((coords.x - TILE_X / 2) + (game->map->witdh * TILE_X)
 			// 		/ 2);
 			coords.x += get_min_x(game);
@@ -124,16 +99,9 @@ int	init_map_img(t_game *game)
 {
 	t_img			*map;
 	int				i;
-	t_coordinates	lenX;
-	t_coordinates	lenX1;
-	t_coordinates	lenY;
 
-	lenX = get_to_world_coord(game->map->witdh, 0);
-	lenX1 = get_to_world_coord(0, game->map->height);
-	lenY = get_to_world_coord(game->map->witdh, game->map->height);
-	printf("%d | %d \n", lenX.x, lenX1.x);
-	map = mlx_new_image(game->mlx->mlx, get_max_x(game) + TILE_X, lenY.y
-			+ TILE_Y * 0.5);
+	map = mlx_new_image(game->mlx->mlx, get_max_x(game) + TILE_X, get_max_y(game)
+			+ TILE_Y);
 	generate_tiles(game, map);
 	// exit(1);
 	// map = NULL;

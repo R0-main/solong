@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/06 10:05:37 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/06 10:33:14 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ int								draw_bg(t_game *game);
 void							on_key_pressed(int key);
 
 // WORLD
-t_coordinates					get_to_world_coord(int x, int y);
+int								get_max_x(t_game *game);
+int								get_max_y(t_game *game);
+int								get_min_x(t_game *game);
+t_coordinates					get_to_world_coord(t_game *game, int x, int y);
 
 int								init_map_asset(t_game *game);
 
