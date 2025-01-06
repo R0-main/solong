@@ -6,12 +6,14 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 09:35:40 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/06 09:24:35 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:17:20 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 #include "mlx_wrapper.h"
+
+#define OFFSET 100
 
 void	on_key_pressed(int key)
 {

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:14:38 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/28 13:04:04 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/06 13:02:01 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	get_pixel_index(t_img *asset, t_coordinates coords)
 	pixel = (coords.y * line_bytes) + (coords.x * 4);
 	return (pixel);
 }
-
 
 int32_t	*get_pixel(t_img *asset, t_coordinates coords)
 {
@@ -155,41 +154,38 @@ void	put_img_to_into_img(t_img *dest_img, t_img *img, int ox, int oy)
 	int	endian1;
 	int	pixel;
 	int	buffer_pixel;
-	int	x, y, dx, dy;
+	int	dest_x;
+	int	dest_y;
 
+	int x, y, dx, dy;
 	// Récupérer les informations de mémoire des images
 	mlx_get_data_addr(dest_img, &pixel_bits, &line_bytes, &endian);
 	mlx_get_data_addr(img, &pixel_bits1, &line_bytes1, &endian1);
-	if (ox < 0 || oy < 0)
-		return ;
-
 	// Parcourir chaque pixel de l'image source
-	for (y = 0; y < img->height ; y++)
+	for (y = 0; y < img->height; y++)
 	{
 		for (x = 0; x < img->width; x++)
 		{
+			// if (x + ox < 0 || y + oy < 0)
+			// 	continue ;
 			// Obtenir l'indice du pixel source
 			pixel = get_pixel_index(img, (t_coordinates){x, y});
-
 			// Vérifier si le pixel est transparent
 			if (is_transparent_pixel(img, pixel))
-				continue;
-
+				continue ;
 			// Répliquer le pixel source dans un carré 2x2
 			for (dy = 0; dy < 2; dy++)
 			{
 				for (dx = 0; dx < 2; dx++)
 				{
-					int dest_x = ox + x * 2 + dx;
-					int dest_y = oy + y * 2 + dy;
-
+					dest_x = ox + x * 2 + dx;
+					dest_y = oy + y * 2 + dy;
 					// S'assurer que les coordonnées sont dans les limites de l'image destination
 					if (dest_x >= dest_img->width || dest_y >= dest_img->height)
-						continue;
-
+						continue ;
 					// Obtenir l'indice du pixel destination
-					buffer_pixel = get_pixel_index(dest_img, (t_coordinates){dest_x, dest_y});
-
+					buffer_pixel = get_pixel_index(dest_img,
+							(t_coordinates){dest_x, dest_y});
 					// Copier les données RGBA
 					dest_img->data[buffer_pixel] = img->data[pixel];
 					dest_img->data[buffer_pixel + 1] = img->data[pixel + 1];
@@ -200,7 +196,6 @@ void	put_img_to_into_img(t_img *dest_img, t_img *img, int ox, int oy)
 		}
 	}
 }
-
 
 // void	put_img_to_rendering_buffer(t_game *game, t_img *img, int ox, int oy)
 // {

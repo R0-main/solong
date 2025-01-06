@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/06 10:33:14 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:28:26 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_rendering_element
 typedef struct s_game
 {
 	t_coordinates				camera_offsets;
+	t_coordinates				last_mouse_location;
 	t_img						*rendering_buffer;
 	t_img_data					rendering_buffer_data;
 	t_mlx						*mlx;

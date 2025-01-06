@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:43:30 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/05 16:57:29 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/06 15:38:39 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	free_map()
 	map = get_map();
 	if (!map->buffer)
 		return (0);
-	free_2d_buffer((void **)map->buffer, map->height);
+	free_2d_buffer((void **)map->buffer, map->height + 1);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/06 10:40:43 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:19:08 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ int	draw_map(t_game *game)
 		{
 			pixel = ((y + game->camera_offsets.y) * d) + (x
 					+ game->camera_offsets.x);
+			if (y + game->camera_offsets.y < 0 || y + game->camera_offsets.y > game->map->map_img->height)
+				break;
+			if (x + game->camera_offsets.x < 0 || x + game->camera_offsets.x > game->map->map_img->width)
+				break;
 			b_pixel = (y * c) + (x);
 			buffer[b_pixel] = map_buffer[pixel];
 			b_pixel = ((y + 1) * c) + (x);
@@ -77,7 +81,6 @@ void	generate_tiles(t_game *game, t_img *map)
 	t_coordinates	coords;
 
 	img = get_texture(TILE_TEXTURE);
-	x = game->map->height;
 	y = 0;
 	while (y < game->map->height)
 	{
@@ -85,8 +88,6 @@ void	generate_tiles(t_game *game, t_img *map)
 		while (x < game->map->witdh)
 		{
 			coords = get_to_world_coord(game, x, y);
-			// coords.x = ((coords.x - TILE_X / 2) + (game->map->witdh * TILE_X)
-			// 		/ 2);
 			coords.x += get_min_x(game);
 			put_img_to_into_img(map, img, coords.x, coords.y);
 			x += 1;
@@ -95,16 +96,48 @@ void	generate_tiles(t_game *game, t_img *map)
 	}
 }
 
+void	generate_borders(t_game *game, t_img *map)
+{
+	t_img			*img;
+	int				y;
+	int				x;
+	t_coordinates	coords;
+
+	img = get_texture(ROCK);
+	y = 0;
+	while (y < game->map->height)
+	{
+		x = 0;
+		while (x < game->map->witdh)
+		{
+			if (!game->map->buffer[y] && !game->map->buffer[y][x])
+				break ;
+			if (game->map->buffer[y][x] == '1')
+			{
+				coords = get_to_world_coord(game, x, y);
+				coords.x += get_min_x(game);
+				put_img_to_into_img(map, img, coords.x - 20, coords.y - 35);
+				put_img_to_into_img(map, img, coords.x + 15 - 15, coords.y - 15
+					- 15);
+				put_img_to_into_img(map, img, coords.x + 25 - 15, coords.y - 15
+					- 15);
+				put_img_to_into_img(map, img, coords.x, coords.y - 15);
+			}
+			x += 1;
+		}
+		y += 1;
+	}
+}
+
 int	init_map_img(t_game *game)
 {
-	t_img			*map;
-	int				i;
+	t_img	*map;
+	int		i;
 
-	map = mlx_new_image(game->mlx->mlx, get_max_x(game) + TILE_X, get_max_y(game)
-			+ TILE_Y);
+	map = mlx_new_image(game->mlx->mlx, get_max_x(game) + TILE_X,
+			get_max_y(game) + TILE_Y);
 	generate_tiles(game, map);
-	// exit(1);
-	// map = NULL;
+	generate_borders(game, map);
 	game->map->map_img = map;
 	add_asset(MAP, map);
 	return (0);
@@ -117,28 +150,24 @@ void	render_next_frame(t_mlx *mlx)
 	t_game			*game;
 
 	clock_t start, end;
-	// Début de la mesure
 	start = clock();
-	(void)mlx;
+
 	game = get_game_instance();
-	mlx_destroy_image(game->mlx->mlx, game->rendering_buffer);
+	mlx_destroy_image(mlx->mlx, game->rendering_buffer);
 	game->rendering_buffer = mlx_new_image(game->mlx->mlx, WIDTH, HEIGHT);
 	if (!game->rendering_buffer)
 		return ;
 	draw_map(game);
-	render_asset(game, get_texture(PLAYER_TEXTURE), (t_coordinates){100
-		+ game->camera_offsets.x, 100 + game->camera_offsets.y});
+	// render_asset(game, get_texture(PLAYER_TEXTURE), (t_coordinates){100
+	// 	+ game->camera_offsets.x, 100 + game->camera_offsets.y});
 	proccess_rendering_buffer(game);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, game->rendering_buffer, 0, 0);
-	// Calcul du temps écoulé en millisecondes
 	end = clock();
 	time_taken = ((double)(end - start) / CLOCKS_PER_SEC) * 1000.0;
 	if (time_taken > max && max != 0)
-	{
 		max = time_taken;
-	}
 	if (max == 0)
 		max += 0.01;
-	printf("Temps d'exécution : %.3f ms | max : %.3f ms | fps : %.0f\n",
-		time_taken, max, 1000 / time_taken);
+	// printf("Temps d'exécution : %.3f ms | max : %.3f ms | fps : %.0f\n",
+	// 	time_taken, max, 1000 / time_taken);
 }

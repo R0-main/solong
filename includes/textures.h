@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:06:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/31 11:32:53 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/06 12:22:14 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef enum e_textures
 	PLAYER_TEXTURE,
 	SARAH_TEXTURE,
 	TILE_TEXTURE,
-	TEST_TILE_TEXTURE
+	TEST_TILE_TEXTURE,
+	ROCK,
 }					t_textures_definition;
 
 # define MAX_TEXTURES 256
