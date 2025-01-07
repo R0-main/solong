@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:25:13 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 11:49:38 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:00:17 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ void							set_animation_first_frame(t_animation_id id,
 t_animation_frame				*get_animation_first_frame(t_animation_id id);
 
 void							load_animations(void *mlx);
+void							unload_animations(void *mlx);
 
 #endif

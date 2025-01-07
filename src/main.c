@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:01:04 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 12:56:31 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:00:35 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ int	main(int ac, char **av)
 		mlx_loop_hook(mlx_vars.mlx, main_loop, &mlx_vars);
 		mlx_loop(mlx);
 		unload_assets(mlx);
+		unload_animations(mlx);
 		mlx_destroy_window(mlx, mlx_window);
 		mlx_destroy_image(mlx, get_game_instance()->rendering_buffer);
 	}
