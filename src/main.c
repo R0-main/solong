@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:01:04 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 08:59:09 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 12:56:31 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	handle_pressed_mouse_event(int key, t_mlx *mlx)
 	if (!game)
 		return ;
 	mlx_mouse_get_pos(game->mlx->mlx, game->mlx->win, &x, &y);
-	game->last_mouse_location = (t_coordinates){x, y};
+	game->last_mouse_location = (t_vec2){x, y};
 }
 
 void	handle_release_mouse_event(int x, int y, t_mlx *mlx)
@@ -111,12 +111,12 @@ void	handle_release_mouse_event(int x, int y, t_mlx *mlx)
 	game = get_game_instance();
 	if (!game)
 		return ;
-	game->last_mouse_location = (t_coordinates){0, 0};
+	game->last_mouse_location = (t_vec2){0, 0};
 }
 
 void	handle_mouse_motion_event(int x, int y, t_mlx *mlx)
 {
-	t_coordinates	vec2;
+	t_vec2	vec2;
 	t_game			*game;
 
 	game = get_game_instance();
@@ -124,19 +124,19 @@ void	handle_mouse_motion_event(int x, int y, t_mlx *mlx)
 		return ;
 	if (!game->last_mouse_location.x || !game->last_mouse_location.y)
 		return ;
-	vec2 = (t_coordinates){game->last_mouse_location.x - x,
+	vec2 = (t_vec2){game->last_mouse_location.x - x,
 		game->last_mouse_location.y - y};
 	if (
-		game->camera_offsets.x + vec2.x < game->map->map_img->width / 2
+		game->camera_offsets.x + vec2.x < get_max_x(game)
 		&& game->camera_offsets.x + vec2.x > 0
 	)
 		game->camera_offsets.x += vec2.x;
 	if (
-		game->camera_offsets.y + vec2.y < game->map->map_img->height / 2
+		game->camera_offsets.y + vec2.y < get_max_y(game)
 		&& game->camera_offsets.y + vec2.y > 0
 		)
 		game->camera_offsets.y += vec2.y;
-	game->last_mouse_location = (t_coordinates){x, y};
+	game->last_mouse_location = (t_vec2){x, y};
 }
 
 int	main(int ac, char **av)
@@ -169,6 +169,7 @@ int	main(int ac, char **av)
 		mlx_vars.mlx = mlx;
 		mlx_vars.win = mlx_window;
 		load_assets(mlx);
+		load_animations(mlx);
 		mlx_key_hook(mlx_vars.win, close_win, &mlx_vars);
 		mlx_hook(mlx_window, MotionNotify, (1L << 8), handle_mouse_motion_event,
 			&mlx_vars);

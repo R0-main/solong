@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/06 16:28:26 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 12:39:52 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,15 @@
 
 int								game_init(t_mlx *mlx);
 
-typedef struct s_coordinates
+typedef struct s_vec2
 {
 	int							x;
 	int							y;
-}								t_coordinates;
+}								t_vec2;
 
-bool							is_same_position(t_coordinates pos1,
-									t_coordinates pos2);
-bool							is_between(t_coordinates pos,
-									t_coordinates bpos1, t_coordinates bpos2);
+bool							is_same_position(t_vec2 pos1, t_vec2 pos2);
+bool							is_between(t_vec2 pos, t_vec2 bpos1,
+									t_vec2 bpos2);
 
 // MAP
 typedef struct s_map
@@ -40,23 +39,23 @@ typedef struct s_map
 	char						**buffer;
 	int							height;
 	int							witdh;
-	t_coordinates				player_spawnpoint;
-	t_coordinates				exit_coords;
+	t_vec2						player_spawnpoint;
+	t_vec2						exit_coords;
 	t_img						*map_img;
 	t_img_data					map_img_data;
 }								t_map;
 
 typedef struct s_rendering_element
 {
-	t_coordinates				position;
+	t_vec2						position;
 	t_img						*img;
 	struct s_rendering_element	*next;
 }								t_rendering_element;
 
 typedef struct s_game
 {
-	t_coordinates				camera_offsets;
-	t_coordinates				last_mouse_location;
+	t_vec2						camera_offsets;
+	t_vec2						last_mouse_location;
 	t_img						*rendering_buffer;
 	t_img_data					rendering_buffer_data;
 	t_mlx						*mlx;
@@ -64,6 +63,7 @@ typedef struct s_game
 	t_rendering_element			*rendering_queue;
 }								t_game;
 
+# include "animations.h"
 # include "rendering.h"
 # include "textures.h"
 
@@ -83,12 +83,13 @@ void							on_key_pressed(int key);
 // WORLD
 int								get_max_x(t_game *game);
 int								get_max_y(t_game *game);
+int								get_min_y(t_game *game);
 int								get_min_x(t_game *game);
-t_coordinates					get_to_world_coord(t_game *game, int x, int y);
+t_vec2							get_to_world_coord(t_game *game, int x, int y);
 
 int								init_map_asset(t_game *game);
 
-# define POSITION_ZERO ((t_coordinates){0, 0})
-# define POSITION_MAX ((t_coordinates){WIDTH, HEIGHT})
+# define POSITION_ZERO ((t_vec2){0, 0})
+# define POSITION_MAX ((t_vec2){WIDTH, HEIGHT})
 
 #endif

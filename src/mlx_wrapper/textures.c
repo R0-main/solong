@@ -6,14 +6,14 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:14:38 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/06 13:02:01 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 09:42:45 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 #include "textures.h"
 
-int	get_pixel_index(t_img *asset, t_coordinates coords)
+int	get_pixel_index(t_img *asset, t_vec2 coords)
 {
 	int	pixel_bits;
 	int	line_bytes;
@@ -25,7 +25,7 @@ int	get_pixel_index(t_img *asset, t_coordinates coords)
 	return (pixel);
 }
 
-int32_t	*get_pixel(t_img *asset, t_coordinates coords)
+int32_t	*get_pixel(t_img *asset, t_vec2 coords)
 {
 	int	pixel_bits;
 	int	line_bytes;
@@ -48,8 +48,11 @@ void	add_asset(int id, t_img *img)
 {
 	t_textures_atlas	*textures_atlas;
 
-	textures_atlas = get_textures_atlas();
-	textures_atlas->atlas[id] = img;
+	if (id < MAX_TEXTURES)
+	{
+		textures_atlas = get_textures_atlas();
+		textures_atlas->atlas[id] = img;
+	}
 }
 
 int	load_texture(void *mlx, const char *path, int id)
@@ -169,7 +172,7 @@ void	put_img_to_into_img(t_img *dest_img, t_img *img, int ox, int oy)
 			// if (x + ox < 0 || y + oy < 0)
 			// 	continue ;
 			// Obtenir l'indice du pixel source
-			pixel = get_pixel_index(img, (t_coordinates){x, y});
+			pixel = get_pixel_index(img, (t_vec2){x, y});
 			// Vérifier si le pixel est transparent
 			if (is_transparent_pixel(img, pixel))
 				continue ;
@@ -185,7 +188,7 @@ void	put_img_to_into_img(t_img *dest_img, t_img *img, int ox, int oy)
 						continue ;
 					// Obtenir l'indice du pixel destination
 					buffer_pixel = get_pixel_index(dest_img,
-							(t_coordinates){dest_x, dest_y});
+							(t_vec2){dest_x, dest_y});
 					// Copier les données RGBA
 					dest_img->data[buffer_pixel] = img->data[pixel];
 					dest_img->data[buffer_pixel + 1] = img->data[pixel + 1];

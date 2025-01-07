@@ -6,15 +6,15 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 13:05:13 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 09:07:34 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 12:57:15 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 
-t_coordinates	get_to_world_coord(t_game *game, int x, int y)
+t_vec2	get_to_world_coord(t_game *game, int x, int y)
 {
-	t_coordinates	coords;
+	t_vec2	coords;
 
 	coords.x = (x * TILE_X * 0.5) + (y * -0.5 * TILE_X);
 	coords.y = (x * TILE_Y * 0.25) + (y * 0.25) * TILE_Y;
@@ -26,8 +26,8 @@ t_coordinates	get_to_world_coord(t_game *game, int x, int y)
 
 int	get_max_x(t_game *game)
 {
-	t_coordinates	maxCoords;
-	t_coordinates	maxCoords1;
+	t_vec2	maxCoords;
+	t_vec2	maxCoords1;
 
 	maxCoords = get_to_world_coord(game, game->map->witdh, 1);
 	return (maxCoords.x + TILE_Y * 2);
@@ -35,15 +35,15 @@ int	get_max_x(t_game *game)
 
 int	get_max_y(t_game *game)
 {
-	t_coordinates	maxCoords;
+	t_vec2	maxCoords;
 
-	maxCoords = get_to_world_coord(game, game->map->witdh, game->map->height);
-	return (maxCoords.y + TILE_Y * 4);
+	maxCoords = get_to_world_coord(game, game->map->witdh, game->map->height - 1);
+	return (maxCoords.y);
 }
 
 int	get_min_y(t_game *game)
 {
-	t_coordinates	maxCoords;
+	t_vec2	maxCoords;
 
 	maxCoords = get_to_world_coord(game, 1, 1);
 	return (ft_abs(maxCoords.y));
@@ -51,8 +51,16 @@ int	get_min_y(t_game *game)
 
 int	get_min_x(t_game *game)
 {
-	t_coordinates	maxCoords;
+	t_vec2	maxCoords;
+
+	maxCoords = get_to_world_coord(game, 1, 1);
+	return (ft_abs(maxCoords.x) + TILE_X * 2);
+}
+
+	int	get_mid_x(t_game *game)
+	{
+		t_vec2	maxCoords;
 
 	maxCoords = get_to_world_coord(game, 1, game->map->height);
-	return (ft_abs(maxCoords.x) - TILE_X * 2);
+	return (ft_abs(maxCoords.x));
 }

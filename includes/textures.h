@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:06:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/06 12:22:14 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 09:42:45 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ typedef enum e_textures
 	SARAH_TEXTURE,
 	TILE_TEXTURE,
 	TEST_TILE_TEXTURE,
-	ROCK,
+	ROCK_TEXTURE,
+	COIN_TEXTURE,
 }					t_textures_definition;
 
 # define MAX_TEXTURES 256
@@ -67,8 +68,8 @@ void				put_img_to_into_img(t_img *dest_img, t_img *img, int ox,
 
 int					init_map_img(t_game *game);
 
-int					get_pixel_index(t_img *asset, t_coordinates coords);
-int32_t				*get_pixel(t_img *asset, t_coordinates coords);
+int					get_pixel_index(t_img *asset, t_vec2 coords);
+int32_t				*get_pixel(t_img *asset, t_vec2 coords);
 
 // load("assets/grass.xpm", textures_atlas, GRASS_TEXTURE)
 

@@ -6,14 +6,13 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 15:03:05 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 08:40:07 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 09:42:45 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rendering.h"
 
-t_rendering_element	*create_rendering_element(t_img *img,
-		t_coordinates position)
+t_rendering_element	*create_rendering_element(t_img *img, t_vec2 position)
 {
 	t_rendering_element	*r_element;
 
@@ -68,16 +67,15 @@ void	delete_from_rendering_proccess(t_rendering_element *r_elem)
 }
 
 t_rendering_element	*get_rendering_element_at_position(t_game *game,
-		t_coordinates position)
+		t_vec2 position)
 {
 	t_rendering_element	*begin;
 
 	begin = game->rendering_queue;
 	while (begin)
 	{
-		if (is_between(position, begin->position,
-				(t_coordinates){begin->position.x + begin->img->width,
-				begin->position.y + begin->img->height}))
+		if (is_between(position, begin->position, (t_vec2){begin->position.x
+				+ begin->img->width, begin->position.y + begin->img->height}))
 			return (begin);
 		begin = begin->next;
 	}
@@ -98,7 +96,7 @@ void	set_img_pixel(t_img *image, int x, int y, int32_t color)
 	// 				+ j}) = color;
 	// 	}
 	// }
-	*get_pixel(image, (t_coordinates){x, y}) = color;
+	*get_pixel(image, (t_vec2){x, y}) = color;
 	// if ((x * 4 + 3) < image->width && (y * 4 + 3) < image->height)
 	// {
 	// 	// Écrire les pixels du carré 4x4
@@ -136,8 +134,8 @@ void	put_img_to_rendering_buffer(t_game *game, t_rendering_element *r_elem)
 		while (x < r_elem->img->width)
 		{
 			pixel = (y * img_data.line_bytes / 4) + (x);
-			if (is_between((t_coordinates){r_elem->position.x + x,
-					r_elem->position.y + y}, POSITION_ZERO, POSITION_MAX))
+			if (is_between((t_vec2){r_elem->position.x + x, r_elem->position.y
+					+ y}, POSITION_ZERO, POSITION_MAX))
 			{
 				buffer_pixel = ((r_elem->position.y + y)
 						* (game->rendering_buffer_data.line_bytes / 4))
@@ -182,9 +180,10 @@ void	put_img_to_rendering_buffer_once(t_game *game,
 	}
 }
 
-void	put_pixel_into_rendering_buffer(t_game *game, int32_t *rendering_data, int buffer_line_bits, t_coordinates coords, int32_t color)
+void	put_pixel_into_rendering_buffer(t_game *game, int32_t *rendering_data,
+		int buffer_line_bits, t_vec2 coords, int32_t color)
 {
-	int		buffer_pixel;
+	int	buffer_pixel;
 
 	buffer_pixel = ((1 + coords.y) * buffer_line_bits) + (0 + coords.x);
 	rendering_data[buffer_pixel] = color;

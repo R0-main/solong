@@ -13,11 +13,14 @@ SRCS = ./src/main.c\
 		./src/mlx_wrapper/textures.c\
 		./src/mlx_wrapper/textures_loader.c\
 		./src/mlx_wrapper/rendering.c\
+			./src/mlx_wrapper/animations/animations.c\
+			./src/mlx_wrapper/animations/animations_loader.c\
+			./src/mlx_wrapper/animations/animation_frame.c\
 		./src/game/game.c\
-		./src/game/coordinates/coordinates.c\
+			./src/game/coordinates/coordinates.c\
 		./src/game/map/parser.c\
-		./src/game/map/map.c\
-		./src/game/map/rendering.c\
+			./src/game/map/map.c\
+			./src/game/map/rendering.c\
 		./src/game/world/world.c\
 		./src/game/keybinds/keybinds.c\
 		./src/utils/free_2d_buffer.c\

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 14:59:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 08:38:53 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 09:42:45 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 
 # include "game.h"
 
-t_rendering_element	*create_rendering_element(t_img *img,
-						t_coordinates position);
+t_rendering_element	*create_rendering_element(t_img *img, t_vec2 position);
 
 void				delete_from_rendering_proccess(t_rendering_element *r_elem);
 
@@ -29,8 +28,8 @@ void				proccess_rendering_buffer(t_game *game);
 void				put_img_to_rendering_buffer(t_game *game,
 						t_rendering_element *r_elem);
 
-void				put_pixel_into_rendering_buffer(t_game *game, int32_t *buffer,
-						int buffer_line_bits, t_coordinates coords,
+void				put_pixel_into_rendering_buffer(t_game *game,
+						int32_t *buffer, int buffer_line_bits, t_vec2 coords,
 						int32_t color);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 09:12:17 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 12:56:42 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "rendering.h"
 
-void	render_asset(t_game *game, t_img *asset, t_coordinates position)
+void	render_asset(t_game *game, t_img *asset, t_vec2 position)
 {
 	t_rendering_element	*r_elem;
 
@@ -57,26 +57,13 @@ int	draw_map(t_game *game)
 		{
 			pixel = ((y + game->camera_offsets.y) * d) + (x
 					+ game->camera_offsets.x);
-			if (y + game->camera_offsets.y < 0 || y
-				+ game->camera_offsets.y > game->map->map_img->height)
+			if (map_buffer[pixel] != 0)
 			{
-				x += 2;
-				continue ;
+				buffer[(y * c) + (x)] = map_buffer[pixel];
+				buffer[((y + 1) * c) + (x)] = map_buffer[pixel];
+				buffer[((y + 1) * c) + (x + 1)] = map_buffer[pixel];
+				buffer[(y * c) + (x + 1)] = map_buffer[pixel];
 			}
-			if (x + game->camera_offsets.x < 0 || x
-				+ game->camera_offsets.x > game->map->map_img->width)
-			{
-				x += 2;
-				continue ;
-			}
-			b_pixel = (y * c) + (x);
-			buffer[b_pixel] = map_buffer[pixel];
-			b_pixel = ((y + 1) * c) + (x);
-			buffer[b_pixel] = map_buffer[pixel];
-			b_pixel = ((y + 1) * c) + (x + 1);
-			buffer[b_pixel] = map_buffer[pixel];
-			b_pixel = (y * c) + (x + 1);
-			buffer[b_pixel] = map_buffer[pixel];
 			x += 2;
 		}
 		y += 2;
@@ -86,10 +73,10 @@ int	draw_map(t_game *game)
 
 void	generate_tiles(t_game *game, t_img *map)
 {
-	t_img			*img;
-	int				y;
-	int				x;
-	t_coordinates	coords;
+	t_img	*img;
+	int		y;
+	int		x;
+	t_vec2	coords;
 
 	img = get_texture(TILE_TEXTURE);
 	y = 0;
@@ -101,7 +88,7 @@ void	generate_tiles(t_game *game, t_img *map)
 			if (game->map->buffer[y][x] == '1')
 				continue ;
 			coords = get_to_world_coord(game, x, y);
-			coords.x += get_min_x(game);
+			coords.x += get_mid_x(game);
 			put_img_to_into_img(map, img, coords.x, coords.y);
 		}
 		y += 1;
@@ -115,7 +102,7 @@ void	generate_tiles(t_game *game, t_img *map)
 // 	int				x;
 // 	t_coordinates	coords;
 
-// 	img = get_texture(ROCK);
+// 	img = get_texture(ROCK_TEXTURE);
 // 	y = 0;
 // 	while (y < game->map->height)
 // 	{
@@ -157,11 +144,15 @@ int	init_map_img(t_game *game)
 
 void	render_next_frame(t_mlx *mlx)
 {
-	double			time_taken;
-	static float	max;
-	t_game			*game;
+	double						time_taken;
+	static float				max;
+	t_game						*game;
+	static t_animation_frame	*coin = NULL;
+	static int					i = 0;
 
 	clock_t start, end;
+	if (!coin)
+		coin = get_animation_first_frame(COIN_ANIMATION);
 	start = clock();
 	game = get_game_instance();
 	mlx_destroy_image(mlx->mlx, game->rendering_buffer);
@@ -169,7 +160,11 @@ void	render_next_frame(t_mlx *mlx)
 	if (!game->rendering_buffer)
 		return ;
 	draw_map(game);
-	render_asset(game, get_texture(PLAYER_TEXTURE), (t_coordinates){0
+	render_asset(game, coin->current, (t_vec2){15, 15});
+	if (i % (100 / coin->animation.params.speed) == 0)
+		coin = coin->next;
+	i++;
+	render_asset(game, get_texture(PLAYER_TEXTURE), (t_vec2){0
 		+ game->camera_offsets.x, 0 + game->camera_offsets.y});
 	proccess_rendering_buffer(game);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, game->rendering_buffer, 0, 0);
@@ -181,4 +176,6 @@ void	render_next_frame(t_mlx *mlx)
 		max += 0.01;
 	printf("Temps d'exécution : %.3f ms | max : %.3f ms | fps : %.0f\n",
 		time_taken, max, 1000 / time_taken);
+	printf("test : %d\n", get_max_y(game));
+	printf("coords : %d\n", game->camera_offsets.y);
 }

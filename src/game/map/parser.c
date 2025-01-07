@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:42:59 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 08:47:06 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 09:42:45 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ static int	get_lines_count(int fd)
 
 void	setup_map_coords(void)
 {
-	t_map			*map;
-	t_coordinates	coords;
-	int				x;
-	int				y;
+	t_map	*map;
+	t_vec2	coords;
+	int		x;
+	int		y;
 
 	x = -1;
 	y = -1;
