@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/06 17:28:06 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 09:12:17 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,13 @@ int	draw_map(t_game *game)
 	int		b_pixel;
 	int		c;
 	int		d;
+	int		y1;
+	int		x1;
 
 	i = 0;
 	x = 0;
 	y = 0;
+	y1 = 0;
 	buffer = (int32_t *)game->rendering_buffer->data;
 	map_buffer = (int32_t *)game->map->map_img->data;
 	c = game->rendering_buffer_data.line_bytes / 4;
@@ -54,10 +57,18 @@ int	draw_map(t_game *game)
 		{
 			pixel = ((y + game->camera_offsets.y) * d) + (x
 					+ game->camera_offsets.x);
-			if (y + game->camera_offsets.y < 0 || y + game->camera_offsets.y > game->map->map_img->height)
-				break;
-			if (x + game->camera_offsets.x < 0 || x + game->camera_offsets.x > game->map->map_img->width)
-				break;
+			if (y + game->camera_offsets.y < 0 || y
+				+ game->camera_offsets.y > game->map->map_img->height)
+			{
+				x += 2;
+				continue ;
+			}
+			if (x + game->camera_offsets.x < 0 || x
+				+ game->camera_offsets.x > game->map->map_img->width)
+			{
+				x += 2;
+				continue ;
+			}
 			b_pixel = (y * c) + (x);
 			buffer[b_pixel] = map_buffer[pixel];
 			b_pixel = ((y + 1) * c) + (x);
@@ -82,62 +93,63 @@ void	generate_tiles(t_game *game, t_img *map)
 
 	img = get_texture(TILE_TEXTURE);
 	y = 0;
-	while (y < game->map->height)
+	while (y < game->map->height - 1)
 	{
-		x = 0;
-		while (x < game->map->witdh)
+		x = -1;
+		while (++x < game->map->witdh)
 		{
+			if (game->map->buffer[y][x] == '1')
+				continue ;
 			coords = get_to_world_coord(game, x, y);
 			coords.x += get_min_x(game);
 			put_img_to_into_img(map, img, coords.x, coords.y);
-			x += 1;
 		}
 		y += 1;
 	}
 }
 
-void	generate_borders(t_game *game, t_img *map)
-{
-	t_img			*img;
-	int				y;
-	int				x;
-	t_coordinates	coords;
+// void	generate_borders(t_game *game, t_img *map)
+// {
+// 	t_img			*img;
+// 	int				y;
+// 	int				x;
+// 	t_coordinates	coords;
 
-	img = get_texture(ROCK);
-	y = 0;
-	while (y < game->map->height)
-	{
-		x = 0;
-		while (x < game->map->witdh)
-		{
-			if (!game->map->buffer[y] && !game->map->buffer[y][x])
-				break ;
-			if (game->map->buffer[y][x] == '1')
-			{
-				coords = get_to_world_coord(game, x, y);
-				coords.x += get_min_x(game);
-				put_img_to_into_img(map, img, coords.x - 20, coords.y - 35);
-				put_img_to_into_img(map, img, coords.x + 15 - 15, coords.y - 15
-					- 15);
-				put_img_to_into_img(map, img, coords.x + 25 - 15, coords.y - 15
-					- 15);
-				put_img_to_into_img(map, img, coords.x, coords.y - 15);
-			}
-			x += 1;
-		}
-		y += 1;
-	}
-}
+// 	img = get_texture(ROCK);
+// 	y = 0;
+// 	while (y < game->map->height)
+// 	{
+// 		x = 0;
+// 		while (x < game->map->witdh)
+// 		{
+// 			if (!game->map->buffer[y] && !game->map->buffer[y][x])
+// 				break ;
+// 			if (game->map->buffer[y][x] == '1')
+// 			{
+// 				coords = get_to_world_coord(game, x, y);
+// 				coords.x += get_min_x(game);
+// 				put_img_to_into_img(map, img, coords.x - 20, coords.y - 35);
+// 				put_img_to_into_img(map, img, coords.x + 15 - 15, coords.y - 15
+// 					- 15);
+// 				put_img_to_into_img(map, img, coords.x + 25 - 15, coords.y - 15
+// 					- 15);
+// 				put_img_to_into_img(map, img, coords.x, coords.y - 15);
+// 			}
+// 			x += 1;
+// 		}
+// 		y += 1;
+// 	}
+// }
 
 int	init_map_img(t_game *game)
 {
 	t_img	*map;
 	int		i;
 
-	map = mlx_new_image(game->mlx->mlx, get_max_x(game) + TILE_X,
-			get_max_y(game) + TILE_Y);
+	map = mlx_new_image(game->mlx->mlx, get_max_x(game) + get_min_x(game) * 2
+			+ TILE_X / 2, get_max_y(game) + get_min_y(game) * 2 + TILE_Y / 2);
 	generate_tiles(game, map);
-	generate_borders(game, map);
+	// generate_borders(game, map);
 	game->map->map_img = map;
 	add_asset(MAP, map);
 	return (0);
@@ -151,15 +163,14 @@ void	render_next_frame(t_mlx *mlx)
 
 	clock_t start, end;
 	start = clock();
-
 	game = get_game_instance();
 	mlx_destroy_image(mlx->mlx, game->rendering_buffer);
 	game->rendering_buffer = mlx_new_image(game->mlx->mlx, WIDTH, HEIGHT);
 	if (!game->rendering_buffer)
 		return ;
 	draw_map(game);
-	// render_asset(game, get_texture(PLAYER_TEXTURE), (t_coordinates){100
-	// 	+ game->camera_offsets.x, 100 + game->camera_offsets.y});
+	render_asset(game, get_texture(PLAYER_TEXTURE), (t_coordinates){0
+		+ game->camera_offsets.x, 0 + game->camera_offsets.y});
 	proccess_rendering_buffer(game);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, game->rendering_buffer, 0, 0);
 	end = clock();

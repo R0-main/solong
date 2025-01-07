@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 15:03:05 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/02 11:02:17 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 08:40:07 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,28 @@ void	put_img_to_rendering_buffer_once(t_game *game,
 		};
 		i++;
 	}
+}
+
+void	put_pixel_into_rendering_buffer(t_game *game, int32_t *rendering_data, int buffer_line_bits, t_coordinates coords, int32_t color)
+{
+	int		buffer_pixel;
+
+	buffer_pixel = ((1 + coords.y) * buffer_line_bits) + (0 + coords.x);
+	rendering_data[buffer_pixel] = color;
+	buffer_pixel = ((1 + coords.y) * buffer_line_bits) + (1 + coords.x);
+	rendering_data[buffer_pixel] = color;
+	buffer_pixel = ((0 + coords.y) * buffer_line_bits) + (1 + coords.x);
+	rendering_data[buffer_pixel] = color;
+	buffer_pixel = ((0 + coords.y) * buffer_line_bits) + (0 + coords.x);
+	rendering_data[buffer_pixel] = color;
+	// y = -1;
+	// while (++y < 2)
+	// {
+	// 	x = -1;
+	// 	while (++x < 2)
+	// 	{
+	// 	}
+	// }
 }
 
 #define IDK_HOW_TO_NAME_THAT (HEIGHT * WIDTH) / 6

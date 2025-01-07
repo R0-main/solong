@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:01:04 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/06 17:29:11 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 08:59:09 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,16 @@ void	handle_mouse_motion_event(int x, int y, t_mlx *mlx)
 		return ;
 	vec2 = (t_coordinates){game->last_mouse_location.x - x,
 		game->last_mouse_location.y - y};
-	game->camera_offsets.x += vec2.x;
-	game->camera_offsets.y += vec2.y;
+	if (
+		game->camera_offsets.x + vec2.x < game->map->map_img->width / 2
+		&& game->camera_offsets.x + vec2.x > 0
+	)
+		game->camera_offsets.x += vec2.x;
+	if (
+		game->camera_offsets.y + vec2.y < game->map->map_img->height / 2
+		&& game->camera_offsets.y + vec2.y > 0
+		)
+		game->camera_offsets.y += vec2.y;
 	game->last_mouse_location = (t_coordinates){x, y};
 }
 

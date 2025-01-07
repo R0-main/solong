@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:42:59 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/06 15:36:51 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 08:47:06 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int	parse_map(char *path)
 	if (fd == 1)
 		return (1);
 	line_count = get_lines_count(fd);
-	map->height = line_count - 1;
+	map->height = line_count;
 	close(fd);
 	map->buffer = malloc(sizeof(char *) * (line_count + 1));
 	if (!map->buffer)
