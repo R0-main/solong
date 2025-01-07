@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:55:16 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/05 18:14:06 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:35:03 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	endswith(char *str, char *substr)
 	sub_len = ft_strlen(substr);
 	str_len = ft_strlen(str);
 	i = str_len - 1;
-	while (str[i] && str_len - i <= sub_len )
+	while (str[i] && str_len - i <= sub_len)
 	{
 		k = 0;
 		while (str[i + k] && str[i + k] == substr[k])

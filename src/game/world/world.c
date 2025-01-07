@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 13:05:13 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 12:57:15 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:33:13 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,17 @@ t_vec2	get_to_world_coord(t_game *game, int x, int y)
 	coords.y = (x * TILE_Y * 0.25) + (y * 0.25) * TILE_Y;
 	coords.x *= 2;
 	coords.y *= 2;
-	// coords.x += (w * TILE_X) - TILE_X * 0.5;
 	return (coords);
 }
 
 int	get_max_x(t_game *game)
 {
-	t_vec2	maxCoords;
-	t_vec2	maxCoords1;
-
-	maxCoords = get_to_world_coord(game, game->map->witdh, 1);
-	return (maxCoords.x + TILE_Y * 2);
+	return (get_to_world_coord(game, game->map->witdh, 0).x + get_min_x(game));
 }
 
 int	get_max_y(t_game *game)
 {
-	t_vec2	maxCoords;
-
-	maxCoords = get_to_world_coord(game, game->map->witdh, game->map->height - 1);
-	return (maxCoords.y);
+	return (get_to_world_coord(game, game->map->witdh, game->map->height).y);
 }
 
 int	get_min_y(t_game *game)
@@ -53,14 +45,8 @@ int	get_min_x(t_game *game)
 {
 	t_vec2	maxCoords;
 
-	maxCoords = get_to_world_coord(game, 1, 1);
-	return (ft_abs(maxCoords.x) + TILE_X * 2);
-}
-
-	int	get_mid_x(t_game *game)
-	{
-		t_vec2	maxCoords;
-
-	maxCoords = get_to_world_coord(game, 1, game->map->height);
-	return (ft_abs(maxCoords.x));
+	maxCoords = get_to_world_coord(game, 1, game->map->height - 1);
+	if (maxCoords.x > 0)
+		return (0);
+	return (ft_abs(maxCoords.x) - TILE_X / 2);
 }

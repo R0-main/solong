@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 12:56:42 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:33:07 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,53 +22,57 @@ void	render_asset(t_game *game, t_img *asset, t_vec2 position)
 	add_to_rendering_proccess(r_elem, game);
 }
 
-struct t
+struct		s_draw_map_params
 {
-	int32_t buffer;
-	int32_t map_buffer;
-};
-
-int	draw_map(t_game *game)
-{
-	int		i;
 	int		y;
 	int		x;
+	t_vec2	length;
 	int32_t	*buffer;
 	int32_t	*map_buffer;
 	int		pixel;
-	int		b_pixel;
 	int		c;
 	int		d;
-	int		y1;
-	int		x1;
+};
 
-	i = 0;
-	x = 0;
-	y = 0;
-	y1 = 0;
-	buffer = (int32_t *)game->rendering_buffer->data;
-	map_buffer = (int32_t *)game->map->map_img->data;
-	c = game->rendering_buffer_data.line_bytes / 4;
-	d = game->map->map_img_data.line_bytes / 4;
-	while (y < HEIGHT)
+void	init_draw_map_data(t_game *game, struct s_draw_map_params *t)
+{
+	t->x = 0;
+	t->y = 0;
+	t->buffer = (int32_t *)game->rendering_buffer->data;
+	t->map_buffer = (int32_t *)game->map->map_img->data;
+	t->c = game->rendering_buffer_data.line_bytes / 4;
+	t->d = game->map->map_img_data.line_bytes / 4;
+	t->length = (t_vec2){
+		game->map->map_img->width,
+		game->map->map_img->height,
+	};
+}
+
+void	draw_map(t_game *game)
+{
+	struct s_draw_map_params	t;
+
+	init_draw_map_data(game, &t);
+	if (!is_between(t.length, POSITION_ZERO, POSITION_MAX))
+		t.length = (t_vec2){WIDTH, HEIGHT};
+	while (t.y < t.length.y)
 	{
-		x = 0;
-		while (x < WIDTH)
+		t.x = 0;
+		while (t.x < t.length.x)
 		{
-			pixel = ((y + game->camera_offsets.y) * d) + (x
+			t.pixel = ((t.y + game->camera_offsets.y) * t.d) + (t.x
 					+ game->camera_offsets.x);
-			if (map_buffer[pixel] != 0)
+			if (t.map_buffer[t.pixel] != 0)
 			{
-				buffer[(y * c) + (x)] = map_buffer[pixel];
-				buffer[((y + 1) * c) + (x)] = map_buffer[pixel];
-				buffer[((y + 1) * c) + (x + 1)] = map_buffer[pixel];
-				buffer[(y * c) + (x + 1)] = map_buffer[pixel];
+				t.buffer[(t.y * t.c) + (t.x)] = t.map_buffer[t.pixel];
+				t.buffer[((t.y + 1) * t.c) + (t.x)] = t.map_buffer[t.pixel];
+				t.buffer[((t.y + 1) * t.c) + (t.x + 1)] = t.map_buffer[t.pixel];
+				t.buffer[(t.y * t.c) + (t.x + 1)] = t.map_buffer[t.pixel];
 			}
-			x += 2;
+			t.x += 2;
 		}
-		y += 2;
+		t.y += 2;
 	}
-	return (0);
 }
 
 void	generate_tiles(t_game *game, t_img *map)
@@ -88,7 +92,7 @@ void	generate_tiles(t_game *game, t_img *map)
 			if (game->map->buffer[y][x] == '1')
 				continue ;
 			coords = get_to_world_coord(game, x, y);
-			coords.x += get_mid_x(game);
+			coords.x += get_min_x(game);
 			put_img_to_into_img(map, img, coords.x, coords.y);
 		}
 		y += 1;
@@ -133,8 +137,7 @@ int	init_map_img(t_game *game)
 	t_img	*map;
 	int		i;
 
-	map = mlx_new_image(game->mlx->mlx, get_max_x(game) + get_min_x(game) * 2
-			+ TILE_X / 2, get_max_y(game) + get_min_y(game) * 2 + TILE_Y / 2);
+	map = mlx_new_image(game->mlx->mlx, get_max_x(game), get_max_y(game));
 	generate_tiles(game, map);
 	// generate_borders(game, map);
 	game->map->map_img = map;
@@ -176,6 +179,4 @@ void	render_next_frame(t_mlx *mlx)
 		max += 0.01;
 	printf("Temps d'exécution : %.3f ms | max : %.3f ms | fps : %.0f\n",
 		time_taken, max, 1000 / time_taken);
-	printf("test : %d\n", get_max_y(game));
-	printf("coords : %d\n", game->camera_offsets.y);
 }

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:20:01 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 14:17:45 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:36:45 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,12 @@ void	load_animations(void *mlx)
 {
 	t_animation_parameters	params;
 
-	// params.frame_length.x = 44;
-	// params.frame_length.x = 25;
-	// params.
 	load_animation(mlx,
 					"./assets/coin.xpm",
 					COIN_ANIMATION,
 					(t_animation_parameters){(t_vec2){/* x : */ 44,
 														/* y : */ 25},
-											/*speed :*/ 15,
+											/*speed :*/ 50,
 											/*frame count :*/ 16});
 }
 
@@ -46,17 +43,13 @@ void	unload_animations_first_frame(void *mlx)
 		if (!first_frame)
 			continue ;
 		frames_count = first_frame->animation.params.frames_count;
-		while (y < frames_count)
+		while (first_frame && y++ < frames_count)
 		{
-			if (first_frame)
-			{
-				if (first_frame->current)
-					mlx_destroy_image(mlx, first_frame->current);
-				tmp = first_frame->next;
-				free(first_frame);
-				first_frame = tmp;
-			}
-			y++;
+			if (first_frame->current)
+				mlx_destroy_image(mlx, first_frame->current);
+			tmp = first_frame->next;
+			free(first_frame);
+			first_frame = tmp;
 		}
 	}
 }

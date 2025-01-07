@@ -38,7 +38,7 @@ FT_PRINTF = ./src/dependencies/ft_printf/libftprintf.a
 all : compile
 
 compile: $(OBJS) $(FT_PRINTF)
-	$(CC) $(OBJS) ${MLX_LIB} $(FT_PRINTF) -lXext -lX11 -lm -lz -O3 -O2 -o ${EXEC}
+	$(CC) $(OBJS) ${MLX_LIB} $(FT_PRINTF) -lXext -lX11 -lm -lz -O3 -O2 -flto -ffast-math -march=native -pipe -o ${EXEC}
 
 %.o : %.c
 	$(CC) ${CFLAGS} -c $< -o $@
