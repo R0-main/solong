@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 11:29:44 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:31:05 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,19 @@
 #include "libft.h"
 #include "rendering.h"
 
-void	render_asset(t_game *game, t_img *asset, t_vec2 position)
+void	render_asset(t_game *game, t_texture asset, t_vec2 position)
 {
 	t_rendering_element	*r_elem;
 
-	r_elem = create_rendering_element(asset, position);
+	r_elem = create_rendering_element(asset.img, asset.img_data, position);
+	add_to_rendering_proccess(r_elem, game);
+}
+
+void	render_animation(t_game *game, t_animation_frame *asset, t_vec2 position)
+{
+	t_rendering_element	*r_elem;
+
+	r_elem = create_rendering_element(asset->texture.img, asset->texture.img_data, position);
 	add_to_rendering_proccess(r_elem, game);
 }
 
@@ -77,12 +85,12 @@ void	draw_map(t_game *game)
 
 void	generate_tiles(t_game *game, t_img *map)
 {
-	t_img	*img;
+	t_texture	texture;
 	int		y;
 	int		x;
 	t_vec2	coords;
 
-	img = get_texture(TILE_TEXTURE);
+	texture = get_texture(TILE_TEXTURE);
 	y = 0;
 	while (y < game->map->height - 1)
 	{
@@ -93,7 +101,7 @@ void	generate_tiles(t_game *game, t_img *map)
 				continue ;
 			coords = get_to_world_coord(game, x, y);
 			coords.x += get_min_x(game);
-			put_img_to_into_img(map, img, coords);
+			put_img_to_into_img(map, texture.img, coords);
 		}
 		y += 1;
 	}
@@ -163,7 +171,7 @@ void	render_next_frame(t_mlx *mlx)
 	if (!game->rendering_buffer)
 		return ;
 	draw_map(game);
-	render_asset(game, coin->current, (t_vec2){15, 15});
+	render_animation(game, coin, (t_vec2){15, 15});
 	if (i % (100 / coin->animation.params.speed) == 0)
 		coin = coin->next;
 	i++;

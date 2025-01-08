@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:36:20 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 12:05:23 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:30:41 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,22 @@ void	free_all_current_animations(void *mlx, t_animation_frame *first)
 	while (first)
 	{
 		tmp = first->next;
-		mlx_destroy_image(mlx, first->current);
+		mlx_destroy_image(mlx, first->texture.img);
 		free(first);
 		first = tmp;
 	}
 	exit_error("Fail to extract img from an animation");
+}
+
+void	init_animation_frame(t_animation animation, t_animation_frame *frame)
+{
+	t_img_data	data;
+
+	mlx_get_data_addr(frame->texture.img, &data.pixel_bits, &data.line_bytes,
+		&data.endian);
+	frame->texture.img_data = data;
+	frame->next = NULL;
+	frame->animation = animation;
 }
 
 t_animation_frame	*create_animation_frames(void *mlx, t_animation_id id)
@@ -63,12 +74,11 @@ t_animation_frame	*create_animation_frames(void *mlx, t_animation_id id)
 		p.frame = (t_animation_frame *)malloc(sizeof(t_animation_frame));
 		if (!p.frame)
 			return (free_all_current_animations(mlx, p.first), NULL); // TODO
-		p.frame->current = extract_img_from(mlx, p.animation, p.i);
-		if (!p.frame->current)
+		p.frame->texture.img = extract_img_from(mlx, p.animation, p.i);
+		if (!p.frame->texture.img)
 			return (free(p.frame), free_all_current_animations(mlx, p.first),
 				NULL);
-		p.frame->next = NULL;
-		p.frame->animation = p.animation;
+		init_animation_frame(p.animation, p.frame);
 		if (p.old)
 			p.old->next = p.frame;
 		p.old = p.frame;

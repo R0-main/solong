@@ -6,13 +6,14 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 15:03:05 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 16:16:19 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:25:09 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rendering.h"
 
-t_rendering_element	*create_rendering_element(t_img *img, t_vec2 position)
+t_rendering_element	*create_rendering_element(t_img *img, t_img_data data,
+		t_vec2 position)
 {
 	t_rendering_element	*r_element;
 
@@ -20,6 +21,7 @@ t_rendering_element	*create_rendering_element(t_img *img, t_vec2 position)
 	if (!r_element)
 		return (NULL);
 	r_element->img = img;
+	r_element->img_data = data;
 	r_element->position = position;
 	r_element->next = NULL;
 	return (r_element);
@@ -43,8 +45,6 @@ void	add_to_rendering_proccess(t_rendering_element *r_elem, t_game *game)
 			}
 			current = current->next;
 		}
-		// r_elem->next = game->rendering_queue;
-		// game->rendering_queue = r_elem;
 	}
 }
 
@@ -193,14 +193,6 @@ void	put_pixel_into_rendering_buffer(t_game *game, int32_t *rendering_data,
 	rendering_data[buffer_pixel] = color;
 	buffer_pixel = ((0 + coords.y) * buffer_line_bits) + (0 + coords.x);
 	rendering_data[buffer_pixel] = color;
-	// y = -1;
-	// while (++y < 2)
-	// {
-	// 	x = -1;
-	// 	while (++x < 2)
-	// 	{
-	// 	}
-	// }
 }
 
 #define IDK_HOW_TO_NAME_THAT (HEIGHT * WIDTH) / 6

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:24:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 09:48:01 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:18:48 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ void	unload_assets(void *mlx)
 {
 	int					i;
 	t_textures_atlas	*textures_atlas;
-	t_img				*img;
+	t_texture			texture;
 
 	i = 0;
 	textures_atlas = get_textures_atlas();
 	while (i < MAX_TEXTURES)
 	{
-		img = textures_atlas->atlas[i++];
-		if (img)
+		texture = textures_atlas->atlas[i++];
+		if (texture.img)
 		{
-			mlx_destroy_image(mlx, img);
+			mlx_destroy_image(mlx, texture.img);
 			printf("[ASSETS] UnLoaded !\n");
 		}
 	}

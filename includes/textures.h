@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:06:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 11:36:20 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:32:52 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef enum e_textures
 
 typedef struct s_textures_atlas
 {
-	t_img			*atlas[MAX_TEXTURES];
+	t_texture		atlas[MAX_TEXTURES];
 }					t_textures_atlas;
 
 typedef struct s_pixels_optimisation
@@ -52,7 +52,7 @@ typedef struct s_pixels_optimisation
 
 t_textures_atlas	*get_textures_atlas(void);
 int					load_texture(void *mlx, const char *path, int id);
-t_img				*get_texture(int id);
+t_texture			get_texture(int id);
 void				load_assets(void *mlx);
 void				add_asset(int id, t_img *img);
 void				unload_assets(void *mlx);

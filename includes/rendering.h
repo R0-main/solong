@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 14:59:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 09:42:45 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:24:45 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 
 # include "game.h"
 
-t_rendering_element	*create_rendering_element(t_img *img, t_vec2 position);
+t_rendering_element	*create_rendering_element(t_img *img, t_img_data data,
+		t_vec2 position);
 
-void				delete_from_rendering_proccess(t_rendering_element *r_elem);
+	void delete_from_rendering_proccess(t_rendering_element *r_elem);
 
 void				add_to_rendering_proccess(t_rendering_element *r_elem,
 						t_game *game);

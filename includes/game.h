@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 10:20:45 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:32:56 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_rendering_element
 {
 	t_vec2						position;
 	t_img						*img;
+	t_img_data					img_data;
 	struct s_rendering_element	*next;
 }								t_rendering_element;
 
@@ -63,6 +64,12 @@ typedef struct s_game
 	t_map						*map;
 	t_rendering_element			*rendering_queue;
 }								t_game;
+
+typedef struct s_texture
+{
+	t_img						*img;
+	t_img_data					img_data;
+}								t_texture;
 
 # include "animations.h"
 # include "rendering.h"

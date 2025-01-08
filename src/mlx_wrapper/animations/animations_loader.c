@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:20:01 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 09:39:34 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:31:41 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	unload_animations_first_frame(void *mlx)
 		frames_count = first_frame->animation.params.frames_count;
 		while (first_frame && y++ < frames_count)
 		{
-			if (first_frame->current)
-				mlx_destroy_image(mlx, first_frame->current);
+			if (first_frame->texture.img)
+				mlx_destroy_image(mlx, first_frame->texture.img);
 			tmp = first_frame->next;
 			free(first_frame);
 			first_frame = tmp;

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:25:13 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 10:20:50 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:32:06 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 # define ANIMATIONS_H
 
+# include "textures.h"
 # include "game.h"
 # include "mlx.h"
 # include "mlx_int.h"
@@ -40,7 +41,7 @@ typedef struct s_animation
 
 typedef struct s_animation_frame
 {
-	t_img						*current;
+	t_texture					texture;
 	t_animation					animation;
 	struct s_animation_frame	*next;
 }								t_animation_frame;
