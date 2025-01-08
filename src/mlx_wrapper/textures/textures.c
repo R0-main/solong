@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:14:38 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 12:59:59 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:09:01 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	add_asset(int id, t_img *img)
 	{
 		textures_atlas = get_textures_atlas();
 		textures_atlas->atlas[id].img = img;
-		mlx_get_data_addr(img, &data.pixel_bits, &data.line_bytes, &data.endian);
+		mlx_get_data_addr(img, &data.pixel_bits, &data.line_bytes,
+			&data.endian);
 		textures_atlas->atlas[id].img_data = data;
 	}
 }

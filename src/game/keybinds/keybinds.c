@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 09:35:40 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 12:38:55 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:16:51 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,15 @@ void	on_key_pressed(int key)
 	}
 	printf("x : %d | y : %d h : %d\n", game->camera_offsets.x,
 		game->camera_offsets.y, game->map->height);
+}
+
+int	handle_key(int keycode, t_mlx *mlx)
+{
+	if (keycode == 65307 || keycode == -16778664)
+	{
+		mlx_loop_end(mlx->mlx);
+	}
+	on_key_pressed(keycode);
+	ft_printf("pressed : %d\n", keycode);
+	return (0);
 }

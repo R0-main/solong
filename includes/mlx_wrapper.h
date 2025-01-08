@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:33:15 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 09:28:22 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:16:58 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ typedef struct s_img_data
 
 t_mlx		*get_mlx_vars(void);
 void		free_all(void);
+
+int			handle_key(int keycode, t_mlx *mlx);
+
+void		handle_pressed_mouse_event(int key, t_mlx *mlx);
+void		handle_release_mouse_event(int x, int y, t_mlx *mlx);
+void		handle_mouse_motion_event(int x, int y, t_mlx *mlx);
 
 # define LEFT_CLICK 1
 # define ESC_KEY 53 // Touche Echap
