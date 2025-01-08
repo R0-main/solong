@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:20:01 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 16:36:45 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 09:39:34 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ void	unload_animations_first_frame(void *mlx)
 {
 	int					i;
 	int					y;
-	t_animations_atlas	*animations_atlas;
 	t_animation_frame	*first_frame;
 	t_animation_frame	*tmp;
 	int					frames_count;
 
 	i = 0;
-	animations_atlas = get_animations_atlas();
 	while (i < MAX_ANIMATIONS)
 	{
 		y = 0;
-		first_frame = animations_atlas->first_frame[i++];
+		if (!get_animations_atlas())
+			return ;
+		first_frame = get_animations_atlas()->first_frame[i++];
 		if (!first_frame)
 			continue ;
 		frames_count = first_frame->animation.params.frames_count;

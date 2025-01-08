@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   mlx_vars.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 13:05:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 08:58:44 by rguigneb         ###   ########.fr       */
+/*   Created: 2025/01/08 09:26:26 by rguigneb          #+#    #+#             */
+/*   Updated: 2025/01/08 09:31:50 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
+#include "mlx_wrapper.h"
 
-# define UTILS_H
+t_mlx	*get_mlx_vars(void)
+{
+	static t_mlx	mlx;
 
-# include <stdio.h>
-# include <stdlib.h>
-
-int		endswith(char *str, char *substr);
-void	free_2d_buffer(void **_2d_buffer, int len);
-void	delay(int loop);
-
-void	exit_error(const char *msg);
-
-#endif
+	return (&mlx);
+}

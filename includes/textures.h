@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:06:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 09:42:45 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 11:36:20 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 typedef enum e_textures
 {
 	MAP,
-	BLACK_SCREEN_TEXTURE,
 	GRASS_TEXTURE,
 	PLAYER_TEXTURE,
 	SARAH_TEXTURE,
@@ -53,22 +52,18 @@ typedef struct s_pixels_optimisation
 
 t_textures_atlas	*get_textures_atlas(void);
 int					load_texture(void *mlx, const char *path, int id);
-void				load_black_screen_texture(void *mlx);
 t_img				*get_texture(int id);
 void				load_assets(void *mlx);
 void				add_asset(int id, t_img *img);
 void				unload_assets(void *mlx);
-void				reset_rendering_buffer(t_game *game);
 
-void				put_transparent_texture_on_window(int id, t_mlx *mlx,
-						int ox, int oy);
-
-void				put_img_to_into_img(t_img *dest_img, t_img *img, int ox,
-						int oy);
+void				put_img_to_into_img(t_img *dest_img, t_img *img,
+						t_vec2 offset);
 
 int					init_map_img(t_game *game);
 
-int					get_pixel_index(t_img *asset, t_vec2 coords);
+void				put_img_to_into_img_with_offset(t_img *dest_img,
+						t_vec2 dest_offset, t_img *img, t_vec2 img_offset);
 int32_t				*get_pixel(t_img *asset, t_vec2 coords);
 
 // load("assets/grass.xpm", textures_atlas, GRASS_TEXTURE)

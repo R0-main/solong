@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:36:20 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 16:36:37 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:05:23 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,69 +17,65 @@ t_img	*extract_img_from(void *mlx, t_animation animation, int i)
 	t_img	*new_img;
 	int		new_pixel;
 	int		img_pixel;
-	int		x;
-	int		y;
-	int		x1;
-	int		y1;
 
-	y1 = 0;
-	y = -1;
-	new_img = mlx_new_image(mlx, animation.params.frame_length.x,
-			animation.params.frame_length.y);
+	new_img = mlx_new_image(mlx, animation.params.frame_length.x * 2,
+			animation.params.frame_length.y * 2);
 	if (!new_img)
-		return (exit(1), NULL); // TODO
-	while (++y < animation.params.frame_length.y)
-	{
-		x = -1;
-		x1 = 0;
-		while (++x < animation.params.frame_length.x)
-		{
-			*get_pixel(new_img, (t_vec2){x, y}) = *get_pixel(animation.img,
-					(t_vec2){x + animation.params.frame_length.x * i, y});
-		}
-	}
+		return (NULL);
+	put_img_to_into_img_with_offset(new_img, (t_vec2){0, 0}, animation.img,
+		(t_vec2){animation.params.frame_length.x * i, 0});
+	// while (++y < animation.params.frame_length.y)
+	// {
+	// 	x = -1;
+	// 	while (++x < animation.params.frame_length.x)
+	// 	{
+	// 		*get_pixel(new_img, (t_vec2){x, y}) = *get_pixel(animation.img,
+	// 				(t_vec2){x + animation.params.frame_length.x * i, y});
+	// 	}
+	// }
 	return (new_img);
+}
+
+void	free_all_current_animations(void *mlx, t_animation_frame *first)
+{
+	t_animation_frame	*tmp;
+
+	while (first)
+	{
+		tmp = first->next;
+		mlx_destroy_image(mlx, first->current);
+		free(first);
+		first = tmp;
+	}
+	exit_error("Fail to extract img from an animation");
 }
 
 t_animation_frame	*create_animation_frames(void *mlx, t_animation_id id)
 {
-	t_animation_frame	*frame;
-	t_animation_frame	*old;
-	t_animation_frame	*first;
-	t_animation			animation;
-	int					i;
+	t_load_animation	p;
 
-	i = 0;
-	old = NULL;
-	animation = get_animation(id);
-	while (i < animation.params.frames_count)
+	p.i = 0;
+	p.old = NULL;
+	p.first = NULL;
+	p.animation = get_animation(id);
+	while (p.i < p.animation.params.frames_count)
 	{
-		frame = (t_animation_frame *)malloc(sizeof(t_animation_frame));
-		if (!frame)
-			return (exit(1), NULL); // TODO
-		frame->current = extract_img_from(mlx, animation, i);
-		frame->next = NULL;
-		frame->animation = animation;
-		if (old)
-			old->next = frame;
-		old = frame;
-		if (i == 0)
-			first = frame;
-		i++;
+		p.frame = (t_animation_frame *)malloc(sizeof(t_animation_frame));
+		if (!p.frame)
+			return (free_all_current_animations(mlx, p.first), NULL); // TODO
+		p.frame->current = extract_img_from(mlx, p.animation, p.i);
+		if (!p.frame->current)
+			return (free(p.frame), free_all_current_animations(mlx, p.first),
+				NULL);
+		p.frame->next = NULL;
+		p.frame->animation = p.animation;
+		if (p.old)
+			p.old->next = p.frame;
+		p.old = p.frame;
+		if (p.i == 0)
+			p.first = p.frame;
+		p.i++;
 	}
-	old->next = first;
-	return (first);
+	p.old->next = p.first;
+	return (p.first);
 }
-
-// void	free_rendering_queue(t_game *game)
-// {
-// 	t_animation_frame	*to_free;
-
-// 	while (game->rendering_queue)
-// 	{
-// 		to_free = game->rendering_queue;
-// 		game->rendering_queue = game->rendering_queue->next;
-// 		free(to_free);
-// 	}
-// 	game->rendering_queue = NULL;
-// }

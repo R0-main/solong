@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 12:39:52 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 10:20:45 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "mlx.h"
 # include "mlx_int.h"
 # include "mlx_wrapper.h"
+# include "utils.h"
 # include <stdbool.h>
 # include <time.h> // TODO : REMOVE
 

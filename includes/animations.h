@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:25:13 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 14:00:17 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 10:20:50 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,15 @@ typedef struct s_animations_atlas
 	t_animation					atlas[MAX_ANIMATIONS];
 	t_animation_frame			*first_frame[MAX_ANIMATIONS];
 }								t_animations_atlas;
+
+typedef struct s_load_animation
+{
+	t_animation_frame			*frame;
+	t_animation_frame			*old;
+	t_animation_frame			*first;
+	t_animation					animation;
+	int							i;
+}								t_load_animation;
 
 t_animations_atlas				*get_animations_atlas(void);
 void							add_animation_asset(int id, t_img *img,

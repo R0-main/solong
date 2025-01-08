@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   exit_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 13:05:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 08:58:44 by rguigneb         ###   ########.fr       */
+/*   Created: 2025/01/08 08:47:23 by rguigneb          #+#    #+#             */
+/*   Updated: 2025/01/08 10:16:33 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
+#include <stdlib.h>
+#include "ft_printf.h"
+#include "mlx_wrapper.h"
+#include "game.h"
 
-# define UTILS_H
+void	exit_error(const char *msg)
+{
+	t_game	*game;
 
-# include <stdio.h>
-# include <stdlib.h>
-
-int		endswith(char *str, char *substr);
-void	free_2d_buffer(void **_2d_buffer, int len);
-void	delay(int loop);
-
-void	exit_error(const char *msg);
-
-#endif
+	game = get_game_instance();
+	if (game)
+		free_all();
+	ft_printf("%s\n", msg);
+	exit(1);
+}

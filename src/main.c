@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:01:04 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 16:10:23 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 09:47:35 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int	close_win(int keycode, t_mlx *mlx)
 	else if (keycode == 101)
 	{
 		// mlx_clear_window(mlx->mlx, mlx->win);
-		mlx_put_image_to_window(mlx->mlx, mlx->win,
-			get_texture(BLACK_SCREEN_TEXTURE), 0, 0);
 	}
 	else if (keycode == 103)
 	{
@@ -139,7 +137,7 @@ int	main(int ac, char **av)
 {
 	void	*mlx;
 	void	*mlx_window;
-	t_mlx	mlx_vars;
+	t_mlx	*mlx_vars;
 
 	if (ac == 1)
 	{
@@ -158,30 +156,26 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	mlx = mlx_init();
+	mlx_vars = get_mlx_vars();
 	mlx_window = NULL;
+	mlx_vars->win = NULL;
+	mlx_vars->mlx = mlx;
 	if (mlx != 0)
 	{
 		mlx_window = mlx_new_window(mlx, WIDTH, HEIGHT, "So Long");
-		mlx_vars.mlx = mlx;
-		mlx_vars.win = mlx_window;
+		mlx_vars->win = mlx_window;
 		load_assets(mlx);
 		load_animations(mlx);
-		mlx_key_hook(mlx_vars.win, close_win, &mlx_vars);
+		mlx_key_hook(mlx_vars->win, close_win, mlx_vars);
 		mlx_hook(mlx_window, MotionNotify, (1L << 8), handle_mouse_motion_event,
 			&mlx_vars);
 		mlx_hook(mlx_window, ButtonRelease, (1L << 3),
-			handle_release_mouse_event, &mlx_vars);
+			handle_release_mouse_event, mlx_vars);
 		mlx_hook(mlx_window, ButtonPress, (1L << 2), handle_pressed_mouse_event,
 			&mlx_vars);
-		mlx_hook(mlx_window, DestroyNotify, 0, destroy_close, &mlx_vars);
-		mlx_loop_hook(mlx_vars.mlx, main_loop, &mlx_vars);
+		mlx_hook(mlx_window, DestroyNotify, 0, destroy_close, mlx_vars);
+		mlx_loop_hook(mlx_vars->mlx, main_loop, mlx_vars);
 		mlx_loop(mlx);
-		unload_assets(mlx);
-		unload_animations(mlx);
-		mlx_destroy_window(mlx, mlx_window);
-		mlx_destroy_image(mlx, get_game_instance()->rendering_buffer);
 	}
-	free_map();
-	mlx_destroy_display(mlx);
-	free(mlx);
+	free_all();
 }

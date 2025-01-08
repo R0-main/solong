@@ -10,12 +10,15 @@ GNL_SRCS = $(DEPENDENCIES_PATH)/get_next_line/get_next_line.c\
 		$(DEPENDENCIES_PATH)/get_next_line/get_next_line_utils.c
 
 SRCS = ./src/main.c\
-		./src/mlx_wrapper/textures.c\
-		./src/mlx_wrapper/textures_loader.c\
 		./src/mlx_wrapper/rendering.c\
 			./src/mlx_wrapper/animations/animations.c\
 			./src/mlx_wrapper/animations/animations_loader.c\
 			./src/mlx_wrapper/animations/animation_frame.c\
+			./src/mlx_wrapper/free_all.c\
+			./src/mlx_wrapper/mlx_vars.c\
+			./src/mlx_wrapper/images_utils.c\
+			./src/mlx_wrapper/textures/textures.c\
+				./src/mlx_wrapper/textures/textures_loader.c\
 		./src/game/game.c\
 			./src/game/coordinates/coordinates.c\
 		./src/game/map/parser.c\
@@ -27,6 +30,7 @@ SRCS = ./src/main.c\
 		./src/utils/endswith.c\
 		./src/utils/delay.c\
 		./src/utils/maths/ft_abs.c\
+		./src/utils/exit_error.c\
 		$(GNL_SRCS)
 
 OBJS = ${SRCS:.c=.o}

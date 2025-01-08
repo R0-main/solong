@@ -22,6 +22,8 @@
 		"unordered_map": "c",
 		"vector": "c",
 		"initializer_list": "c",
-		"animations.h": "c"
+		"animations.h": "c",
+		"span": "c",
+		"type_traits": "c"
 	}
 }

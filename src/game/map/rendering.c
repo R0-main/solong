@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 16:33:07 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 11:29:44 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	generate_tiles(t_game *game, t_img *map)
 				continue ;
 			coords = get_to_world_coord(game, x, y);
 			coords.x += get_min_x(game);
-			put_img_to_into_img(map, img, coords.x, coords.y);
+			put_img_to_into_img(map, img, coords);
 		}
 		y += 1;
 	}
