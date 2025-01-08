@@ -6,14 +6,14 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:43:30 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 10:30:46 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:40:12 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 #include "utils.h"
 
-int	free_map()
+int	free_map(void)
 {
 	t_map	*map;
 

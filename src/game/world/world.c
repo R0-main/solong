@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 13:05:13 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/07 16:33:13 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:38:26 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,18 @@ int	get_max_y(t_game *game)
 
 int	get_min_y(t_game *game)
 {
-	t_vec2	maxCoords;
+	t_vec2	pos;
 
-	maxCoords = get_to_world_coord(game, 1, 1);
-	return (ft_abs(maxCoords.y));
+	pos = get_to_world_coord(game, 1, 1);
+	return (ft_abs(pos.y));
 }
 
 int	get_min_x(t_game *game)
 {
-	t_vec2	maxCoords;
+	t_vec2	pos;
 
-	maxCoords = get_to_world_coord(game, 1, game->map->height - 1);
-	if (maxCoords.x > 0)
+	pos = get_to_world_coord(game, 1, game->map->height - 1);
+	if (pos.x > 0)
 		return (0);
-	return (ft_abs(maxCoords.x) - TILE_X / 2);
+	return (ft_abs(pos.x) - TILE_X / 2);
 }

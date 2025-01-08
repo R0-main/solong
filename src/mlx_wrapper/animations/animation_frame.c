@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:36:20 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 12:30:41 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:59:52 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,6 @@ t_img	*extract_img_from(void *mlx, t_animation animation, int i)
 		return (NULL);
 	put_img_to_into_img_with_offset(new_img, (t_vec2){0, 0}, animation.img,
 		(t_vec2){animation.params.frame_length.x * i, 0});
-	// while (++y < animation.params.frame_length.y)
-	// {
-	// 	x = -1;
-	// 	while (++x < animation.params.frame_length.x)
-	// 	{
-	// 		*get_pixel(new_img, (t_vec2){x, y}) = *get_pixel(animation.img,
-	// 				(t_vec2){x + animation.params.frame_length.x * i, y});
-	// 	}
-	// }
 	return (new_img);
 }
 
@@ -73,7 +64,7 @@ t_animation_frame	*create_animation_frames(void *mlx, t_animation_id id)
 	{
 		p.frame = (t_animation_frame *)malloc(sizeof(t_animation_frame));
 		if (!p.frame)
-			return (free_all_current_animations(mlx, p.first), NULL); // TODO
+			return (free_all_current_animations(mlx, p.first), NULL);
 		p.frame->texture.img = extract_img_from(mlx, p.animation, p.i);
 		if (!p.frame->texture.img)
 			return (free(p.frame), free_all_current_animations(mlx, p.first),

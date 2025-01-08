@@ -6,11 +6,24 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:24:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 12:18:48 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:34:49 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "textures.h"
+
+int	load_texture(void *mlx, const char *path, int id)
+{
+	t_img	*img;
+	int		h;
+	int		w;
+
+	img = mlx_xpm_file_to_image(mlx, (char *)path, &w, &h);
+	if (!img)
+		return (exit_error("failed to load texture !"), 1);
+	add_asset(id, img);
+	return (0);
+}
 
 void	load_assets(void *mlx)
 {

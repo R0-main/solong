@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 09:35:40 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/06 16:17:20 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:38:55 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,39 +18,24 @@
 void	on_key_pressed(int key)
 {
 	t_game	*game;
-	// t_coordinates	coords;
 
 	game = get_game_instance();
-	// coords = get_to_world_coord(game->camera_offsets.x, game->camera_offsets.y);
-	// printf("x: %d\n", game->camera_offsets.x);
-	// printf("y: %d\n", game->camera_offsets.y);
-	// if (coords.x + 1 <= game->map->witdh || coords.y + 1 <= game->map->height)
-	// 	return ;
-	// if (coords.x - 1 >= game->map->witdh || coords.y - 1 >= game->map->height)
-	// 	return ;
 	if (key == W_KEY || key == UP_ARROW_KEY)
 	{
-		// forward
 		game->camera_offsets.y += 100;
-		// game->camera_offsets.x += 100;
 	}
 	else if (key == S_KEY || key == DOWN_ARROW_KEY)
 	{
-		// backward
 		game->camera_offsets.y -= 100;
-		// game->camera_offsets.x -= 100;
 	}
 	else if (key == A_KEY || key == LEFT_ARROW_KEY)
 	{
-		// left
 		game->camera_offsets.x += 100;
-		// game->camera_offsets.y -= 100;
 	}
 	else if (key == D_KEY || key == RIGHT_ARROW_KEY)
 	{
-		// right
 		game->camera_offsets.x -= 100;
-		// game->camera_offsets.y += 100;
 	}
-	printf("x : %d | y : %d h : %d\n", game->camera_offsets.x, game->camera_offsets.y, game->map->height);
+	printf("x : %d | y : %d h : %d\n", game->camera_offsets.x,
+		game->camera_offsets.y, game->map->height);
 }

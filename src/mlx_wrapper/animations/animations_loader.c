@@ -6,23 +6,35 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:20:01 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 12:31:41 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:35:54 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "animations.h"
 
+bool	load_animation(void *mlx, const char *path, int id,
+		t_animation_parameters params)
+{
+	t_img				*img;
+	t_animation_frame	*first_frame;
+	int					h;
+	int					w;
+
+	img = mlx_xpm_file_to_image(mlx, (char *)path, &w, &h);
+	if (!img)
+		exit_error("Fail to load animation image !");
+	add_animation_asset(id, img, params);
+	first_frame = create_animation_frames(mlx, id);
+	set_animation_first_frame(id, first_frame);
+	return (false);
+}
+
 void	load_animations(void *mlx)
 {
 	t_animation_parameters	params;
 
-	load_animation(mlx,
-					"./assets/coin.xpm",
-					COIN_ANIMATION,
-					(t_animation_parameters){(t_vec2){/* x : */ 44,
-														/* y : */ 25},
-											/*speed :*/ 50,
-											/*frame count :*/ 16});
+	load_animation(mlx, "./assets/coin.xpm", COIN_ANIMATION,
+		(t_animation_parameters){(t_vec2){44, 25}, 50, 16});
 }
 
 void	unload_animations_first_frame(void *mlx)

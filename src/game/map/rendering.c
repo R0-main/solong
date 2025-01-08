@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 12:31:05 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:50:58 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ void	render_asset(t_game *game, t_texture asset, t_vec2 position)
 	add_to_rendering_proccess(r_elem, game);
 }
 
-void	render_animation(t_game *game, t_animation_frame *asset, t_vec2 position)
+void	render_animation(t_game *game, t_animation_frame *asset,
+		t_vec2 position)
 {
 	t_rendering_element	*r_elem;
 
-	r_elem = create_rendering_element(asset->texture.img, asset->texture.img_data, position);
+	r_elem = create_rendering_element(asset->texture.img,
+			asset->texture.img_data, position);
 	add_to_rendering_proccess(r_elem, game);
 }
 
@@ -86,9 +88,9 @@ void	draw_map(t_game *game)
 void	generate_tiles(t_game *game, t_img *map)
 {
 	t_texture	texture;
-	int		y;
-	int		x;
-	t_vec2	coords;
+	int			y;
+	int			x;
+	t_vec2		coords;
 
 	texture = get_texture(TILE_TEXTURE);
 	y = 0;
