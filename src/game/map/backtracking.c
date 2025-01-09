@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 08:35:02 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/09 15:39:38 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:15:06 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,15 @@ typedef enum e_directions
 typedef struct s_path
 {
 	t_direction		direction;
+	struct s_path	*prev;
 	struct s_path	*next;
 }					t_path;
 
 typedef struct s_node
 {
 	long			path_cost;
-	bool				inspected;
-	bool				is_taget;
+	bool			inspected;
+	bool			is_taget;
 	struct s_node	*prev;
 	struct s_node	*up;
 	struct s_node	*down;
@@ -76,6 +77,7 @@ t_path	*create_path_node(t_path *first)
 	}
 	path->direction = 0;
 	path->next = NULL;
+	path->prev = NULL;
 	return (path);
 }
 
@@ -95,6 +97,18 @@ void	create_node(t_node *first, t_node **node)
 	(*node)->inspected = false;
 	(*node)->prev = NULL;
 	(*node)->is_taget = false;
+}
+
+void	inspect_all(t_node *first)
+{
+	if (!first)
+		return ;
+	if (first)
+		first->inspected = true;
+	inspect_all(first->down);
+	inspect_all(first->up);
+	inspect_all(first->left);
+	inspect_all(first->right);
 }
 
 void	free_nodes(t_node *first)
@@ -133,17 +147,17 @@ void	set_neightbors(t_map *map, t_vec2 pos, t_node *first, t_node *node,
 	t_vec2	right;
 	t_vec2	left;
 
-	up = (t_vec2){pos.y - 1, pos.x};
-	if (is_between(up, pos, to) && !is_wall(map, up) && !node->up)
+	up = (t_vec2){pos.x, pos.y - 1};
+	if ((is_between(up, pos, to) || is_between(up, to, pos)) && !is_wall(map, up) && !node->up)
 		create_node_tree(&first, &node->up, up, to, index);
-	down = (t_vec2){pos.y + 1, pos.x};
-	if (is_between(down, pos, to) && !is_wall(map, down) && !node->down)
+	down = (t_vec2){pos.x, pos.y + 1};
+	if ((is_between(down, pos, to) || is_between(down, to, pos)) && !is_wall(map, down) && !node->down)
 		create_node_tree(&first, &node->down, down, to, index);
-	right = (t_vec2){pos.y, pos.x + 1};
-	if (is_between(right, pos, to) && !is_wall(map, right) && !node->right)
+	right = (t_vec2){pos.x + 1, pos.y};
+	if ((is_between(right, pos, to) || is_between(right, to, pos)) && !is_wall(map, right) && !node->right)
 		create_node_tree(&first, &node->right, right, to, index);
-	left = (t_vec2){pos.y, pos.x - 1};
-	if (is_between(left, pos, to) && !is_wall(map, left) && !node->left)
+	left = (t_vec2){pos.x - 1, pos.y};
+	if ((is_between(left, pos, to) || is_between(left, to, pos)) && !is_wall(map, left) && !node->left)
 		create_node_tree(&first, &node->left, left, to, index);
 }
 
@@ -164,7 +178,10 @@ void	create_node_tree(t_node **first, t_node **current, t_vec2 pos,
 	if (!*first)
 		*first = *current;
 	if (is_same_position(pos, to))
+	{
+		(*current)->is_taget = true;
 		return ;
+	}
 	set_neightbors(game->map, pos, *first, *current, to, index - 1);
 }
 
@@ -186,32 +203,32 @@ void	print_path(t_path *path)
 
 t_direction	get_most_efficient(t_node *c)
 {
-	int			min;
+	long		min;
 	t_direction	direction;
 	t_node		*target;
 
-	if (!c)
-		return (-1);
 	target = c->down;
-	if (target && !target->inspected && c->path_cost > min)
+	min = 0;
+	direction = -1;
+	if (target && !target->inspected && target->path_cost > min)
 	{
 		min = target->path_cost;
 		direction = DOWN;
 	}
 	target = c->up;
-	if (target && !target->inspected && c->path_cost > min)
+	if (target && !target->inspected && target->path_cost > min)
 	{
 		min = target->path_cost;
 		direction = UP;
 	}
 	target = c->right;
-	if (target && !target->inspected && c->path_cost > min)
+	if (target && !target->inspected && target->path_cost > min)
 	{
 		min = target->path_cost;
 		direction = RIGHT;
 	}
 	target = c->left;
-	if (target && !target->inspected && c->path_cost > min)
+	if (target && !target->inspected && target->path_cost > min)
 	{
 		min = target->path_cost;
 		direction = LEFT;
@@ -219,27 +236,49 @@ t_direction	get_most_efficient(t_node *c)
 	return (direction);
 }
 
-void	path_backtracking(t_node *current)
+void	path_backtracking(t_path *path, t_node *current)
 {
 	t_direction	direction;
 	t_node		*next;
 
-	if (!current)
+	if (!current || !path)
 		return ;
 	if (current->is_taget)
+	{
+		inspect_all(current);
 		return ;
+	}
 	direction = get_most_efficient(current);
 	current->inspected = true;
+	if (direction == -1)
+	{
+		path_backtracking(path->prev, current->prev);
+		return ;
+	}
 	if (direction == UP)
+	{
 		next = current->up;
-	if (direction == DOWN)
+		path->direction = UP;
+	}
+	else if (direction == DOWN)
+	{
 		next = current->down;
-	if (direction == RIGHT)
+		path->direction = DOWN;
+	}
+	else if (direction == RIGHT)
+	{
 		next = current->right;
-	if (direction == LEFT)
+		path->direction = RIGHT;
+	}
+	else if (direction == LEFT)
+	{
 		next = current->left;
+		path->direction = LEFT;
+	}
 	next->prev = current;
-	path_backtracking(next);
+	path->next = create_path_node(path);
+	path->next->prev = path;
+	path_backtracking(path->next, next);
 }
 
 void	find_path(t_vec2 pos, t_vec2 to)
@@ -253,47 +292,18 @@ void	find_path(t_vec2 pos, t_vec2 to)
 
 	first = NULL;
 	min_path_cost = 0;
-	create_node_tree(&first, &first, pos, to, INT_MAX + 1);
+	create_node_tree(&first, &first, pos, to, INT_MAX);
 	if (!first)
 		return ;
 	current = first;
 	path_to_follow = create_path_node(path_to_follow);
 	path_to_follow_first = path_to_follow;
-	path_backtracking(current);
-	print_path(path_to_follow_first);
+	path_backtracking(path_to_follow, current);
+	print_path(path_to_follow);
 	free_nodes(first);
 	free_path_nodes(path_to_follow_first);
-	exit_error("tests");
-	// while ()
-	// 	print_path(path_to_follow);
 }
-
-// t_node	*create_node_tree(t_vec2 from, t_vec2 to)
-// {
-// 	t_node	*first;
-// 	t_node	*current;
-// 	t_game	*game;
-
-// 	game = get_game_instance();
-// 	first = NULL;
-// 	if (!is_between_zero_and(from, (t_vec2){game->map->witdh,
-// 			game->map->height}))
-// 		return (NULL);
-// 	while (++from.y < game->map->height - 1)
-// 	{
-// 		from.x = from.x;
-// 		while (++from.x < game->map->witdh)
-// 		{
-// 			current = create_node(first);
-// 			set_neightbors(game->map, from, first, current);
-// 			if (!first)
-// 				first = current;
-// 		}
-// 	}
-// 	return (first);
-// }
-
 bool	find_player(void)
 {
-	find_path((t_vec2){1, 1}, (t_vec2){3, 3});
+	find_path((t_vec2){4, 1}, (t_vec2){1, 3});
 }

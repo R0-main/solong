@@ -1,0 +1,232 @@
+Command: ./game.out ./maps/packman.ber
+==44116==
+==44116== Invalid read of size 8
+==44116==    at 0x4056CE: handle_pressed_mouse_event (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x406685: mlx_loop (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x40282A: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==44116==
+==44116==
+==44116== Process terminating with default action of signal 11 (SIGSEGV)
+==44116==  Access not within mapped region at address 0x0
+==44116==    at 0x4056CE: handle_pressed_mouse_event (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x406685: mlx_loop (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x40282A: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==  If you believe this happened as a result of a stack
+==44116==  overflow in your program's main thread (unlikely but
+==44116==  possible), you can try to increase the size of the
+==44116==  main thread stack using the --main-stacksize= flag.
+==44116==  The main thread stack size used in this run was 8388608.
+==44116==
+==44116== HEAP SUMMARY:
+==44116==     in use at exit: 107,023 bytes in 141 blocks
+==44116==   total heap usage: 1,365 allocs, 1,224 frees, 1,191,351 bytes allocated
+==44116==
+==44116== 3 bytes in 1 blocks are still reachable in loss record 1 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x4B7558E: strdup (strdup.c:42)
+==44116==    by 0x48B7B45: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x406287: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 8 bytes in 1 blocks are still reachable in loss record 2 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x4B7558E: strdup (strdup.c:42)
+==44116==    by 0x48B49AE: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x4879820: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x487E9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x4060C3: mlx_int_deal_shm (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x406341: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 8 bytes in 1 blocks are still reachable in loss record 3 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x4877B34: ??? (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x48799DF: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x487E9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x4060C3: mlx_int_deal_shm (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x406341: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 10 bytes in 1 blocks are still reachable in loss record 4 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x4B7558E: strdup (strdup.c:42)
+==44116==    by 0x48B49AE: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x491E213: XkbUseExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x48B86A8: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x406287: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 16 bytes in 1 blocks are still reachable in loss record 5 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x4D052EE: xcb_connect_to_fd (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==44116==    by 0x4D05E6B: xcb_connect_to_display_with_auth_info (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==44116==    by 0x48C7EE9: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x48B7B68: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x406287: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 21 bytes in 1 blocks are still reachable in loss record 6 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x48B803E: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x406287: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 24 bytes in 1 blocks are still reachable in loss record 7 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x4879041: XextCreateExtension (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x48794CC: ??? (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x48799C8: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x487E9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x4060C3: mlx_int_deal_shm (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x406341: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 24 bytes in 1 blocks are still reachable in loss record 8 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x4B7558E: strdup (strdup.c:42)
+==44116==    by 0x48B49AE: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x4879820: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x487950A: ??? (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x48799C8: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x487E9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x4060C3: mlx_int_deal_shm (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x406341: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 24 bytes in 1 blocks are still reachable in loss record 9 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x48799F5: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x487E9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x4060C3: mlx_int_deal_shm (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x406341: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 24 bytes in 1 blocks are still reachable in loss record 10 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x48C5A65: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x48CE2C6: _XReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x48CE77E: XSync (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x406A37: mlx_int_new_xshm_image (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x406C72: mlx_new_image (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x402C6B: extract_img_from (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x402E88: create_animation_frames (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x402A3D: load_animation (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x402AA4: load_animations (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x40276E: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 29 bytes in 1 blocks are still reachable in loss record 11 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x48B10CD: _XUpdateAtomCache (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x48B3929: XInternAtom (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x406332: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 32 bytes in 1 blocks are still reachable in loss record 12 of 68
+==44116==    at 0x48487A9: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x4D0915E: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==44116==    by 0x4D09237: xcb_get_extension_data (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==44116==    by 0x4D092EE: xcb_prefetch_maximum_request_length (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==44116==    by 0x4D09364: xcb_get_maximum_request_length (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==44116==    by 0x48B852B: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x406287: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 32 bytes in 1 blocks are still reachable in loss record 13 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x4D021B7: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==44116==    by 0x4D02A08: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==44116==    by 0x4D02EB0: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==44116==    by 0x4D03E44: xcb_wait_for_reply (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==44116==    by 0x4D09292: xcb_get_extension_data (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==44116==    by 0x4D092EE: xcb_prefetch_maximum_request_length (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==44116==    by 0x4D09364: xcb_get_maximum_request_length (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==44116==    by 0x48B852B: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x406287: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 32 bytes in 1 blocks are still reachable in loss record 14 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x48797FF: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x487E9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x4060C3: mlx_int_deal_shm (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x406341: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 32 bytes in 1 blocks are still reachable in loss record 15 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x48797FF: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x487950A: ??? (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x48799C8: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x487E9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==44116==    by 0x4060C3: mlx_int_deal_shm (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x406341: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 33 bytes in 1 blocks are still reachable in loss record 16 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x48B10CD: _XUpdateAtomCache (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x48B3929: XInternAtom (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x40631B: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 40 bytes in 1 blocks are still reachable in loss record 17 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x48C81F1: _XPollfdCacheInit (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x48B7E71: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x406287: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 48 bytes in 1 blocks are still reachable in loss record 18 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x48C7E71: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x48B7B68: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x406287: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 48 bytes in 1 blocks are still reachable in loss record 19 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x48C7E87: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x48B7B68: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x406287: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 56 bytes in 1 blocks are still reachable in loss record 20 of 68
+==44116==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x403F90: parse_map (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026C6: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 72 bytes in 1 blocks are still reachable in loss record 21 of 68
+==44116==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x48B7F20: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==44116==    by 0x406287: mlx_init (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4026F8: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 88 bytes in 1 blocks are still reachable in loss record 22 of 68
+==44116==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x40694B: mlx_int_new_xshm_image (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x406C72: mlx_new_image (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x407547: mlx_int_parse_xpm (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x407981: mlx_xpm_file_to_image (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x403777: load_texture (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4037E3: load_assets (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x402765: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 88 bytes in 1 blocks are still reachable in loss record 23 of 68
+==44116==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x40694B: mlx_int_new_xshm_image (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x406C72: mlx_new_image (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x407547: mlx_int_parse_xpm (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x407981: mlx_xpm_file_to_image (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x403777: load_texture (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x4037FB: load_assets (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x402765: main (in /home/rguigneb/projects/solong-main/game.out)
+==44116==
+==44116== 88 bytes in 1 blocks are still reachable in loss record 24 of 68
+==44116==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44116==    by 0x40694B: mlx_int_new_xshm_image (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x406C72: mlx_new_image (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x407547: mlx_int_parse_xpm (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x407981: mlx_xpm_file_to_image (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x403777: load_texture (in /home/rguigneb/projects/solong-main/game.out)
+==44116==    by 0x403813: load_assets (in /home/rguigneb/projects/solong-main/game.out)
