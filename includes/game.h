@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 12:32:56 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/09 10:06:48 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <time.h> // TODO : REMOVE
 
 int								game_init(t_mlx *mlx);
+bool							find_player(void);
 
 typedef struct s_vec2
 {
@@ -33,7 +34,8 @@ typedef struct s_vec2
 bool							is_same_position(t_vec2 pos1, t_vec2 pos2);
 bool							is_between(t_vec2 pos, t_vec2 bpos1,
 									t_vec2 bpos2);
-
+bool							is_between_zero_and(t_vec2 pos, t_vec2 to);
+bool							is_between_one(int pos, int bpos1, int bpos2);
 // MAP
 typedef struct s_map
 {

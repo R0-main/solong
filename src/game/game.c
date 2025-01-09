@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:30:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 13:14:13 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/09 10:07:09 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	game_init(t_mlx *mlx)
 	init_map_img(game);
 	mlx_get_data_addr(game->map->map_img, &game->map->map_img_data.pixel_bits,
 		&game->map->map_img_data.line_bytes, &game->map->map_img_data.endian);
+	find_player();
 	return (0);
 }
 

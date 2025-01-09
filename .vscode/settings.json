@@ -24,6 +24,7 @@
 		"initializer_list": "c",
 		"animations.h": "c",
 		"span": "c",
-		"type_traits": "c"
+		"type_traits": "c",
+		"time.h": "c"
 	}
 }

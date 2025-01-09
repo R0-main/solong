@@ -26,6 +26,7 @@ SRCS = ./src/main.c\
 		./src/game/map/parser.c\
 			./src/game/map/map.c\
 			./src/game/map/rendering.c\
+			./src/game/map/backtracking.c\
 		./src/game/world/world.c\
 			./src/game/keybinds/keybinds.c\
 				./src/game/keybinds/mouse.c\
