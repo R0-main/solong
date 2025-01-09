@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 08:35:02 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/09 12:54:58 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:39:38 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ typedef struct s_path
 
 typedef struct s_node
 {
-	int				path_cost;
-	bool			inspected;
-	bool			is_taget;
+	long			path_cost;
+	bool				inspected;
+	bool				is_taget;
 	struct s_node	*prev;
 	struct s_node	*up;
 	struct s_node	*down;
@@ -93,6 +93,7 @@ void	create_node(t_node *first, t_node **node)
 	(*node)->right = NULL;
 	(*node)->path_cost = 0;
 	(*node)->inspected = false;
+	(*node)->prev = NULL;
 	(*node)->is_taget = false;
 }
 
@@ -186,20 +187,34 @@ void	print_path(t_path *path)
 t_direction	get_most_efficient(t_node *c)
 {
 	int			min;
-	t_direction	i;
 	t_direction	direction;
 	t_node		*target;
 
-	i = 0;
-	while (i < LEFT - 1)
+	if (!c)
+		return (-1);
+	target = c->down;
+	if (target && !target->inspected && c->path_cost > min)
 	{
-		target = ((char *)c + S_NODE_OFFSET + (i * sizeof(t_node *)));
-		if (target && !target->inspected && c->path_cost > min)
-		{
-			min = c->path_cost;
-			direction = i;
-		}
-		i++;
+		min = target->path_cost;
+		direction = DOWN;
+	}
+	target = c->up;
+	if (target && !target->inspected && c->path_cost > min)
+	{
+		min = target->path_cost;
+		direction = UP;
+	}
+	target = c->right;
+	if (target && !target->inspected && c->path_cost > min)
+	{
+		min = target->path_cost;
+		direction = RIGHT;
+	}
+	target = c->left;
+	if (target && !target->inspected && c->path_cost > min)
+	{
+		min = target->path_cost;
+		direction = LEFT;
 	}
 	return (direction);
 }
@@ -209,11 +224,20 @@ void	path_backtracking(t_node *current)
 	t_direction	direction;
 	t_node		*next;
 
+	if (!current)
+		return ;
 	if (current->is_taget)
 		return ;
 	direction = get_most_efficient(current);
 	current->inspected = true;
-	next = ((char *)current + S_NODE_OFFSET + direction * sizeof(t_node *));
+	if (direction == UP)
+		next = current->up;
+	if (direction == DOWN)
+		next = current->down;
+	if (direction == RIGHT)
+		next = current->right;
+	if (direction == LEFT)
+		next = current->left;
 	next->prev = current;
 	path_backtracking(next);
 }
@@ -239,6 +263,7 @@ void	find_path(t_vec2 pos, t_vec2 to)
 	print_path(path_to_follow_first);
 	free_nodes(first);
 	free_path_nodes(path_to_follow_first);
+	exit_error("tests");
 	// while ()
 	// 	print_path(path_to_follow);
 }
