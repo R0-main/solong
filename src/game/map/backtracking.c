@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 08:35:02 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/09 17:15:06 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 09:05:30 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,16 +148,16 @@ void	set_neightbors(t_map *map, t_vec2 pos, t_node *first, t_node *node,
 	t_vec2	left;
 
 	up = (t_vec2){pos.x, pos.y - 1};
-	if ((is_between(up, pos, to) || is_between(up, to, pos)) && !is_wall(map, up) && !node->up)
+	if (is_between(up, pos, to) && !is_wall(map, up) && !node->up)
 		create_node_tree(&first, &node->up, up, to, index);
 	down = (t_vec2){pos.x, pos.y + 1};
-	if ((is_between(down, pos, to) || is_between(down, to, pos)) && !is_wall(map, down) && !node->down)
+	if (is_between(down, pos, to) && !is_wall(map, down) && !node->down)
 		create_node_tree(&first, &node->down, down, to, index);
 	right = (t_vec2){pos.x + 1, pos.y};
-	if ((is_between(right, pos, to) || is_between(right, to, pos)) && !is_wall(map, right) && !node->right)
+	if (is_between(right, pos, to) && !is_wall(map, right) && !node->right)
 		create_node_tree(&first, &node->right, right, to, index);
 	left = (t_vec2){pos.x - 1, pos.y};
-	if ((is_between(left, pos, to) || is_between(left, to, pos)) && !is_wall(map, left) && !node->left)
+	if (is_between(left, pos, to) && !is_wall(map, left) && !node->left)
 		create_node_tree(&first, &node->left, left, to, index);
 }
 
@@ -236,12 +236,29 @@ t_direction	get_most_efficient(t_node *c)
 	return (direction);
 }
 
+bool	all_inspected(t_node *c)
+{
+	if (!c)
+		return (true);
+	if (c->down && !c->down->inspected)
+		return (false);
+	if (c->up && !c->up->inspected)
+		return (false);
+	if (c->right && !c->right->inspected)
+		return (false);
+	if (c->left && !c->left->inspected)
+		return (false);
+	if (c->inspected)
+		return (true);
+	return (true);
+}
+
 void	path_backtracking(t_path *path, t_node *current)
 {
 	t_direction	direction;
 	t_node		*next;
 
-	if (!current || !path)
+	if (!current || !path || all_inspected(current))
 		return ;
 	if (current->is_taget)
 	{
@@ -252,6 +269,10 @@ void	path_backtracking(t_path *path, t_node *current)
 	current->inspected = true;
 	if (direction == -1)
 	{
+		if (!path->prev)
+			path->prev = path;
+		if (!current->prev)
+			current->prev = current;
 		path_backtracking(path->prev, current->prev);
 		return ;
 	}
@@ -276,6 +297,8 @@ void	path_backtracking(t_path *path, t_node *current)
 		path->direction = LEFT;
 	}
 	next->prev = current;
+	if (next->is_taget)
+		return ;
 	path->next = create_path_node(path);
 	path->next->prev = path;
 	path_backtracking(path->next, next);
@@ -305,5 +328,5 @@ void	find_path(t_vec2 pos, t_vec2 to)
 }
 bool	find_player(void)
 {
-	find_path((t_vec2){4, 1}, (t_vec2){1, 3});
+	find_path((t_vec2){9, 2}, (t_vec2){1, 4});
 }

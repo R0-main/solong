@@ -34,6 +34,8 @@ SRCS = ./src/main.c\
 		./src/utils/endswith.c\
 		./src/utils/delay.c\
 		./src/utils/maths/ft_abs.c\
+		./src/utils/maths/ft_min.c\
+		./src/utils/maths/ft_max.c\
 		./src/utils/exit_error.c\
 		$(GNL_SRCS)
 

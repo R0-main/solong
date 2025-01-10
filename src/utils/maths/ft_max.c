@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   ft_max.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 13:05:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 08:50:30 by rguigneb         ###   ########.fr       */
+/*   Created: 2025/01/10 08:49:03 by rguigneb          #+#    #+#             */
+/*   Updated: 2025/01/10 08:49:42 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-
-# define UTILS_H
-
-# include <stdio.h>
-# include <stdlib.h>
-
-int		endswith(char *str, char *substr);
-void	free_2d_buffer(void **_2d_buffer, int len);
-void	delay(int loop);
-
-void	exit_error(const char *msg);
-
-int		ft_max(int a, int b);
-int		ft_min(int a, int b);
-
-
-#endif
+int	ft_max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
