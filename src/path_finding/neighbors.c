@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:12:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 11:53:20 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:09:06 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	is_wall(t_map *map, t_vec2 pos)
 {
 	t_vec2	map_max;
 
-	map_max = (t_vec2){map->witdh - 1, map->height - 1};
+	map_max = (t_vec2){map->width - 1, map->height};
 	return (is_between_zero_and(pos, map_max)
 		&& map->buffer[pos.y][pos.x] == '1');
 }

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:43:30 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 12:40:12 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 13:27:39 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	free_map(void)
 	map = get_map();
 	if (!map->buffer)
 		return (0);
-	free_2d_buffer((void **)map->buffer, map->height);
+	free_2d_buffer((void **)map->buffer, map->height + 1);
 	return (0);
 }
 
@@ -38,6 +38,6 @@ void	print_map(void)
 
 	i = 0;
 	map = get_map();
-	while (i < map->height - 1)
-		printf("%s\n", map->buffer[i++]);
+	while (i < map->height)
+		ft_printf("%s\n", map->buffer[i++]);
 }

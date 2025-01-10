@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 16:58:16 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:06:12 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	draw_map(t_game *game)
 	struct s_draw_map_params	t;
 
 	init_draw_map_data(game, &t);
-	if (!is_between(t.length, POSITION_ZERO, POSITION_MAX))
+	if (!fast_is_between(t.length, POSITION_ZERO, POSITION_MAX))
 		t.length = (t_vec2){WIDTH, HEIGHT};
 	while (t.y < t.length.y)
 	{
@@ -76,10 +76,10 @@ void	generate_tiles(t_game *game, t_img *map)
 
 	texture = get_texture(TILE_TEXTURE);
 	y = 0;
-	while (y < game->map->height - 1)
+	while (y < game->map->height)
 	{
 		x = -1;
-		while (++x < game->map->witdh)
+		while (++x < game->map->width)
 		{
 			if (game->map->buffer[y][x] == '1')
 				continue ;

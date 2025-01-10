@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:16:55 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 11:50:10 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:09:04 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_node	*create_node_tree(t_node **first, t_vec2 pos, t_vec2 to)
 	t_vec2	max_map;
 
 	game = get_game_instance();
-	max_map = (t_vec2){game->map->witdh, game->map->height};
+	max_map = (t_vec2){game->map->width, game->map->height};
 	if (!is_between_zero_and(pos, max_map))
 		return (NULL);
 	current = create_node(first);

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:42:59 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 12:40:18 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 13:27:53 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,78 +15,126 @@
 #include "get_next_line.h"
 #include <unistd.h>
 
-static int	check_for_duplicate_point(t_map *map)
+typedef struct s_map_needed_objects
 {
-	int	x;
-	int	y;
-	int	find_exit;
-	int	find_player;
+	int		exit_count;
+	int		player_count;
+	int		collectible_count;
+}			t_map_needed_objects;
 
+static void	check_for_duplicate_point(t_map *map)
+{
+	int						x;
+	int						y;
+	t_map_needed_objects	objects;
+
+	objects = (t_map_needed_objects){0, 0, 0};
 	y = -1;
-	find_exit = 0;
-	find_player = 0;
-	while (++y < map->height - 1)
+	while (++y < map->height)
 	{
 		x = -1;
-		while (++x < map->witdh - 1)
+		while (++x < map->width)
 		{
-			if (find_player == 1 && map->buffer[y][x] == 'P')
-				return (1);
-			else if (find_exit == 1 && map->buffer[y][x] == 'E')
-				return (1);
-			else if (map->buffer[y][x] == 'P')
-				find_player = 1;
-			else if (map->buffer[y][x] == 'E')
-				find_exit = 1;
+			if (map->buffer[y][x] == PLAYER)
+				objects.player_count += 1;
+			else if (map->buffer[y][x] == EXIT)
+				objects.exit_count += 1;
+			else if (map->buffer[y][x] == COLLECTIBLE)
+				objects.collectible_count += 1;
 		}
 	}
-	return (0);
+	if (objects.player_count == 0 || objects.player_count > 1)
+		exit_error("map has more than 1 player spawn point or doesn't have any!");
+	if (objects.exit_count == 0 || objects.exit_count > 1)
+		exit_error("map has more than 1 exit or doesn't have any!");
+	if (objects.collectible_count == 0)
+		exit_error("map doesn't have any collectible!");
 }
 
-static int	check_valid_map(t_map *map)
+static bool	is_only_wall(char *line)
+{
+	int	i;
+
+	if (!line)
+		return (false);
+	i = 0;
+	while (line[i])
+		if (line[i++] != WALL)
+			return (false);
+	return (true);
+}
+
+static bool	is_only_map_element(char *line)
+{
+	int	i;
+
+	if (!line)
+		return (false);
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != PLAYER && line[i] != WALL && line[i] != EXIT
+			&& line[i] != COLLECTIBLE && line[i] != FLOOR)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+static void	check_valid_map(t_map *map)
 {
 	int	y;
 
-	y = 0;
-	if (check_for_duplicate_point(map))
-		return (1);
+	y = -1;
+	check_for_duplicate_point(map);
 	if (!map->buffer)
-		return (1);
-	if (map->height <= 0 || map->witdh <= 0)
-		return (1);
-	while (y < map->height - 1)
+		exit_error("no map buffer provided at check_valid_map!");
+	if (map->height <= 0 || map->width <= 0)
+		exit_error("map height or/and width are negative in check_valid_map!");
+	while (++y < map->height)
 	{
-		if ((int)ft_strlen(map->buffer[y++]) != map->witdh)
-			return (1);
+		if ((int)ft_strlen(map->buffer[y]) != map->width)
+			exit_error("map width is not the same everywhere!");
+		else if (map->buffer[y][0] != '1'
+			|| map->buffer[y][ft_strlen(map->buffer[y])])
+			exit_error("map doesn't have left or/and right border(s)!");
+		else if ((y == 0 || y == map->height)
+			&& !is_only_wall(map->buffer[y]))
+			exit_error("map doesn't have upper or/and bottom border(s)!");
+		else if (!is_only_map_element(map->buffer[y]))
+			exit_error("map doesn't have only allowed chars!");
 	}
-	return (0);
 }
 
-static int	update_map(t_map *map, int index, char *line)
+static bool	update_map(t_map *map, int index, char *line)
 {
 	size_t	l_len;
 
 	if (!line)
-		return (1);
+		return (true);
 	l_len = ft_strlen(line);
-	if (!map->witdh)
-		map->witdh = l_len - 1;
+	if (!map->width)
+		map->width = l_len - 1;
 	if (line[l_len - 1] == '\n')
 	{
-		map->buffer[index] = ft_substr(line, 0, ft_strlen(line) - 1);
+		map->buffer[index] = ft_substr(line, 0, l_len - 1);
 		free(line);
 	}
 	else
 		map->buffer[index] = line;
-	return (0);
+	return (false);
 }
 
-static int	get_lines_count(int fd)
+static int	get_lines_count(char *path)
 {
 	int		count;
+	int		fd;
 	char	*line;
 
 	count = 0;
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (exit_error("cannot open map file!"), false);
 	line = malloc(1);
 	while (line != NULL)
 	{
@@ -94,6 +142,7 @@ static int	get_lines_count(int fd)
 		line = get_next_line(fd);
 		count++;
 	}
+	close(fd);
 	free(line);
 	return (count);
 }
@@ -108,9 +157,9 @@ void	setup_map_coords(void)
 	x = -1;
 	y = -1;
 	map = get_map();
-	while (++y < map->height - 1)
+	while (++y < map->height)
 	{
-		while (++x < map->witdh - 1)
+		while (++x < map->width)
 		{
 			coords.x = x;
 			coords.y = y;
@@ -122,34 +171,35 @@ void	setup_map_coords(void)
 	}
 }
 
-int	parse_map(char *path)
+void	init_map(t_map *map, char *path)
 {
-	t_map	*map;
-	int		fd;
-	int		i;
-	int		line_count;
+	int	line_count;
+
+	line_count = get_lines_count(path);
+	map->buffer = malloc(sizeof(char *) * (line_count + 1));
+	if (!map->buffer)
+		exit_error("map malloc failed!");
+	map->buffer[line_count] = NULL;
+	map->height = line_count - 1;
+}
+
+void	parse_map(char *path)
+{
+	t_map *map;
+	int i;
+	int fd;
 
 	i = 0;
 	map = get_map();
+	init_map(map, path);
 	fd = open(path, O_RDONLY);
-	if (fd == 1)
-		return (1);
-	line_count = get_lines_count(fd);
-	map->height = line_count;
-	close(fd);
-	map->buffer = malloc(sizeof(char *) * (line_count + 1));
-	if (!map->buffer)
-		return (1);
-	map->buffer[line_count] = NULL;
-	fd = open(path, O_RDONLY);
-	if (fd == 1)
-		return (1);
-	map = get_map();
-	while (i < line_count)
+	if (fd == -1)
+		exit_error("cannot open map file!");
+	while (i < map->height)
 		if (update_map(map, i++, get_next_line(fd)))
 			break ;
-	// TODO RESET THE MAP CHEC // CHECK IF IT IS A RECT check_valid_map(map)
-	check_valid_map(map);
+	if (map->height == map->width)
+		exit_error("map is not a rectangle!");
 	close(fd);
-	return (setup_map_coords(), 0);
-}
+	check_valid_map(map);
+} // CHECK FOR PATHS

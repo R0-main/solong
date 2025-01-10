@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:47:23 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 10:16:33 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 12:51:05 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ void	exit_error(const char *msg)
 	if (game)
 		free_all();
 	ft_printf("%s\n", msg);
-	exit(1);
+	exit(EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/09 10:06:48 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:05:52 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,17 @@
 # include <stdbool.h>
 # include <time.h> // TODO : REMOVE
 
+typedef enum s_map_element
+{
+	WALL = '1',
+	FLOOR = '0',
+	PLAYER = 'P',
+	EXIT = 'E',
+	COLLECTIBLE = 'C',
+}								t_map_element;
+
 int								game_init(t_mlx *mlx);
-bool							find_player(void);
+
 
 typedef struct s_vec2
 {
@@ -34,6 +43,8 @@ typedef struct s_vec2
 bool							is_same_position(t_vec2 pos1, t_vec2 pos2);
 bool							is_between(t_vec2 pos, t_vec2 bpos1,
 									t_vec2 bpos2);
+bool							fast_is_between(t_vec2 pos, t_vec2 bpos1,
+									t_vec2 bpos2);
 bool							is_between_zero_and(t_vec2 pos, t_vec2 to);
 bool							is_between_one(int pos, int bpos1, int bpos2);
 // MAP
@@ -41,7 +52,7 @@ typedef struct s_map
 {
 	char						**buffer;
 	int							height;
-	int							witdh;
+	int							width;
 	t_vec2						player_spawnpoint;
 	t_vec2						exit_coords;
 	t_img						*map_img;
@@ -81,7 +92,7 @@ t_game							*get_game_instance(void);
 void							process_next_frame(void);
 void							render_next_frame(t_mlx *mlx);
 
-int								parse_map(char *path);
+void							parse_map(char *path);
 t_map							*get_map(void);
 int								free_map(void);
 void							print_map(void);

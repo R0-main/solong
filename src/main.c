@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:01:04 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 13:18:06 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 13:40:39 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	destroy_close(t_mlx *mlx)
 int	main_loop(t_mlx *mlx)
 {
 	static int	is_init = 0;
-	static int	loop = 1000000;
+	// static int	loop = 1000000;
 
 	if (is_init == 0)
 	{
@@ -40,7 +40,7 @@ int	main_loop(t_mlx *mlx)
 	{
 		render_next_frame(mlx);
 	}
-	loop++;
+	// loop++;
 	return (0);
 }
 
@@ -54,9 +54,7 @@ int	main(int ac, char **av)
 		return (ft_printf("[ERROR] : Please provide a map in .ber\n"), 1);
 	if (!endswith(av[1], ".ber"))
 		return (ft_printf("[ERROR] : Please provide a valid .ber map !"), 1);
-	if (parse_map(av[1]))
-		return (free_map(), ft_printf("[ERROR] : Error in the map file !\n"),
-			1);
+	parse_map(av[1]);
 	mlx = mlx_init();
 	mlx_vars = get_mlx_vars();
 	mlx_window = NULL;

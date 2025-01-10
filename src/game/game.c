@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:30:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 11:25:02 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:06:28 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	game_init(t_mlx *mlx)
 	init_map_img(game);
 	mlx_get_data_addr(game->map->map_img, &game->map->map_img_data.pixel_bits,
 		&game->map->map_img_data.line_bytes, &game->map->map_img_data.endian);
-	free_path_nodes(find_path((t_vec2){3, 3}, (t_vec2){5, 5}));
+	// free_path_nodes(find_path((t_vec2){3, 3}, (t_vec2){5, 5}));
 	return (0);
 }
 
@@ -56,9 +56,9 @@ void	render_next_frame(t_mlx *mlx)
 	static int					i = 0;
 
 	clock_t start, end;
+	start = clock();
 	if (!coin)
 		coin = get_animation_first_frame(COIN_ANIMATION);
-	start = clock();
 	game = get_game_instance();
 	mlx_destroy_image(mlx->mlx, game->rendering_buffer);
 	game->rendering_buffer = mlx_new_image(game->mlx->mlx, WIDTH, HEIGHT);
