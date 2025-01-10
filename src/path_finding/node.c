@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:14:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 09:20:59 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:50:12 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,26 @@ bool	all_inspected(t_node *c)
 	return (true);
 }
 
-void	create_node(t_node *first, t_node **node)
+t_node	*create_node(t_node *first)
 {
-	*node = (t_node *)malloc(sizeof(t_node));
-	if (!*node)
+	t_node	*node;
+
+	node = (t_node *)malloc(sizeof(t_node));
+	if (!node)
 	{
 		free_nodes(first);
 		exit_error("failed to create a node");
-		return ;
+		return (NULL);
 	}
-	(*node)->down = NULL;
-	(*node)->up = NULL;
-	(*node)->left = NULL;
-	(*node)->right = NULL;
-	(*node)->path_cost = 0;
-	(*node)->inspected = false;
-	(*node)->prev = NULL;
-	(*node)->is_taget = false;
+	node->down = NULL;
+	node->up = NULL;
+	node->left = NULL;
+	node->right = NULL;
+	node->path_cost = 0;
+	node->inspected = false;
+	node->prev = NULL;
+	node->is_taget = false;
+	return (node);
 }
 
 void	free_nodes(t_node *first)

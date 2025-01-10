@@ -6,16 +6,16 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:08:33 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 09:30:12 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:37:11 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PATH_FINDING_H
 
 # define PATH_FINDING_H
+# include "game.h"
 # include <stdbool.h>
 # include <stdlib.h>
-# include "game.h"
 
 typedef enum e_directions
 {
@@ -34,9 +34,10 @@ typedef struct s_path
 
 typedef struct s_node
 {
-	long			path_cost;
+	unsigned long	path_cost;
 	bool			inspected;
 	bool			is_taget;
+	struct s_node	*first;
 	struct s_node	*prev;
 	struct s_node	*up;
 	struct s_node	*down;

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:12:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 09:22:54 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:33:55 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,24 @@ bool	is_wall(t_map *map, t_vec2 pos)
 		&& map->buffer[pos.y][pos.x] == '1');
 }
 
-void	set_neightbors(t_map *map, t_vec2 pos, t_node *first, t_node *node,
-		t_vec2 to, long index)
+void	set_neightbors(t_node **first, t_vec2 pos, t_node *node, t_vec2 to)
 {
-	t_vec2	up;
-	t_vec2	down;
-	t_vec2	right;
-	t_vec2	left;
+	t_vec2	vec;
+	t_game	*game;
 
-	up = (t_vec2){pos.x, pos.y - 1};
-	if (is_between(up, pos, to) && !is_wall(map, up) && !node->up)
-		create_node_tree(&first, &node->up, up, to, index);
-	down = (t_vec2){pos.x, pos.y + 1};
-	if (is_between(down, pos, to) && !is_wall(map, down) && !node->down)
-		create_node_tree(&first, &node->down, down, to, index);
-	right = (t_vec2){pos.x + 1, pos.y};
-	if (is_between(right, pos, to) && !is_wall(map, right) && !node->right)
-		create_node_tree(&first, &node->right, right, to, index);
-	left = (t_vec2){pos.x - 1, pos.y};
-	if (is_between(left, pos, to) && !is_wall(map, left) && !node->left)
-		create_node_tree(&first, &node->left, left, to, index);
+	game = get_game_instance();
+	if (!game)
+		return ;
+	vec = (t_vec2){pos.x, pos.y - 1};
+	if (is_between(vec, pos, to) && !is_wall(game->map, vec) && !node->up)
+		node->up = create_node_tree(first, vec, to);
+	vec = (t_vec2){pos.x, pos.y + 1};
+	if (is_between(vec, pos, to) && !is_wall(game->map, vec) && !node->down)
+		node->down = create_node_tree(first, vec, to);
+	vec = (t_vec2){pos.x + 1, pos.y};
+	if (is_between(vec, pos, to) && !is_wall(game->map, vec) && !node->right)
+		node->right = create_node_tree(first, vec, to);
+	vec = (t_vec2){pos.x - 1, pos.y};
+	if (is_between(vec, pos, to) && !is_wall(game->map, vec) && !node->left)
+		node->left = create_node_tree(first, vec, to);
 }

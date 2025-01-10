@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:08:33 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 09:22:59 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:01:16 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@
 # include "game.h"
 # include "path_finding.h"
 
-void		set_neightbors(t_map *map, t_vec2 pos, t_node *first, t_node *node,
-				t_vec2 to, long index);
-void		create_node_tree(t_node **first, t_node **current, t_vec2 pos,
-				t_vec2 to, long index);
+void		set_neightbors(t_node **first, t_vec2 pos, t_node *node, t_vec2 to);
+
+t_node		*create_node_tree(t_node **first, t_vec2 pos, t_vec2 to);
 
 bool		all_inspected(t_node *c);
-void		create_node(t_node *first, t_node **node);
+t_node		*create_node(t_node *first);
 void		free_nodes(t_node *first);
 
 t_path		*create_path_node(t_path *first);

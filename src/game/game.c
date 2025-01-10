@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:30:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 09:37:14 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:53:08 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	game_init(t_mlx *mlx)
 	init_map_img(game);
 	mlx_get_data_addr(game->map->map_img, &game->map->map_img_data.pixel_bits,
 		&game->map->map_img_data.line_bytes, &game->map->map_img_data.endian);
-	free_path_nodes(find_path((t_vec2){1, 1}, (t_vec2){9, 2}));
+	free_path_nodes(find_path((t_vec2){9, 4}, (t_vec2){2, 1}));
 	return (0);
 }
 

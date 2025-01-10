@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:22:02 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 09:36:46 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:49:25 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,32 +27,32 @@ void	inspect_all(t_node *first)
 
 t_direction	get_most_efficient(t_node *c)
 {
-	long		min;
-	t_direction	direction;
-	t_node		*target;
+	unsigned long	min;
+	t_direction		direction;
+	t_node			*target;
 
 	target = c->down;
-	min = 0;
+	min = c->path_cost - 1;
 	direction = -1;
-	if (target && !target->inspected && target->path_cost > min)
+	if (target && !target->inspected && target->path_cost < min)
 	{
 		min = target->path_cost;
 		direction = DOWN;
 	}
 	target = c->up;
-	if (target && !target->inspected && target->path_cost > min)
+	if (target && !target->inspected && target->path_cost < min)
 	{
 		min = target->path_cost;
 		direction = UP;
 	}
 	target = c->right;
-	if (target && !target->inspected && target->path_cost > min)
+	if (target && !target->inspected && target->path_cost < min)
 	{
 		min = target->path_cost;
 		direction = RIGHT;
 	}
 	target = c->left;
-	if (target && !target->inspected && target->path_cost > min)
+	if (target && !target->inspected && target->path_cost < min)
 	{
 		min = target->path_cost;
 		direction = LEFT;
