@@ -26,10 +26,15 @@ SRCS = ./src/main.c\
 		./src/game/map/parser.c\
 			./src/game/map/map.c\
 			./src/game/map/rendering.c\
-			./src/game/map/backtracking.c\
 		./src/game/world/world.c\
 			./src/game/keybinds/keybinds.c\
 				./src/game/keybinds/mouse.c\
+			./src/path_finding/neighbors.c\
+			./src/path_finding/node_tree.c\
+			./src/path_finding/path_finding.c\
+			./src/path_finding/node.c\
+			./src/path_finding/path_backtracking.c\
+			./src/path_finding/path_nodes.c\
 		./src/utils/free_2d_buffer.c\
 		./src/utils/endswith.c\
 		./src/utils/delay.c\

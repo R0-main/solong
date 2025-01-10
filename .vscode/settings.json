@@ -25,6 +25,9 @@
 		"animations.h": "c",
 		"span": "c",
 		"type_traits": "c",
-		"time.h": "c"
+		"time.h": "c",
+		"path_finding.h": "c",
+		"limits.h": "c",
+		"path_finding_utils.h": "c"
 	}
 }
