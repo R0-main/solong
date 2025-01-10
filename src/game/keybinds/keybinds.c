@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 09:35:40 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 13:16:51 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 09:06:12 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	on_key_pressed(int key)
 	t_game	*game;
 
 	game = get_game_instance();
+	if (!game)
+		return ;
 	if (key == W_KEY || key == UP_ARROW_KEY)
 	{
 		game->camera_offsets.y += 100;

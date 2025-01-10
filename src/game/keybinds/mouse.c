@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:15:41 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 13:16:05 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 09:07:13 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	handle_pressed_mouse_event(int key, t_mlx *mlx)
 	x = 0;
 	y = 0;
 	game = get_game_instance();
-	if (!game)
+	if (!game || !game->mlx || !game->mlx->mlx || game->mlx->win)
 		return ;
 	mlx_mouse_get_pos(game->mlx->mlx, game->mlx->win, &x, &y);
 	game->last_mouse_location = (t_vec2){x, y};
