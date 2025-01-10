@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:08:33 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 10:37:11 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:47:16 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,8 @@ typedef struct s_node
 	unsigned long	path_cost;
 	bool			inspected;
 	bool			is_taget;
-	struct s_node	*first;
 	struct s_node	*prev;
-	struct s_node	*up;
-	struct s_node	*down;
-	struct s_node	*right;
-	struct s_node	*left;
+	struct s_node	*neightbors[4];
 }					t_node;
 
 # define S_NODE_OFFSET sizeof(t_node) - sizeof(t_node *) * 4

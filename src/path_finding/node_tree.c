@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:16:55 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 10:49:31 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:50:10 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	set_node_cost(t_node *node, unsigned long i)
 	if (!node || node->path_cost != 0)
 		return ;
 	node->path_cost = i;
-	set_node_cost(node->down, i + 1);
-	set_node_cost(node->up, i + 1);
-	set_node_cost(node->right, i + 1);
-	set_node_cost(node->left, i + 1);
+	set_node_cost(node->neightbors[UP], i + 1);
+	set_node_cost(node->neightbors[DOWN], i + 1);
+	set_node_cost(node->neightbors[RIGHT], i + 1);
+	set_node_cost(node->neightbors[LEFT], i + 1);
 }
 
 t_node	*create_node_tree(t_node **first, t_vec2 pos, t_vec2 to)

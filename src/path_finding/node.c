@@ -6,26 +6,26 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:14:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 10:50:12 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:51:58 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "path_finding.h"
 #include "path_finding_utils.h"
 
-bool	all_inspected(t_node *c)
+bool	all_inspected(t_node *node)
 {
-	if (!c)
+	if (!node)
 		return (true);
-	if (c->down && !c->down->inspected)
+	if (node->neightbors[DOWN] && !node->neightbors[DOWN]->inspected)
 		return (false);
-	if (c->up && !c->up->inspected)
+	if (node->neightbors[UP] && !node->neightbors[UP]->inspected)
 		return (false);
-	if (c->right && !c->right->inspected)
+	if (node->neightbors[RIGHT] && !node->neightbors[RIGHT]->inspected)
 		return (false);
-	if (c->left && !c->left->inspected)
+	if (node->neightbors[LEFT] && !node->neightbors[LEFT]->inspected)
 		return (false);
-	if (c->inspected)
+	if (node->inspected)
 		return (true);
 	return (true);
 }
@@ -41,10 +41,10 @@ t_node	*create_node(t_node *first)
 		exit_error("failed to create a node");
 		return (NULL);
 	}
-	node->down = NULL;
-	node->up = NULL;
-	node->left = NULL;
-	node->right = NULL;
+	node->neightbors[DOWN] = NULL;
+	node->neightbors[UP] = NULL;
+	node->neightbors[RIGHT] = NULL;
+	node->neightbors[LEFT] = NULL;
 	node->path_cost = 0;
 	node->inspected = false;
 	node->prev = NULL;
@@ -52,14 +52,14 @@ t_node	*create_node(t_node *first)
 	return (node);
 }
 
-void	free_nodes(t_node *first)
+void	free_nodes(t_node *node)
 {
-	if (!first)
+	if (!node)
 		return ;
-	free_nodes(first->down);
-	free_nodes(first->up);
-	free_nodes(first->left);
-	free_nodes(first->right);
-	if (first)
-		free(first);
+	free_nodes(node->neightbors[UP]);
+	free_nodes(node->neightbors[DOWN]);
+	free_nodes(node->neightbors[RIGHT]);
+	free_nodes(node->neightbors[LEFT]);
+	if (node)
+		free(node);
 }
