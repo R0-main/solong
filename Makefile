@@ -66,7 +66,7 @@ run : compile ${EXEC}
 	./${EXEC}
 
 dev : compile ${EXEC}
-	valgrind --leak-check=full --show-leak-kinds=all ./${EXEC} ./maps/packman.ber
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./${EXEC} ./maps/packman.ber
 	make fclean
 
 clean_lib :

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:13:27 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 09:21:04 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:04:37 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_path	*create_path_node(t_path *first)
 		exit_error("failed to create a path node");
 		return (NULL);
 	}
-	path->direction = 0;
+	path->direction = -1;
 	path->next = NULL;
 	path->prev = NULL;
 	return (path);
@@ -41,6 +41,8 @@ t_path	*create_path_node(t_path *first)
 
 void	print_path(t_path *path)
 {
+	if (!path)
+		return ;
 	while (path->next)
 	{
 		if (path->direction == UP)
@@ -51,6 +53,8 @@ void	print_path(t_path *path)
 			printf("RIGHT\n");
 		if (path->direction == LEFT)
 			printf("LEFT\n");
+		if (path->direction == -1)
+			printf("ERROR\n");
 		path = path->next;
 	}
 }

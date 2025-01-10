@@ -6,13 +6,14 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:42:59 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 13:27:53 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:08:05 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "game.h"
 #include "get_next_line.h"
+#include "path_finding.h"
 #include <unistd.h>
 
 typedef struct s_map_needed_objects
@@ -98,8 +99,7 @@ static void	check_valid_map(t_map *map)
 		else if (map->buffer[y][0] != '1'
 			|| map->buffer[y][ft_strlen(map->buffer[y])])
 			exit_error("map doesn't have left or/and right border(s)!");
-		else if ((y == 0 || y == map->height)
-			&& !is_only_wall(map->buffer[y]))
+		else if ((y == 0 || y == map->height) && !is_only_wall(map->buffer[y]))
 			exit_error("map doesn't have upper or/and bottom border(s)!");
 		else if (!is_only_map_element(map->buffer[y]))
 			exit_error("map doesn't have only allowed chars!");
@@ -147,25 +147,19 @@ static int	get_lines_count(char *path)
 	return (count);
 }
 
-void	setup_map_coords(void)
+void	setup_map_coords(t_map *map)
 {
-	t_map	*map;
 	t_vec2	coords;
-	int		x;
-	int		y;
 
-	x = -1;
-	y = -1;
-	map = get_map();
-	while (++y < map->height)
+	coords.y = -1;
+	while (++coords.y < map->height)
 	{
-		while (++x < map->width)
+		coords.x = -1;
+		while (++coords.x < map->width)
 		{
-			coords.x = x;
-			coords.y = y;
-			if (map->buffer[y][x] == 'P')
+			if (map->buffer[coords.y][coords.x] == PLAYER)
 				map->player_spawnpoint = coords;
-			else if (map->buffer[y][x] == 'E')
+			else if (map->buffer[coords.y][coords.x] == EXIT)
 				map->exit_coords = coords;
 		}
 	}
@@ -181,6 +175,19 @@ void	init_map(t_map *map, char *path)
 		exit_error("map malloc failed!");
 	map->buffer[line_count] = NULL;
 	map->height = line_count - 1;
+}
+
+void	check_for_possible_paths(t_map *map)
+{
+	t_path	*path;
+
+	printf("EXIT : %d %d\n", map->exit_coords.x, map->exit_coords.y);
+	printf("PLAYER : %d %d\n", map->player_spawnpoint.x, map->player_spawnpoint.y);
+	path = find_path(map->exit_coords, map->player_spawnpoint);
+	if (!path)
+		exit_error("player cannot exit the map!");
+	print_path(path);
+	free_path_nodes(path);
 }
 
 void	parse_map(char *path)
@@ -202,4 +209,7 @@ void	parse_map(char *path)
 		exit_error("map is not a rectangle!");
 	close(fd);
 	check_valid_map(map);
+	setup_map_coords(map);
+	check_for_possible_paths(map);
+
 } // CHECK FOR PATHS

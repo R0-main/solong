@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:08:33 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 11:47:16 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:54:34 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,15 @@ typedef struct s_node
 	unsigned long	path_cost;
 	bool			inspected;
 	bool			is_taget;
+	t_vec2			pos;
 	struct s_node	*prev;
-	struct s_node	*neightbors[4];
+	struct s_node	*neighbors[4];
 }					t_node;
 
 # define S_NODE_OFFSET sizeof(t_node) - sizeof(t_node *) * 4
 
 void				free_path_nodes(t_path *first);
 t_path				*find_path(t_vec2 pos, t_vec2 to);
+void				print_path(t_path *path);
 
 #endif

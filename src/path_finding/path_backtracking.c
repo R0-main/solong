@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:22:02 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 11:52:44 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:35:48 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@ void	*inspect_all(t_node *first)
 {
 	if (!first)
 		return (NULL);
-	if (first)
-		first->inspected = true;
-	inspect_all(first->neightbors[UP]);
-	inspect_all(first->neightbors[DOWN]);
-	inspect_all(first->neightbors[RIGHT]);
-	inspect_all(first->neightbors[LEFT]);
+	first->inspected = true;
+	inspect_all(first->neighbors[UP]);
+	inspect_all(first->neighbors[DOWN]);
+	inspect_all(first->neighbors[RIGHT]);
+	inspect_all(first->neighbors[LEFT]);
 	return (NULL);
 }
 
@@ -32,15 +31,15 @@ t_direction	get_most_efficient(t_node *c)
 	t_direction		direction;
 	t_direction		i;
 
-	min = c->path_cost - 100;
+	min = c->path_cost - 1;
 	direction = -1;
 	i = UP;
 	while (i <= LEFT)
 	{
-		if (c->neightbors[i] && !c->neightbors[i]->inspected
-			&& c->neightbors[i]->path_cost < min)
+		if (c->neighbors[i] && !c->neighbors[i]->inspected
+			&& c->neighbors[i]->path_cost < min)
 		{
-			min = c->neightbors[i]->path_cost;
+			min = c->neighbors[i]->path_cost;
 			direction = i;
 		}
 		i++;
@@ -48,30 +47,40 @@ t_direction	get_most_efficient(t_node *c)
 	return (direction);
 }
 
-void	*path_backtracking(t_path *path, t_node *c)
+void	*path_backtracking(t_path **first, t_path *path, t_node *c)
 {
 	t_direction	direction;
 	t_node		*next;
+	t_path		*new;
 
-	if (!c || !path || all_inspected(c))
+	if (!c)
 		return (NULL);
 	c->inspected = true;
 	if (c->is_taget)
+	{
+		print_path(*first);
+		exit_error("target found !");
 		return (inspect_all(c));
+	}
+	if (all_inspected(c))
+		return (NULL);
+	if (!path)
+	{
+		printf("created !\n\n\n\\n\n");
+		path = create_path_node(path);
+		*first = path;
+	}
 	direction = get_most_efficient(c);
+	printf("direction : %d\n", direction);
 	if (direction == -1)
 	{
-		if (!path->prev)
-			path->prev = path;
-		if (!c->prev)
-			c->prev = c;
-		path_backtracking(path->prev, c->prev);
+		new = path->prev;
+		free(path);
+		path_backtracking(first, new, c->prev);
 		return (NULL);
 	}
-	next = c->neightbors[direction];
+	c->neighbors[direction]->prev = c;
+	path->next = create_path_node(first);
 	path->direction = direction;
-	next->prev = c;
-	path->next = create_path_node(path);
-	path->next->prev = path;
-	path_backtracking(path->next, next);
+	path_backtracking(first, path->next, c->neighbors[direction]);
 }
