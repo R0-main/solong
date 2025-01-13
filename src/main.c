@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:01:04 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 13:40:39 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:51:35 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	destroy_close(t_mlx *mlx)
 int	main_loop(t_mlx *mlx)
 {
 	static int	is_init = 0;
-	// static int	loop = 1000000;
 
+	// static int	loop = 1000000;
 	if (is_init == 0)
 	{
 		game_init(mlx);
@@ -67,12 +67,12 @@ int	main(int ac, char **av)
 		load_assets(mlx);
 		load_animations(mlx);
 		mlx_key_hook(mlx_vars->win, handle_key, mlx_vars);
-		mlx_hook(mlx_window, MotionNotify, (1L << 8), handle_mouse_motion_event,
-			&mlx_vars);
+		mlx_hook(mlx_window, MotionNotify, (1L << 8),
+			(int (*)())handle_mouse_motion_event, &mlx_vars);
 		mlx_hook(mlx_window, ButtonRelease, (1L << 3),
-			handle_release_mouse_event, mlx_vars);
-		mlx_hook(mlx_window, ButtonPress, (1L << 2), handle_pressed_mouse_event,
-			&mlx_vars);
+			(int (*)())handle_release_mouse_event, mlx_vars);
+		mlx_hook(mlx_window, ButtonPress, (1L << 2),
+			(int (*)())handle_pressed_mouse_event, &mlx_vars);
 		mlx_hook(mlx_window, DestroyNotify, 0, destroy_close, mlx_vars);
 		mlx_loop_hook(mlx_vars->mlx, main_loop, mlx_vars);
 		mlx_loop(mlx);

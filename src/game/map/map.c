@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:43:30 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 13:27:39 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:52:50 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 #include "utils.h"
+#include "ft_printf.h"
 
 int	free_map(void)
 {

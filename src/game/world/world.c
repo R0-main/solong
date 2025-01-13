@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   world.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 13:05:13 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 14:06:18 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:53:04 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	get_min_y(t_game *game)
 	t_vec2	pos;
 
 	pos = get_to_world_coord(game, 1, 1);
-	return (ft_abs(pos.y));
+	return (abs(pos.y));
 }
 
 int	get_min_x(t_game *game)
@@ -48,5 +48,5 @@ int	get_min_x(t_game *game)
 	pos = get_to_world_coord(game, 1, game->map->height);
 	if (pos.x > 0)
 		return (0);
-	return (ft_abs(pos.x) - TILE_X / 2);
+	return (abs(pos.x) - TILE_X / 2);
 }
