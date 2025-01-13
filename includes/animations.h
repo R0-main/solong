@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animations.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:25:13 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 12:32:06 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:57:25 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 # define ANIMATIONS_H
 
-# include "textures.h"
 # include "game.h"
 # include "mlx.h"
 # include "mlx_int.h"
+# include "textures.h"
 
 typedef enum e_animations
 {
@@ -79,5 +79,9 @@ t_animation_frame				*get_animation_first_frame(t_animation_id id);
 
 void							load_animations(void *mlx);
 void							unload_animations(void *mlx);
+
+void							render_animation(t_game *game,
+									t_animation_frame *asset, t_vec2 position);
+;
 
 #endif

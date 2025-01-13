@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:13:27 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 15:28:09 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 19:22:02 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,19 @@ t_path	*create_path_from_last_node(t_node *first_node, t_node *last_node)
 	path = create_path_node(path, first_node);
 	while (last_node)
 	{
-		path->direction = last_node->prev_direction;
-		path->prev = create_path_node(last_node, first_node);
-		path->prev->next = path;
-		path = path->prev;
+		if (last_node->prev_direction != -1)
+		{
+			path->direction = last_node->prev_direction;
+			path->prev = create_path_node(last_node, first_node);
+			path->prev->next = path;
+			if (last_node->prev && !last_node->prev->prev)
+			{
+				free(path->prev);
+				path->prev = NULL;
+			}
+			else
+				path = path->prev;
+		}
 		last_node = last_node->prev;
 	}
 	free_nodes(first_node);
@@ -61,7 +70,7 @@ void	print_path(t_path *path)
 {
 	if (!path)
 		return ;
-	while (path->next)
+	while (path)
 	{
 		if (path->direction == UP)
 			printf("UP\n");
@@ -73,6 +82,8 @@ void	print_path(t_path *path)
 			printf("LEFT\n");
 		if (path->direction == -1)
 			printf("ERROR\n");
+		if (path->direction == -2)
+			printf("ERROR@\n");
 		path = path->next;
 	}
 }
