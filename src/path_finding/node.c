@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:14:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 13:17:52 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 14:47:48 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,30 @@ t_node	*create_node(t_node *first, t_vec2 pos, t_vec2 target,
 	node->f_score = ULONG_MAX;
 	node->pos = pos;
 	return (node);
+}
+
+t_node	*get_cheapest_node(t_node *first)
+{
+	t_node			*cheapest;
+	unsigned long	cheapest_cost;
+
+	if (!first)
+		return (NULL);
+	cheapest_cost = ULONG_MAX;
+	cheapest = NULL;
+	while (first)
+	{
+		if (first->passed == false)
+		{
+			if (first->f_score <= cheapest_cost)
+			{
+				cheapest_cost = first->f_score;
+				cheapest = first;
+			}
+		}
+		first = first->next;
+	}
+	return (cheapest);
 }
 
 void	free_nodes(t_node *node)

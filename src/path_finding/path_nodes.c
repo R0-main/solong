@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:13:27 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 12:28:19 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:28:09 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,23 @@ t_path	*create_path_node(t_path *first_path_node, t_node *first_node)
 	path->direction = -1;
 	path->next = NULL;
 	path->prev = NULL;
+	return (path);
+}
+
+t_path	*create_path_from_last_node(t_node *first_node, t_node *last_node)
+{
+	t_path	*path;
+
+	path = create_path_node(path, first_node);
+	while (last_node)
+	{
+		path->direction = last_node->prev_direction;
+		path->prev = create_path_node(last_node, first_node);
+		path->prev->next = path;
+		path = path->prev;
+		last_node = last_node->prev;
+	}
+	free_nodes(first_node);
 	return (path);
 }
 

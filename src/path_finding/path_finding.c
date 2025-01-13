@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:08:24 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 13:17:16 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:24:32 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_path	*find_path(t_vec2 from, t_vec2 to)
 	current = create_node(&first, from, to, distance_from_origin);
 	first = current;
 	current->f_score = distance_between(from, to);
-	while (!is_finished(first))
+	while (!pass_through_all(first))
 	{
 		current = get_cheapest_node(first);
 		if (!current)

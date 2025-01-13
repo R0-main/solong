@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:16:55 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 13:18:46 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 14:56:00 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,6 @@
 #include "limits.h"
 #include "path_finding.h"
 #include "path_finding_utils.h"
-
-t_node	*get_cheapest_node(t_node *first)
-{
-	t_node			*cheapest;
-	unsigned long	cheapest_cost;
-
-	if (!first)
-		return (NULL);
-	cheapest_cost = ULONG_MAX;
-	cheapest = NULL;
-	while (first)
-	{
-		if (first->passed == false)
-		{
-			if (first->f_score <= cheapest_cost)
-			{
-				cheapest_cost = first->f_score;
-				cheapest = first;
-			}
-		}
-		first = first->next;
-	}
-	return (cheapest);
-}
 
 bool	already_a_node(t_node *first, t_vec2 pos)
 {
@@ -60,7 +36,23 @@ void	add_to_list(t_node *prev, t_node *node)
 	node->next = NULL;
 }
 
-bool	is_finished(t_node *first)
+// void	reverse_list(t_node *first)
+// {
+// 	t_node	*last;
+// 	t_node	*current;
+// 	t_node	*new_list;
+
+// 	if (!first)
+// 		return ;
+// 	current = first;
+// 	while (current->prev)
+// 	{
+
+// 	}
+// 	node->next = NULL;
+// }
+
+bool	pass_through_all(t_node *first)
 {
 	while (first)
 	{
@@ -70,23 +62,3 @@ bool	is_finished(t_node *first)
 	}
 	return (true);
 }
-
-t_path	*create_path_from_last_node(t_node *first_node, t_node *last_node)
-{
-	t_path	*path;
-	t_path	*first;
-
-	path = create_path_node(path, first_node);
-	first = path;
-	while (last_node->prev)
-	{
-		path->direction = last_node->prev_direction;
-		path->next = create_path_node(first, first_node);
-		path->next->prev = path;
-		path = path->next;
-		last_node = last_node->prev;
-	}
-	free_nodes(first_node);
-	return (first);
-}
-

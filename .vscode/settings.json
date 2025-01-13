@@ -29,6 +29,7 @@
 		"path_finding.h": "c",
 		"limits.h": "c",
 		"path_finding_utils.h": "c",
-		"map": "c"
+		"map": "c",
+		"ranges": "c"
 	}
 }
