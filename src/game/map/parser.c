@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:42:59 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 16:08:05 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:39:28 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,9 +181,10 @@ void	check_for_possible_paths(t_map *map)
 {
 	t_path	*path;
 
-	printf("EXIT : %d %d\n", map->exit_coords.x, map->exit_coords.y);
-	printf("PLAYER : %d %d\n", map->player_spawnpoint.x, map->player_spawnpoint.y);
-	path = find_path(map->exit_coords, map->player_spawnpoint);
+	// printf("EXIT : %d %d\n", map->exit_coords.x, map->exit_coords.y);
+	// printf("PLAYER : %d %d\n", map->player_spawnpoint.x, map->player_spawnpoint.y);
+	path = A_star((t_vec2){1, 1}, (t_vec2){5, 1});
+	// print_path(path);
 	if (!path)
 		exit_error("player cannot exit the map!");
 	print_path(path);

@@ -6,29 +6,15 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:14:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 15:53:31 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 11:11:20 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "path_finding.h"
 #include "path_finding_utils.h"
 
-bool	all_inspected(t_node *node)
-{
-	if (!node)
-		return (true);
-	if (node->neighbors[DOWN] && !node->neighbors[DOWN]->inspected)
-		return (false);
-	if (node->neighbors[UP] && !node->neighbors[UP]->inspected)
-		return (false);
-	if (node->neighbors[RIGHT] && !node->neighbors[RIGHT]->inspected)
-		return (false);
-	if (node->neighbors[LEFT] && !node->neighbors[LEFT]->inspected)
-		return (false);
-	return (true);
-}
-
-t_node	*create_node(t_node *first, t_vec2 pos)
+t_node	*create_node(t_node *first, t_vec2 pos, t_vec2 target,
+		unsigned long dest_o)
 {
 	t_node	*node;
 
@@ -39,26 +25,30 @@ t_node	*create_node(t_node *first, t_vec2 pos)
 		exit_error("failed to create a node");
 		return (NULL);
 	}
-	node->neighbors[UP] = NULL;
-	node->neighbors[DOWN] = NULL;
-	node->neighbors[RIGHT] = NULL;
-	node->neighbors[LEFT] = NULL;
-	node->path_cost = 0;
-	node->inspected = false;
+	node->distance_from_destination = distance_between(pos, target);
+	node->distance_from_origin = dest_o;
+	node->passed = false;
+	node->next = NULL;
+	node->cost = node->distance_from_destination + node->distance_from_origin;
+	node->neighbors[UP] = (t_vec2){pos.x, pos.y - 1};
+	node->neighbors[DOWN] = (t_vec2){pos.x, pos.y + 1};
+	node->neighbors[RIGHT] = (t_vec2){pos.x + 1, pos.y};
+	node->neighbors[LEFT] = (t_vec2){pos.x - 1, pos.y};
 	node->prev = NULL;
-	node->is_taget = false;
+	node->prev_direction = -1;
+	node->f_score = 1844674407370955161;
 	node->pos = pos;
 	return (node);
 }
 
 void	free_nodes(t_node *node)
 {
-	if (!node)
-		return ;
-	free_nodes(node->neighbors[UP]);
-	free_nodes(node->neighbors[DOWN]);
-	free_nodes(node->neighbors[RIGHT]);
-	free_nodes(node->neighbors[LEFT]);
-	if (node)
+	t_node	*tmp;
+
+	while (node)
+	{
+		tmp = node->next;
 		free(node);
+		node = tmp;
+	}
 }

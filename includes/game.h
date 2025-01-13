@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 14:05:52 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 08:57:26 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 # define GAME_H
 
-# include "math.h"
 # include "mlx.h"
 # include "mlx_int.h"
 # include "mlx_wrapper.h"
 # include "utils.h"
+# include <math.h>
 # include <stdbool.h>
 # include <time.h> // TODO : REMOVE
 
@@ -33,7 +33,6 @@ typedef enum s_map_element
 
 int								game_init(t_mlx *mlx);
 
-
 typedef struct s_vec2
 {
 	int							x;
@@ -47,6 +46,7 @@ bool							fast_is_between(t_vec2 pos, t_vec2 bpos1,
 									t_vec2 bpos2);
 bool							is_between_zero_and(t_vec2 pos, t_vec2 to);
 bool							is_between_one(int pos, int bpos1, int bpos2);
+unsigned long					distance_between(t_vec2 pos1, t_vec2 pos2);
 // MAP
 typedef struct s_map
 {

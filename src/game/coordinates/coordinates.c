@@ -6,11 +6,13 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 15:16:24 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 15:15:03 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 08:57:19 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
+
+// #include "<math.h>"
 
 bool	is_same_position(t_vec2 pos1, t_vec2 pos2)
 {
@@ -47,4 +49,9 @@ bool	is_between_zero_and(t_vec2 pos, t_vec2 to)
 {
 	return (pos.x <= to.x && pos.x >= POSITION_ZERO.x && pos.y <= to.y
 		&& pos.y >= POSITION_ZERO.y);
+}
+
+unsigned long	distance_between(t_vec2 pos1, t_vec2 pos2)
+{
+	return (sqrt((pos2.x - pos1.x) + (pos2.y - pos1.y)));
 }

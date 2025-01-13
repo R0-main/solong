@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:08:33 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 16:54:34 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:06:28 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,21 @@ typedef struct s_path
 
 typedef struct s_node
 {
-	unsigned long	path_cost;
-	bool			inspected;
-	bool			is_taget;
+	unsigned long	distance_from_destination;
+	unsigned long	distance_from_origin;
+	unsigned long	cost;
+	unsigned long	f_score;
+	bool			passed;
+	t_vec2			neighbors[4];
 	t_vec2			pos;
+	struct s_node	*next;
 	struct s_node	*prev;
-	struct s_node	*neighbors[4];
+	t_direction		prev_direction;
 }					t_node;
-
-# define S_NODE_OFFSET sizeof(t_node) - sizeof(t_node *) * 4
 
 void				free_path_nodes(t_path *first);
 t_path				*find_path(t_vec2 pos, t_vec2 to);
 void				print_path(t_path *path);
+t_path				*A_star(t_vec2 from, t_vec2 to);
 
 #endif

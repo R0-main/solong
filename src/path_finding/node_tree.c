@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:16:55 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 17:14:51 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:14:51 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,66 +15,133 @@
 #include "path_finding.h"
 #include "path_finding_utils.h"
 
-void	set_node_cost(t_node *node, unsigned long i)
+t_node	*get_cheapest_node(t_node *first)
 {
-	printf("%d\n", i);
-	if (!node || node->path_cost != 0)
-		return ;
-	node->path_cost = i;
-	set_node_cost(node->neighbors[UP], i + 1);
-	set_node_cost(node->neighbors[DOWN], i + 1);
-	set_node_cost(node->neighbors[RIGHT], i + 1);
-	set_node_cost(node->neighbors[LEFT], i + 1);
+	t_node			*cheapest;
+	unsigned long	cheapest_cost;
+
+	if (!first)
+		return (NULL);
+	cheapest_cost = ULONG_MAX;
+	cheapest = NULL;
+	while (first)
+	{
+		if (first->passed == false)
+		{
+			if (first->f_score <= cheapest_cost)
+			{
+				cheapest_cost = first->f_score;
+				cheapest = first;
+			}
+		}
+		first = first->next;
+	}
+	return (cheapest);
 }
 
-t_node	*create_node_tree(t_node **first, t_vec2 pos, t_vec2 from, t_vec2 to)
+bool	already_a_node(t_node *first, t_vec2 pos)
 {
-	t_node			*current;
-	t_map			*map;
-	t_vec2			max_map;
-	static t_node	*array[8][53] = {};
-	static int		i = 0;
-	int				y;
+	while (first)
+	{
+		if (is_same_position(first->pos, pos))
+			return (true);
+		first = first->next;
+	}
+	return (false);
+}
+
+void	add_to_list(t_node *prev, t_node *node)
+{
+	if (!prev)
+		return ;
+	while (prev->next)
+		prev = prev->next;
+	prev->next = node;
+	node->next = NULL;
+}
+
+bool	is_finished(t_node *first)
+{
+	while (first)
+	{
+		if (first->passed == false)
+			return (false);
+		first = first->next;
+	}
+	return (true);
+}
+
+t_path	*create_path_from_last_node(t_node *first_node, t_node *last_node)
+{
+	t_path	*path;
+	t_path	*first;
+
+	path = create_path_node(path, first_node);
+	first = path;
+	while (last_node->prev)
+	{
+		path->direction = last_node->prev_direction;
+		path->next = create_path_node(first, first_node);
+		path->next->prev = path;
+		path = path->next;
+		last_node = last_node->prev;
+	}
+	free_nodes(first_node);
+	return (first);
+}
+
+void	foreach_neighbor(t_node **first, t_node **current, t_vec2 to,
+		unsigned long distance_from_origin)
+{
+	int		y;
+	t_map	*map;
+	t_node	*neighbor;
+	t_vec2	vec;
 
 	map = get_map();
-	max_map = (t_vec2){map->width, map->height};
-	if (!is_between_zero_and(pos, max_map))
-		return (NULL);
-	for (int y = 0; y < 8; y++)
+	y = -1;
+	while (++y < 4)
 	{
-		for (int x = 0; x < 53; x++)
+		vec = (*current)->neighbors[y];
+		if (!is_wall(map, vec))
 		{
-			array[y][x] = create_node(first, (t_vec2){x, y});
+			neighbor = create_node((*first), vec, to, distance_from_origin);
+			if (!already_a_node((*first), neighbor->pos)
+				&& (*current)->distance_from_origin <= neighbor->distance_from_origin)
+			{
+				neighbor->prev = (*current);
+				neighbor->prev_direction = y;
+				neighbor->f_score = neighbor->cost;
+				add_to_list((*first), neighbor);
+			}
+			else
+				free(neighbor);
 		}
 	}
-	current = create_node(first, pos);
-	if (!*first)
-		*first = current;
-	if (array[pos.y][pos.x])
-		return (array[pos.y][pos.x]);
-	array[pos.y][pos.x] = current;
-	set_neightbors(first, pos, current, to);
-	if (is_same_position(pos, to))
+}
+
+t_path	*A_star(t_vec2 from, t_vec2 to)
+{
+	t_node			*first;
+	t_node			*current;
+	t_node			*neighbor;
+	unsigned long	distance_from_origin;
+	t_vec2			vec;
+
+	distance_from_origin = 0;
+	current = create_node(&first, from, to, distance_from_origin);
+	first = current;
+	current->f_score = distance_between(from, to);
+	while (!is_finished(first))
 	{
-		printf("HERE \n");
-		// printf("pos :  %d %d\n", pos.x, pos.y);
-		// for (int i = 0; i < 500; i++)
-		// {
-		// 	printf("i : %d %d\n", array[i].x, array[i].y);
-		// }
-		set_node_cost(current, 0);
-		current->is_taget = true;
-		// for (int i = 0; i < 8; i++)
-		// {
-		// 	for (int x = 0; x < 53; x++)
-		// 	{
-		// 		if (array[i][x])
-		// 			printf(" %d ", array[i][x]->path_cost);
-		// 		else
-		// 			printf(" - ");
-		// 	}
-		// 	printf("\n");
-		// }
+		current = get_cheapest_node(first);
+		if (!current)
+			return (free_nodes(first), NULL);
+		current->passed = true;
+		if (is_same_position(current->pos, to))
+			return (create_path_from_last_node(first, current));
+		foreach_neighbor(&first, &current, to, distance_from_origin++);
 	}
-	return (current);
+	free_nodes(first);
+	return (NULL);
 }

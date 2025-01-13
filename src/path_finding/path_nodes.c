@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:13:27 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 16:04:37 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:28:19 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@ void	free_path_nodes(t_path *first)
 	}
 }
 
-t_path	*create_path_node(t_path *first)
+t_path	*create_path_node(t_path *first_path_node, t_node *first_node)
 {
 	t_path	*path;
 
-	path = (t_node *)malloc(sizeof(t_node));
+	path = (t_path *)malloc(sizeof(t_path));
 	if (!path)
 	{
-		free_path_nodes(first);
+		free_path_nodes(first_path_node);
+		free_nodes(first_node);
 		exit_error("failed to create a path node");
 		return (NULL);
 	}

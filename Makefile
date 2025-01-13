@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -Iincludes
+CFLAGS = -Iincludes -O3 -O2 -flto -ffast-math -march=native
 
 EXEC = game.out
 MLX_LIB = ./minilibx_linux/libmlx_Linux.a
@@ -46,14 +46,13 @@ SRCS = ./src/main.c\
 
 OBJS = ${SRCS:.c=.o}
 
-# also compile libft
 FT_PRINTF_PATH = ./src/dependencies/ft_printf
 FT_PRINTF = ./src/dependencies/ft_printf/libftprintf.a
 
 all : compile
 
 compile: $(OBJS) $(FT_PRINTF)
-	$(CC) $(OBJS) ${MLX_LIB} $(FT_PRINTF) -lXext -lX11 -lm -lz -O3 -O2 -flto -ffast-math -march=native -pipe -o ${EXEC}
+	$(CC) ${CFLAGS} $(OBJS) ${MLX_LIB} $(FT_PRINTF) -lXext -lX11 -lm -lz -pipe -o ${EXEC}
 
 %.o : %.c
 	$(CC) ${CFLAGS} -c $< -o $@
@@ -66,7 +65,7 @@ run : compile ${EXEC}
 	./${EXEC}
 
 dev : compile ${EXEC}
-	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./${EXEC} ./maps/packman.ber
+	valgrind --leak-check=full --show-leak-kinds=all ./${EXEC} ./maps/packman.ber
 	make fclean
 
 clean_lib :
