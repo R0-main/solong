@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:16:55 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 13:14:51 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:18:46 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,58 +90,3 @@ t_path	*create_path_from_last_node(t_node *first_node, t_node *last_node)
 	return (first);
 }
 
-void	foreach_neighbor(t_node **first, t_node **current, t_vec2 to,
-		unsigned long distance_from_origin)
-{
-	int		y;
-	t_map	*map;
-	t_node	*neighbor;
-	t_vec2	vec;
-
-	map = get_map();
-	y = -1;
-	while (++y < 4)
-	{
-		vec = (*current)->neighbors[y];
-		if (!is_wall(map, vec))
-		{
-			neighbor = create_node((*first), vec, to, distance_from_origin);
-			if (!already_a_node((*first), neighbor->pos)
-				&& (*current)->distance_from_origin <= neighbor->distance_from_origin)
-			{
-				neighbor->prev = (*current);
-				neighbor->prev_direction = y;
-				neighbor->f_score = neighbor->cost;
-				add_to_list((*first), neighbor);
-			}
-			else
-				free(neighbor);
-		}
-	}
-}
-
-t_path	*A_star(t_vec2 from, t_vec2 to)
-{
-	t_node			*first;
-	t_node			*current;
-	t_node			*neighbor;
-	unsigned long	distance_from_origin;
-	t_vec2			vec;
-
-	distance_from_origin = 0;
-	current = create_node(&first, from, to, distance_from_origin);
-	first = current;
-	current->f_score = distance_between(from, to);
-	while (!is_finished(first))
-	{
-		current = get_cheapest_node(first);
-		if (!current)
-			return (free_nodes(first), NULL);
-		current->passed = true;
-		if (is_same_position(current->pos, to))
-			return (create_path_from_last_node(first, current));
-		foreach_neighbor(&first, &current, to, distance_from_origin++);
-	}
-	free_nodes(first);
-	return (NULL);
-}

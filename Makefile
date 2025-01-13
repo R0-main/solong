@@ -33,7 +33,6 @@ SRCS = ./src/main.c\
 			./src/path_finding/node_tree.c\
 			./src/path_finding/path_finding.c\
 			./src/path_finding/node.c\
-			./src/path_finding/path_backtracking.c\
 			./src/path_finding/path_nodes.c\
 		./src/utils/free_2d_buffer.c\
 		./src/utils/endswith.c\

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:08:24 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 09:48:23 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:17:16 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,29 @@
 #include "path_finding.h"
 #include "path_finding_utils.h"
 
-// t_path	*find_path(t_vec2 pos, t_vec2 to)
-// {
-// 	t_node	*first;
-// 	t_node	*current;
-// 	t_path	*path_to_follow;
+// A* Algo
+t_path	*find_path(t_vec2 from, t_vec2 to)
+{
+	t_node			*first;
+	t_node			*current;
+	t_node			*neighbor;
+	unsigned long	distance_from_origin;
+	t_vec2			vec;
 
-// 	first = NULL;
-// 	create_node_tree(&first, pos, pos, to);
-// 	if (!first)
-// 		return (NULL);
-// 	current = first;
-// 	path_to_follow = NULL;
-// 	// printf("%d \n", current->neighbors[UP]);
-// 	exit(1);
-// 	path_backtracking(&path_to_follow, path_to_follow, current);
-// 	print_path(path_to_follow);
-// 	free_nodes(first);
-// 	return (path_to_follow);
-// }
+	distance_from_origin = 0;
+	current = create_node(&first, from, to, distance_from_origin);
+	first = current;
+	current->f_score = distance_between(from, to);
+	while (!is_finished(first))
+	{
+		current = get_cheapest_node(first);
+		if (!current)
+			return (free_nodes(first), NULL);
+		current->passed = true;
+		if (is_same_position(current->pos, to))
+			return (create_path_from_last_node(first, current));
+		foreach_neighbor(&first, &current, to, distance_from_origin++);
+	}
+	free_nodes(first);
+	return (NULL);
+}

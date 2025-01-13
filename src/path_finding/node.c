@@ -6,10 +6,11 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:14:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 11:11:20 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:17:52 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <limits.h>
 #include "path_finding.h"
 #include "path_finding_utils.h"
 
@@ -36,7 +37,7 @@ t_node	*create_node(t_node *first, t_vec2 pos, t_vec2 target,
 	node->neighbors[LEFT] = (t_vec2){pos.x - 1, pos.y};
 	node->prev = NULL;
 	node->prev_direction = -1;
-	node->f_score = 1844674407370955161;
+	node->f_score = ULONG_MAX;
 	node->pos = pos;
 	return (node);
 }

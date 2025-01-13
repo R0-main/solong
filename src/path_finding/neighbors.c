@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:12:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 09:45:43 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:18:52 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,32 @@ bool	is_wall(t_map *map, t_vec2 pos)
 		&& map->buffer[pos.y][pos.x] == WALL);
 }
 
-// void	set_neightbors(t_node **first, t_vec2 from, t_node *node, t_vec2 to)
-// {
-// 	t_vec2	vec;
-// 	t_map	*map;
+void	foreach_neighbor(t_node **first, t_node **current, t_vec2 to,
+		unsigned long distance_from_origin)
+{
+	int		y;
+	t_map	*map;
+	t_node	*neighbor;
+	t_vec2	vec;
 
-// 	map = get_map();
-// 	if (!map)
-// 		return ;
-// 	vec = (t_vec2){node->pos.x, node->pos.y - 1};
-// 	if (!is_wall(map, vec) && !node->neighbors[UP])
-// 		node->neighbors[UP] = create_node_tree(first, vec, from, to);
-// 	vec = (t_vec2){node->pos.x, node->pos.y + 1};
-// 	if (!is_wall(map, vec) && !node->neighbors[DOWN])
-// 		node->neighbors[DOWN] = create_node_tree(first, vec, from, to);
-// 	vec = (t_vec2){node->pos.x + 1, node->pos.y};
-// 	if (!is_wall(map, vec) && !node->neighbors[RIGHT])
-// 		node->neighbors[RIGHT] = create_node_tree(first, vec, from, to);
-// 	vec = (t_vec2){node->pos.x - 1, node->pos.y};
-// 	if (!is_wall(map, vec) && !node->neighbors[LEFT])
-// 		node->neighbors[LEFT] = create_node_tree(first, vec, from, to);
-// }
+	map = get_map();
+	y = -1;
+	while (++y < 4)
+	{
+		vec = (*current)->neighbors[y];
+		if (!is_wall(map, vec))
+		{
+			neighbor = create_node((*first), vec, to, distance_from_origin);
+			if (!already_a_node((*first), neighbor->pos)
+				&& (*current)->distance_from_origin <= neighbor->distance_from_origin)
+			{
+				neighbor->prev = (*current);
+				neighbor->prev_direction = y;
+				neighbor->f_score = neighbor->cost;
+				add_to_list((*first), neighbor);
+			}
+			else
+				free(neighbor);
+		}
+	}
+}
