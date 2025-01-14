@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:12:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 10:21:03 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:00:50 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ void	foreach_neighbor(t_node **first, t_node **current, t_vec2 to,
 	{
 		vec = (*current)->neighbors[y];
 		neighbor = create_node((*first), vec, to, distance_from_origin);
-		if (!is_wall(map, vec) && !already_a_node((*first), neighbor->pos)
-			&& \
-			(*current)->distance_from_origin <= neighbor->distance_from_origin)
+		if (!is_wall(map, vec) && !is_enemy(map, vec)
+			&& !already_a_node((*first), neighbor->pos)
+			&& (*current)->distance_from_origin <= \
+				neighbor->distance_from_origin)
 		{
 			neighbor->prev = (*current);
 			neighbor->prev_direction = y;

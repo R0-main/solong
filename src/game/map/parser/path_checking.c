@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 08:46:05 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 08:46:45 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:07:57 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	check_for_possible_paths(t_map *map)
 	if (!path)
 		exit_error(MAP_PLAYER_CANNOT_EXIT_ERROR);
 	free_path_nodes(path);
-	while (++i < MAX_COLLECTIBLE)
+	while (++i < MAX_COLLECTIBLES)
 	{
 		if (!map || !map->collectibles_coords[i].x
 			|| !map->collectibles_coords[i].y)

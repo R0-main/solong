@@ -22,12 +22,14 @@ SRCS = ./src/main.c\
 			./src/mlx_wrapper/textures/textures.c\
 				./src/mlx_wrapper/textures/textures_loader.c\
 		./src/game/game.c\
+			./src/game/world/edges.c\
 			./src/game/coordinates/coordinates.c\
 			./src/game/entities/collectible.c\
 			./src/game/entities/entities_utils.c\
 			./src/game/entities/player.c\
 			./src/game/entities/exit.c\
 			./src/game/entities/entities.c\
+			./src/game/entities/enemy.c\
 		./src/game/score/score.c\
 		./src/game/map/parser/parser.c\
 			./src/game/map/parser/check_borders.c\
@@ -36,6 +38,7 @@ SRCS = ./src/main.c\
 			./src/game/map/parser/path_checking.c\
 			./src/game/map/map.c\
 			./src/game/map/rendering.c\
+			./src/game/game_ticks.c\
 		./src/game/world/world.c\
 			./src/game/keybinds/keybinds.c\
 				./src/game/keybinds/mouse.c\

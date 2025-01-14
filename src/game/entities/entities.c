@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:22:19 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 15:53:02 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:56:52 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	entities_loop(t_game *game)
 {
 	t_entity	*current;
 	t_vec2		pos;
-	t_path		*path;
 
 	if (!game || !game->init)
 		return ;
@@ -72,33 +71,6 @@ void	entities_loop(t_game *game)
 		pos.y -= game->camera_offsets.y;
 		pos.x -= TILE_X;
 		pos.y += TILE_Y / 2;
-		if (game->tick % 20 == 0)
-		{
-			if (current->path_to_follow)
-			{
-				pos = current->pos;
-				if (current->path_to_follow->direction == UP)
-					pos.y -= 1;
-				if (current->path_to_follow->direction == DOWN)
-					pos.y += 1;
-				if (current->path_to_follow->direction == RIGHT)
-					pos.x += 1;
-				if (current->path_to_follow->direction == LEFT)
-					pos.x -= 1;
-				if (!is_wall(game->map, pos))
-				{
-					path = current->path_to_follow->next;
-					current->last_direction = current->path_to_follow->direction;
-					free(current->path_to_follow);
-					if (current->type == PLAYER_TYPE)
-						game->steps_made += 1;
-					current->path_to_follow = path;
-					current->pos = pos;
-				}
-				else
-					free_path_nodes(current->path_to_follow);
-			}
-		}
 		if (current->idle_animation && game->tick % (100
 				/ current->idle_animation->animation.params.speed) == 0)
 		{

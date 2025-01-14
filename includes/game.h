@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 15:29:30 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:49:16 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ bool							is_between_zero_and(t_vec2 pos, t_vec2 to);
 unsigned long					distance_between(t_vec2 pos1, t_vec2 pos2);
 t_vec2							get_to_tile_coord(t_game *game, int x, int y);
 
-# define MAX_COLLECTIBLE 999
+# define MAX_COLLECTIBLES 999
+# define MAX_ENEMIES 999
 
 // MAP
 typedef struct s_map
@@ -52,7 +53,8 @@ typedef struct s_map
 	int							width;
 	t_vec2						player_spawnpoint;
 	t_vec2						exit_coords;
-	t_vec2						collectibles_coords[MAX_COLLECTIBLE];
+	t_vec2						collectibles_coords[MAX_COLLECTIBLES];
+	t_vec2						enemies_coords[MAX_ENEMIES];
 	t_img						*map_img;
 	t_img_data					map_img_data;
 	int							collectible_count;
@@ -101,6 +103,7 @@ typedef enum s_map_element
 	PLAYER = 'P',
 	EXIT = 'E',
 	COLLECTIBLE = 'C',
+	ENEMY = 'X',
 }								t_map_element;
 
 t_game							*get_game_instance(void);
@@ -112,6 +115,7 @@ t_map							*get_map(void);
 int								free_map(void);
 void							print_map(void);
 bool							is_wall(t_map *map, t_vec2 pos);
+bool							is_enemy(t_map *map, t_vec2 pos);
 
 // KEYBINDS
 void							on_key_pressed(int key);
@@ -126,6 +130,8 @@ t_vec2							get_to_world_coord(t_game *game, int x, int y);
 int								init_map_asset(t_game *game);
 
 void							write_score_on_screen(t_game *game);
+
+void							on_game_tick(t_game *game);
 
 # define POSITION_ZERO ((t_vec2){0, 0})
 # define POSITION_MAX ((t_vec2){WIDTH - 1, HEIGHT})

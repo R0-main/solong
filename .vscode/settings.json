@@ -32,6 +32,7 @@
 		"map": "c",
 		"ranges": "c",
 		"stdbool.h": "c",
-		"entities.h": "c"
+		"entities.h": "c",
+		"numbers": "c"
 	}
 }

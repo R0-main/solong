@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 08:48:46 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 08:55:28 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:04:04 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static bool	is_only_map_element(char *line)
 	while (line[i])
 	{
 		if (line[i] != PLAYER && line[i] != WALL && line[i] != EXIT
-			&& line[i] != COLLECTIBLE && line[i] != FLOOR)
+			&& line[i] != COLLECTIBLE && line[i] != FLOOR && line[i] != ENEMY)
 			return (false);
 		i++;
 	}

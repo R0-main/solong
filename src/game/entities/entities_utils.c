@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:43:20 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 15:38:27 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:31:45 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,23 @@ t_entity	*get_entity_at_location(t_game *game, t_vec2 pos,
 	while (current)
 	{
 		if (is_same_position(current->pos, pos) && current->type == type)
+			return (current);
+		current = current->next;
+	}
+	return (NULL);
+}
+
+t_entity	*get_entity_at_location_diffrent_from(t_game *game, t_vec2 pos,
+		t_entity *entity)
+{
+	t_entity	*current;
+
+	if (!game || !game->init)
+		return (NULL);
+	current = game->entities;
+	while (current)
+	{
+		if (is_same_position(current->pos, pos) && current != entity)
 			return (current);
 		current = current->next;
 	}

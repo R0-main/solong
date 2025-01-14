@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:30:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 15:47:41 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:50:32 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,23 @@ void	init_games_entities(t_game *game)
 	int	i;
 
 	i = 0;
-	if (!game)
+	if (!game || !game->map)
 		return ;
 	create_player_entity(game);
 	create_exit_entity(game);
-	while (game->map && i < MAX_COLLECTIBLE)
+	while (i < MAX_COLLECTIBLES)
 	{
 		if (game->map->collectibles_coords[i].x
 			&& game->map->collectibles_coords[i].y)
 			create_collectible_entity(game, game->map->collectibles_coords[i]);
+		i++;
+	}
+	i = 0;
+	while (i < MAX_ENEMIES)
+	{
+		if (game->map->enemies_coords[i].x
+			&& game->map->enemies_coords[i].y)
+			create_enemy_entity(game, game->map->enemies_coords[i]);
 		i++;
 	}
 }
@@ -98,6 +106,7 @@ void	render_next_frame(t_mlx *mlx)
 	game->tick++;
 	if (!game->rendering_buffer)
 		return ;
+	on_game_tick(game);
 	draw_map(game);
 	entities_loop(game);
 	write_score_on_screen(game);

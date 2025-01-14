@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:43:30 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 10:21:09 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:39:58 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ bool	is_wall(t_map *map, t_vec2 pos)
 	map_max = (t_vec2){map->width, map->height};
 	return (is_between_zero_and(pos, map_max)
 		&& map->buffer[pos.y][pos.x] == WALL);
+}
+
+bool	is_enemy(t_map *map, t_vec2 pos)
+{
+	t_vec2	map_max;
+
+	map_max = (t_vec2){map->width, map->height};
+	return (is_between_zero_and(pos, map_max)
+		&& map->buffer[pos.y][pos.x] == ENEMY);
 }
 
 void	print_map(void)

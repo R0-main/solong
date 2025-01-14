@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 08:58:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 14:44:05 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:31:55 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef enum e_entity_type
 	PLAYER_TYPE,
 	COLLECTIBLE_TYPE,
 	EXIT_TYPE,
+	ENEMY_TYPE,
 }						t_entity_type;
 
 typedef struct s_entity
@@ -55,6 +56,7 @@ void					add_to_entities_list(t_entity *entity);
 void					create_player_entity(t_game *game);
 void					create_collectible_entity(t_game *game, t_vec2 pos);
 void					create_exit_entity(t_game *game);
+void					create_enemy_entity(t_game *game, t_vec2 pos);
 
 void					entities_loop(t_game *game);
 void					handle_player(t_game *game, t_entity *player);
@@ -64,5 +66,8 @@ t_entity				*get_entity_at_location(t_game *game, t_vec2 pos,
 
 void					rotate_entity_texture(t_game *game, t_entity *entity,
 							t_direction direction);
+
+t_entity				*get_entity_at_location_diffrent_from(t_game *game,
+							t_vec2 pos, t_entity *entity);
 
 #endif

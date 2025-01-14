@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:51:17 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 13:06:02 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:14:25 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # define MAP_LEFT_OR_AND_RIGHT_BORDER_ERROR "map doesn't have left or/and right border(s)!"
 # define MAP_UPPER_OR_AND_BOTTOM_BORDER_ERROR "map doesn't have upper or/and bottom border(s)!"
 # define MAP_NOT_ALLOWED_CHARS_ERROR "map doesn't have only allowed chars!"
-# define MAP_MAX_COLLECTIBLE_ERROR "You cannot have more than MAX_COLLECTIBLE collectibles"
+# define MAP_MAX_COLLECTIBLE_ERROR "You cannot have more than MAX_COLLECTIBLES collectibles"
+# define MAP_MAX_ENEMY_ERROR "You cannot have more than MAX_ENEMIES enemies"
 # define MAP_PLAYER_CANNOT_EXIT_ERROR "player cannot exit the map!"
 # define MAP_PLAYER_CANNOT_ACCESS_ALL_COLLECTIBLE_ERROR "player cannot access all collectibles!"
 # define MAP_IS_NOT_RECTANGLE_ERROR "map is not a rectangle!"
