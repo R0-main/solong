@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 09:35:40 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 13:55:26 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:32:53 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,37 +27,33 @@ void	on_key_pressed(int key)
 	if (!game)
 		return ;
 	vec = game->entities->pos;
-	texture = get_texture(PLAYER_TEXTURE);
 	if (!game->entities || game->entities->type != PLAYER_TYPE)
 		return ;
 	if (key == W_KEY || key == UP_ARROW_KEY)
 	{
 		direction = UP;
 		vec.y -= 1;
-		texture = get_texture(PLAYER_TEXTURE_TOP);
 	}
 	else if (key == S_KEY || key == DOWN_ARROW_KEY)
 	{
 		direction = DOWN;
 		vec.y += 1;
-		texture = get_texture(PLAYER_TEXTURE_BOTTOM);
 	}
 	else if (key == A_KEY || key == LEFT_ARROW_KEY)
 	{
 		direction = LEFT;
 		vec.x -= 1;
-		texture = get_texture(PLAYER_TEXTURE_LEFT);
 	}
 	else if (key == D_KEY || key == RIGHT_ARROW_KEY)
 	{
 		direction = RIGHT;
 		vec.x += 1;
-		texture = get_texture(PLAYER_TEXTURE_RIGHT);
 	}
-	if (!is_wall(game->map, vec) && !game->entities->path_to_follow)
+	if (!is_wall(game->map, vec) && !game->entities->path_to_follow
+		&& !is_same_position(vec, game->entities->pos))
 	{
+		game->steps_made += 1;
 		game->entities->pos = vec;
-		game->entities->texture = texture;
 		game->entities->last_direction = direction;
 	}
 	printf("x : %d | y : %d h : %d\n", game->camera_offsets.x,

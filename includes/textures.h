@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:06:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 13:48:30 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:20:39 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,16 @@ typedef enum e_textures
 	TEST_TILE_TEXTURE,
 	ROCK_TEXTURE,
 	COIN_TEXTURE,
+	FONT_ZERO_TEXTURE,
+	FONT_ONE_TEXTURE,
+	FONT_TWO_TEXTURE,
+	FONT_THREE_TEXTURE,
+	FONT_FOUR_TEXTURE,
+	FONT_FIVE_TEXTURE,
+	FONT_SIX_TEXTURE,
+	FONT_SEVEN_TEXTURE,
+	FONT_EIGHT_TEXTURE,
+	FONT_NINE_TEXTURE,
 }						t_textures_definition;
 
 # define MAX_TEXTURES 256

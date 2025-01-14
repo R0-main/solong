@@ -99,7 +99,7 @@ static char *Sprout_Lands_defautlt_palette[] = {
 "X. c #F3F2C0",
 "o. c #EBD6E0",
 "O. c #F3F4E7",
-"+. c None",
+"+. c #000000",
 /* pixels */
 ". 1 2 4 5 F J { O < : , t y P Q ",
 "@ - 9 q i s U X.% 6 7 0 u p a W ",

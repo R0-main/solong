@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:10:49 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 13:55:35 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:56:53 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	add_to_rendering_proccess(t_rendering_element *r_elem, t_game *game)
 {
 	t_rendering_element	*current;
 
+	if (!game || !game->init)
+		return ;
 	if (!game->rendering_queue)
 		game->rendering_queue = r_elem;
 	else

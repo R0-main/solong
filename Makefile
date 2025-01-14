@@ -24,9 +24,11 @@ SRCS = ./src/main.c\
 		./src/game/game.c\
 			./src/game/coordinates/coordinates.c\
 			./src/game/entities/collectible.c\
+			./src/game/entities/entities_utils.c\
 			./src/game/entities/player.c\
 			./src/game/entities/exit.c\
 			./src/game/entities/entities.c\
+		./src/game/score/score.c\
 		./src/game/map/parser/parser.c\
 			./src/game/map/parser/check_borders.c\
 			./src/game/map/parser/check_duplicates.c\

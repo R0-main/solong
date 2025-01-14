@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:15:41 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 13:56:27 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:57:45 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,17 @@ void	handle_pressed_mouse_event(int key, t_mlx *mlx)
 	}
 	else if (key == 3)
 	{
-		coords = get_to_tile_coord(game, x + game->camera_offsets.x, y
-				+ game->camera_offsets.y);
-		// game->entities->pos = coords;
-		if (game->entities->path_to_follow)
-			free_path_nodes(game->entities->path_to_follow);
-		game->entities->path_to_follow = find_path(game->entities->pos, coords);
+		if (game->entities)
+		{
+			coords = get_to_tile_coord(game, x + game->camera_offsets.x, y
+					+ game->camera_offsets.y);
+			if (is_same_position(game->entities->pos, coords))
+				return ;
+			if (game->entities->path_to_follow)
+				free_path_nodes(game->entities->path_to_follow);
+			game->entities->path_to_follow = find_path(game->entities->pos,
+					coords);
+		}
 	}
 }
 
@@ -45,7 +50,7 @@ void	handle_release_mouse_event(int x, int y, t_mlx *mlx)
 	t_game	*game;
 
 	game = get_game_instance();
-	if (!game)
+	if (!game || !game->init)
 		return ;
 	game->last_mouse_location = (t_vec2){0, 0};
 }
@@ -56,7 +61,7 @@ void	handle_mouse_motion_event(int x, int y, t_mlx *mlx)
 	t_game	*game;
 
 	game = get_game_instance();
-	if (!game)
+	if (!game || !game->init)
 		return ;
 	if (!game->last_mouse_location.x || !game->last_mouse_location.y)
 		return ;

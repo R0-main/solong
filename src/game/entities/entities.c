@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:22:19 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 13:53:03 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:53:02 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ t_entity	*create_entity(t_entity_type type, t_vec2 pos)
 	entity->pos = pos;
 	entity->next = NULL;
 	entity->idle_animation = NULL;
-	entity->walking_animations[0] = NULL;
-	entity->walking_animations[1] = NULL;
-	entity->walking_animations[2] = NULL;
-	entity->walking_animations[3] = NULL;
+	entity->directions_textures[0] = (t_texture){0};
+	entity->directions_textures[1] = (t_texture){0};
+	entity->directions_textures[2] = (t_texture){0};
+	entity->directions_textures[3] = (t_texture){0};
 	entity->hp = 0;
 	entity->path_to_follow = NULL;
 	entity->direction = DOWN;
@@ -44,69 +44,15 @@ void	remove_entity(t_entity *entity)
 	t_game		*game;
 
 	game = get_game_instance();
-	if (!game)
+	if (!game || !game->init)
 		return ;
 	tmp = game->entities;
 	while (tmp->next != entity)
 		tmp = tmp->next;
 	tmp->next = entity->next;
+	if (entity->path_to_follow)
+		free_path_nodes(entity->path_to_follow);
 	free(entity);
-}
-
-void	add_to_entities_list(t_entity *entity)
-{
-	t_entity	*tmp;
-	t_game		*game;
-
-	game = get_game_instance();
-	if (!game)
-		return ;
-	if (!game->entities)
-		game->entities = entity;
-	else
-	{
-		tmp = game->entities;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = entity;
-		entity->next = NULL;
-	}
-}
-
-t_entity	*get_entity_at_location(t_game *game, t_vec2 pos,
-		t_entity_type type)
-{
-	t_entity	*current;
-
-	current = game->entities;
-	while (current)
-	{
-		if (is_same_position(current->pos, pos) && current->type == type)
-			return (current);
-		current = current->next;
-	}
-	return (NULL);
-}
-
-void	handle_player(t_game *game, t_entity *player)
-{
-	t_entity	*coin;
-	t_entity	*exit;
-
-	coin = get_entity_at_location(game, player->pos, COLLECTIBLE_TYPE);
-	exit = get_entity_at_location(game, game->map->exit_coords, EXIT_TYPE);
-	if (!exit)
-		exit_error(ENTITIES_FIND_EXIT_ENTITY);
-	if (coin)
-	{
-		remove_entity(coin);
-		game->collected_collectible += 1;
-		if (game->collected_collectible == game->map->collectible_count)
-			exit->texture = get_texture(PLAYER_TEXTURE);
-	}
-	if (game->collected_collectible == game->map->collectible_count
-		&& is_same_position(exit->pos, player->pos))
-		exit_error("FINISH GAME");
 }
 
 void	entities_loop(t_game *game)
@@ -115,7 +61,7 @@ void	entities_loop(t_game *game)
 	t_vec2		pos;
 	t_path		*path;
 
-	if (!game)
+	if (!game || !game->init)
 		return ;
 	current = game->entities;
 	while (current)
@@ -142,11 +88,15 @@ void	entities_loop(t_game *game)
 				if (!is_wall(game->map, pos))
 				{
 					path = current->path_to_follow->next;
+					current->last_direction = current->path_to_follow->direction;
 					free(current->path_to_follow);
+					if (current->type == PLAYER_TYPE)
+						game->steps_made += 1;
 					current->path_to_follow = path;
 					current->pos = pos;
 				}
-				else free_path_nodes(current->path_to_follow);
+				else
+					free_path_nodes(current->path_to_follow);
 			}
 		}
 		if (current->idle_animation && game->tick % (100
@@ -155,9 +105,9 @@ void	entities_loop(t_game *game)
 			current->texture = current->idle_animation->texture;
 			current->idle_animation = current->idle_animation->next;
 		}
-		render_asset(game, current->texture, pos);
 		if (current->type == PLAYER_TYPE)
 			handle_player(game, current);
+		render_asset(game, current->texture, pos);
 		current = current->next;
 	}
 }

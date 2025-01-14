@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 13:27:11 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:29:30 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ typedef struct s_game
 	t_map						*map;
 	t_rendering_element			*rendering_queue;
 	t_entity					*entities;
-	int							tick;
-	int							collected_collectible;
+	unsigned int				tick;
+	unsigned int				collected_collectible;
+	unsigned long				steps_made;
+	bool						init;
 }								t_game;
 
 void							check_for_possible_paths(t_map *map);
@@ -122,6 +124,8 @@ int								get_min_x(t_game *game);
 t_vec2							get_to_world_coord(t_game *game, int x, int y);
 
 int								init_map_asset(t_game *game);
+
+void							write_score_on_screen(t_game *game);
 
 # define POSITION_ZERO ((t_vec2){0, 0})
 # define POSITION_MAX ((t_vec2){WIDTH - 1, HEIGHT})

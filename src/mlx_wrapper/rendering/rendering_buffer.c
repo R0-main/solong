@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:11:28 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 10:14:58 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:56:58 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	put_img_to_rendering_buffer(t_game *game, t_rendering_element *r_elem)
 				buffer_pixel = ((r_elem->position.y + y) * (c))
 					+ ((r_elem->position.x + x));
 				if (((int32_t *)r_elem->img->data)[(y * d) + (x)] != 0x00000000)
-					((int32_t *)game->rendering_buffer->data)[buffer_pixel] = \
-					((int32_t *)r_elem->img->data)[(y * d) + (x)];
+					((int32_t *)game->rendering_buffer->data)[buffer_pixel] = ((int32_t *)r_elem->img->data)[(y
+							* d) + (x)];
 			}
 		}
 	}
@@ -46,6 +46,8 @@ void	proccess_rendering_buffer(t_game *game)
 	t_rendering_element	*r_elem;
 	int					i;
 
+	if (!game || !game->init)
+		return ;
 	if (!game->rendering_buffer)
 		return ;
 	i = 0;
