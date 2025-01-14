@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 08:57:26 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 08:24:47 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ typedef struct s_vec2
 	int							y;
 }								t_vec2;
 
+typedef struct s_vec2_list
+{
+	int							x;
+	int							y;
+	t_vec2						*next;
+}								t_vec2_list;
+
 bool							is_same_position(t_vec2 pos1, t_vec2 pos2);
 bool							is_between(t_vec2 pos, t_vec2 bpos1,
 									t_vec2 bpos2);
@@ -47,6 +54,9 @@ bool							fast_is_between(t_vec2 pos, t_vec2 bpos1,
 bool							is_between_zero_and(t_vec2 pos, t_vec2 to);
 bool							is_between_one(int pos, int bpos1, int bpos2);
 unsigned long					distance_between(t_vec2 pos1, t_vec2 pos2);
+
+#define MAX_COLLECTIBLE 999
+
 // MAP
 typedef struct s_map
 {
@@ -55,6 +65,7 @@ typedef struct s_map
 	int							width;
 	t_vec2						player_spawnpoint;
 	t_vec2						exit_coords;
+	t_vec2						collectibles_coords[MAX_COLLECTIBLE];
 	t_img						*map_img;
 	t_img_data					map_img_data;
 }								t_map;

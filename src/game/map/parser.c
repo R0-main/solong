@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:42:59 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 15:26:05 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 08:30:49 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,10 @@ static int	get_lines_count(char *path)
 void	setup_map_coords(t_map *map)
 {
 	t_vec2	coords;
+	int		collectible_index;
 
 	coords.y = -1;
+	collectible_index = 0;
 	while (++coords.y < map->height)
 	{
 		coords.x = -1;
@@ -161,6 +163,11 @@ void	setup_map_coords(t_map *map)
 				map->player_spawnpoint = coords;
 			else if (map->buffer[coords.y][coords.x] == EXIT)
 				map->exit_coords = coords;
+			else if (map->buffer[coords.y][coords.x] == COLLECTIBLE)
+				if (collectible_index >= MAX_COLLECTIBLE)
+					exit_error("You cannot have more than MAX_COLLECTIBLE collectibles");
+				else
+					map->collectibles_coords[collectible_index++] = coords;
 		}
 	}
 }
@@ -179,13 +186,24 @@ void	init_map(t_map *map, char *path)
 
 void	check_for_possible_paths(t_map *map)
 {
+	int		i;
 	t_path	*path;
 
+	i = -1;
 	path = find_path(map->exit_coords, map->player_spawnpoint);
 	if (!path)
 		exit_error("player cannot exit the map!");
-	print_path(path);
 	free_path_nodes(path);
+	while (++i < MAX_COLLECTIBLE)
+	{
+		if (!map || !map->collectibles_coords[i].x
+			|| !map->collectibles_coords[i].y)
+			continue ;
+		path = find_path(map->collectibles_coords[i], map->player_spawnpoint);
+		if (!path)
+			exit_error("player cannot access all collectibles!");
+		free_path_nodes(path);
+	}
 }
 
 void	parse_map(char *path)
@@ -210,4 +228,4 @@ void	parse_map(char *path)
 	setup_map_coords(map);
 	check_for_possible_paths(map);
 
-} // CHECK FOR PATHS
+}
