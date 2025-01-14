@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:42:59 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 08:30:49 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 08:31:41 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,5 +227,4 @@ void	parse_map(char *path)
 	check_valid_map(map);
 	setup_map_coords(map);
 	check_for_possible_paths(map);
-
 }
