@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 08:58:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 13:00:02 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:47:00 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "animations.h"
 # include "textures.h"
 # include "utils.h"
+# include "path_finding.h"
+
 struct s_game;
 typedef struct s_game	t_game;
 
@@ -39,6 +41,7 @@ typedef struct s_entity
 	t_animation_frame	*idle_animation;
 	t_direction			direction;
 	t_direction			last_direction;
+	t_path				*path_to_follow;
 	struct s_entity		*next;
 	struct s_entity		*prev;
 }						t_entity;

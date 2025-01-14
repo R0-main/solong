@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:30:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 13:00:21 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:52:44 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	render_next_frame(t_mlx *mlx)
 		max = time_taken;
 	if (max == 0)
 		max += 0.01;
-	printf("Temps d'exécution : %.3f ms | max : %.3f ms | fps : %.0f\n",
-		time_taken, max, 1000 / time_taken);
+	printf("%d\n", game->tick);
+	// printf("Temps d'exécution : %.3f ms | max : %.3f ms | fps : %.0f\n",
+	// 	time_taken, max, 1000 / time_taken);
 }

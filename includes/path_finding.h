@@ -6,14 +6,14 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:08:33 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 10:32:39 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:48:36 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PATH_FINDING_H
 
 # define PATH_FINDING_H
-# include "game.h"
+# include "utils.h"
 # include <stdbool.h>
 # include <stdlib.h>
 

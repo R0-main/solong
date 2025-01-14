@@ -6,11 +6,12 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:22:19 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 13:12:55 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:53:03 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
+#include "path_finding.h"
 #include "rendering.h"
 
 t_entity	*create_entity(t_entity_type type, t_vec2 pos)
@@ -29,6 +30,7 @@ t_entity	*create_entity(t_entity_type type, t_vec2 pos)
 	entity->walking_animations[2] = NULL;
 	entity->walking_animations[3] = NULL;
 	entity->hp = 0;
+	entity->path_to_follow = NULL;
 	entity->direction = DOWN;
 	entity->last_direction = DOWN;
 	entity->texture = (t_texture){0};
@@ -111,6 +113,7 @@ void	entities_loop(t_game *game)
 {
 	t_entity	*current;
 	t_vec2		pos;
+	t_path		*path;
 
 	if (!game)
 		return ;
@@ -123,6 +126,29 @@ void	entities_loop(t_game *game)
 		pos.y -= game->camera_offsets.y;
 		pos.x -= TILE_X;
 		pos.y += TILE_Y / 2;
+		if (game->tick % 20 == 0)
+		{
+			if (current->path_to_follow)
+			{
+				pos = current->pos;
+				if (current->path_to_follow->direction == UP)
+					pos.y -= 1;
+				if (current->path_to_follow->direction == DOWN)
+					pos.y += 1;
+				if (current->path_to_follow->direction == RIGHT)
+					pos.x += 1;
+				if (current->path_to_follow->direction == LEFT)
+					pos.x -= 1;
+				if (!is_wall(game->map, pos))
+				{
+					path = current->path_to_follow->next;
+					free(current->path_to_follow);
+					current->path_to_follow = path;
+					current->pos = pos;
+				}
+				else free_path_nodes(current->path_to_follow);
+			}
+		}
 		if (current->idle_animation && game->tick % (100
 				/ current->idle_animation->animation.params.speed) == 0)
 		{

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 09:35:40 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 12:57:48 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:55:26 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	on_key_pressed(int key)
 		vec.x += 1;
 		texture = get_texture(PLAYER_TEXTURE_RIGHT);
 	}
-	if (!is_wall(game->map, vec))
+	if (!is_wall(game->map, vec) && !game->entities->path_to_follow)
 	{
 		game->entities->pos = vec;
 		game->entities->texture = texture;

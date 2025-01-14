@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:33:15 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 09:50:18 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:48:15 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@
 # define WIDTH 856
 
 # define PIXEL_DEF 1 // 1 pixel = 4 pixels now
-
-typedef struct s_vec2
-{
-	int		x;
-	int		y;
-}			t_vec2;
 
 typedef struct s_mlx
 {

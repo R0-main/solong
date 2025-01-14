@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:06:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 11:21:40 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:48:30 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "mlx.h"
 # include "mlx_int.h"
 # include "mlx_wrapper.h"
+# include "utils.h"
 
 # define TILE_X 52
 # define TILE_Y 46

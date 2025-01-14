@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 13:03:00 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:27:11 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ bool							fast_is_between(t_vec2 pos, t_vec2 bpos1,
 									t_vec2 bpos2);
 bool							is_between_zero_and(t_vec2 pos, t_vec2 to);
 unsigned long					distance_between(t_vec2 pos1, t_vec2 pos2);
+t_vec2							get_to_tile_coord(t_game *game, int x, int y);
 
 # define MAX_COLLECTIBLE 999
 
