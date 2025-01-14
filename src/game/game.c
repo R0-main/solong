@@ -6,13 +6,13 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:30:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 10:13:59 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:00:21 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
-#include "rendering.h"
 #include "path_finding.h"
+#include "rendering.h"
 
 t_game	*get_game_instance(void)
 {
@@ -35,9 +35,20 @@ void	free_entities(t_game *game)
 
 void	init_games_entities(t_game *game)
 {
+	int	i;
+
+	i = 0;
 	if (!game)
 		return ;
 	create_player_entity(game);
+	create_exit_entity(game);
+	while (game->map && i < MAX_COLLECTIBLE)
+	{
+		if (game->map->collectibles_coords[i].x
+			&& game->map->collectibles_coords[i].y)
+			create_collectible_entity(game, game->map->collectibles_coords[i]);
+		i++;
+	}
 	// OTHER COIN + EXIT
 }
 
@@ -83,6 +94,7 @@ void	render_next_frame(t_mlx *mlx)
 	game = get_game_instance();
 	mlx_destroy_image(mlx->mlx, game->rendering_buffer);
 	game->rendering_buffer = mlx_new_image(game->mlx->mlx, WIDTH, HEIGHT);
+	game->tick++;
 	if (!game->rendering_buffer)
 		return ;
 	draw_map(game);

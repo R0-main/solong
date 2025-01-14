@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 09:35:40 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 11:23:04 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 12:57:48 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	on_key_pressed(int key)
 	t_direction	direction;
 
 	game = get_game_instance();
-	vec = game->entities->pos;
-	texture = get_texture(PLAYER_TEXTURE);
 	if (!game)
 		return ;
+	vec = game->entities->pos;
+	texture = get_texture(PLAYER_TEXTURE);
 	if (!game->entities || game->entities->type != PLAYER_TYPE)
 		return ;
 	if (key == W_KEY || key == UP_ARROW_KEY)
@@ -60,13 +60,14 @@ void	on_key_pressed(int key)
 		game->entities->texture = texture;
 		game->entities->last_direction = direction;
 	}
-
 	printf("x : %d | y : %d h : %d\n", game->camera_offsets.x,
 		game->camera_offsets.y, game->map->height);
 }
 
 int	handle_key(int keycode, t_mlx *mlx)
 {
+	if (!mlx || !mlx->mlx || !mlx->win)
+		return (1);
 	if (keycode == 65307 || keycode == -16778664)
 	{
 		mlx_loop_end(mlx->mlx);

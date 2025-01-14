@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:51:17 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 09:52:16 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:06:02 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define GAME_RENDERING_BUFFER_MALLOC_FAILED "game rendering buffer malloc failed!"
 
 # define ENTITIES_MALLOC_FAILED "malloc fails during entity creation!"
+
+# define ENTITIES_FIND_EXIT_ENTITY "cannot find exit entity after collected all collectible"
 
 void	exit_error(const char *msg);
 

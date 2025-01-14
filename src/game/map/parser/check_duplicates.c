@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 08:47:13 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 08:47:43 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:02:05 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	check_for_duplicate_point(t_map *map)
 			else if (map->buffer[y][x] == EXIT)
 				objects.exit_count += 1;
 			else if (map->buffer[y][x] == COLLECTIBLE)
-				objects.collectible_count += 1;
+				map->collectible_count += 1;
 		}
 	}
 	if (objects.player_count == 0 || objects.player_count > 1)
 		exit_error(MAP_SPAWN_POINT_ERROR);
 	if (objects.exit_count == 0 || objects.exit_count > 1)
 		exit_error(MAP_EXIT_ERROR);
-	if (objects.collectible_count == 0)
+	if (map->collectible_count == 0)
 		exit_error(MAP_COLLECTIBLE_ERROR);
 }

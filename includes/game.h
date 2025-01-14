@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 10:36:57 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:03:00 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_map
 	t_vec2						collectibles_coords[MAX_COLLECTIBLE];
 	t_img						*map_img;
 	t_img_data					map_img_data;
+	int							collectible_count;
 }								t_map;
 
 typedef struct s_rendering_element
@@ -74,6 +75,8 @@ typedef struct s_game
 	t_map						*map;
 	t_rendering_element			*rendering_queue;
 	t_entity					*entities;
+	int							tick;
+	int							collected_collectible;
 }								t_game;
 
 void							check_for_possible_paths(t_map *map);
@@ -82,7 +85,6 @@ typedef struct s_map_needed_objects
 {
 	int							exit_count;
 	int							player_count;
-	int							collectible_count;
 }								t_map_needed_objects;
 
 void							check_for_duplicate_point(t_map *map);

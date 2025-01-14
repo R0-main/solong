@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:20:01 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 09:55:15 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 12:53:46 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	load_animations(void *mlx)
 	t_animation_parameters	params;
 
 	load_animation(mlx, "./assets/coin.xpm", COIN_ANIMATION,
-		(t_animation_parameters){(t_vec2){44, 25}, 50, 16});
+		(t_animation_parameters){(t_vec2){44, 25}, 10, 16});
 }
 
 void	unload_animations_first_frame(void *mlx)

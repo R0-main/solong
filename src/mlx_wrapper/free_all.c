@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:52:26 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 09:26:08 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:13:38 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	free_all(void)
 	if (map)
 		free_map();
 	free_entities(game);
+	free_rendering_queue(game);
 	if (mlx && mlx->mlx)
 	{
 		unload_assets(mlx->mlx);
