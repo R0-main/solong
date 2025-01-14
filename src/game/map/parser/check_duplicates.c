@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 08:47:13 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 13:02:05 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:17:34 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	check_for_duplicate_point(t_map *map)
 	int						y;
 	t_map_needed_objects	objects;
 
-	objects = (t_map_needed_objects){0, 0, 0};
+	objects = (t_map_needed_objects){0, 0};
 	y = -1;
 	while (++y < map->height)
 	{

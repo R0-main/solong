@@ -6,11 +6,12 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:52:26 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 13:13:38 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:17:49 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
+#include "rendering.h"
 
 void	free_all(void)
 {
