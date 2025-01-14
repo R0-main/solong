@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:52:26 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/10 14:29:15 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 08:37:46 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	free_all(void)
 	map = get_map();
 	if (map)
 		free_map();
-
 	if (mlx && mlx->mlx)
 	{
 		unload_assets(mlx->mlx);

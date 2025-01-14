@@ -6,22 +6,15 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 15:16:24 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 08:57:19 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 08:37:29 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 
-// #include "<math.h>"
-
 bool	is_same_position(t_vec2 pos1, t_vec2 pos2)
 {
 	return (pos1.x == pos2.x && pos1.y == pos2.y);
-}
-
-bool	is_between_one(int pos, int bpos1, int bpos2)
-{
-	return (pos >= bpos1 && pos <= bpos2);
 }
 
 bool	fast_is_between(t_vec2 pos, t_vec2 bpos1, t_vec2 bpos2)

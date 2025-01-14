@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 08:24:47 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 08:52:37 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,6 @@
 # include <math.h>
 # include <stdbool.h>
 # include <time.h> // TODO : REMOVE
-
-typedef enum s_map_element
-{
-	WALL = '1',
-	FLOOR = '0',
-	PLAYER = 'P',
-	EXIT = 'E',
-	COLLECTIBLE = 'C',
-}								t_map_element;
 
 int								game_init(t_mlx *mlx);
 
@@ -52,10 +43,9 @@ bool							is_between(t_vec2 pos, t_vec2 bpos1,
 bool							fast_is_between(t_vec2 pos, t_vec2 bpos1,
 									t_vec2 bpos2);
 bool							is_between_zero_and(t_vec2 pos, t_vec2 to);
-bool							is_between_one(int pos, int bpos1, int bpos2);
 unsigned long					distance_between(t_vec2 pos1, t_vec2 pos2);
 
-#define MAX_COLLECTIBLE 999
+# define MAX_COLLECTIBLE 999
 
 // MAP
 typedef struct s_map
@@ -88,6 +78,46 @@ typedef struct s_game
 	t_map						*map;
 	t_rendering_element			*rendering_queue;
 }								t_game;
+
+# define MAP_SPAWN_POINT_ERROR "map has more than 1 player spawn point or doesn't have any!"
+# define MAP_EXIT_ERROR "map has more than 1 exit or doesn't have any!"
+# define MAP_COLLECTIBLE_ERROR "map doesn't have any collectible!"
+# define MAP_WIDTH_ERROR "map width is not the same everywhere!"
+# define MAP_LEFT_OR_AND_RIGHT_BORDER_ERROR "map doesn't have left or/and right border(s)!"
+# define MAP_UPPER_OR_AND_BOTTOM_BORDER_ERROR "map doesn't have upper or/and bottom border(s)!"
+# define MAP_NOT_ALLOWED_CHARS_ERROR "map doesn't have only allowed chars!"
+# define MAP_MAX_COLLECTIBLE_ERROR "You cannot have more than MAX_COLLECTIBLE collectibles"
+# define MAP_PLAYER_CANNOT_EXIT_ERROR "player cannot exit the map!"
+# define MAP_PLAYER_CANNOT_ACCESS_ALL_COLLECTIBLE_ERROR "player cannot access all collectibles!"
+# define MAP_IS_NOT_RECTANGLE_ERROR "map is not a rectangle!"
+
+# define MAP_CANNOT_OPEN_FILE_ERROR "cannot open map file!"
+# define MAP_MALLOC_FAILED_ERROR "map malloc failed!"
+
+# define MAP_BUFFER_ERROR "no map buffer provided at check_valid_map!"
+# define MAP_WIDTH_OR_AND_HEIGHT_ERROR "map height or/and width are negative in check_valid_map!"
+
+void							check_for_possible_paths(t_map *map);
+
+typedef struct s_map_needed_objects
+{
+	int							exit_count;
+	int							player_count;
+	int							collectible_count;
+}								t_map_needed_objects;
+
+void							check_for_duplicate_point(t_map *map);
+void							check_map_borders(t_map *map);
+void							setup_map_coords(t_map *map);
+
+typedef enum s_map_element
+{
+	WALL = '1',
+	FLOOR = '0',
+	PLAYER = 'P',
+	EXIT = 'E',
+	COLLECTIBLE = 'C',
+}								t_map_element;
 
 typedef struct s_texture
 {

@@ -23,7 +23,11 @@ SRCS = ./src/main.c\
 				./src/mlx_wrapper/textures/textures_loader.c\
 		./src/game/game.c\
 			./src/game/coordinates/coordinates.c\
-		./src/game/map/parser.c\
+		./src/game/map/parser/parser.c\
+			./src/game/map/parser/check_borders.c\
+			./src/game/map/parser/check_duplicates.c\
+			./src/game/map/parser/coordinates_parsing.c\
+			./src/game/map/parser/path_checking.c\
 			./src/game/map/map.c\
 			./src/game/map/rendering.c\
 		./src/game/world/world.c\
