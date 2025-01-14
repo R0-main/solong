@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:08:33 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 13:06:28 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:32:39 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,6 @@
 # include "game.h"
 # include <stdbool.h>
 # include <stdlib.h>
-
-typedef enum e_directions
-{
-	UP,
-	DOWN,
-	RIGHT,
-	LEFT
-}					t_direction;
 
 typedef struct s_path
 {

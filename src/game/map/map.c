@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:43:30 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 18:52:50 by romain           ###   ########.fr       */
+/*   Updated: 2025/01/14 10:21:09 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@ t_map	*get_map(void)
 	static t_map	map = {};
 
 	return (&map);
+}
+
+bool	is_wall(t_map *map, t_vec2 pos)
+{
+	t_vec2	map_max;
+
+	map_max = (t_vec2){map->width, map->height};
+	return (is_between_zero_and(pos, map_max)
+		&& map->buffer[pos.y][pos.x] == WALL);
 }
 
 void	print_map(void)

@@ -3,42 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   keybinds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 09:35:40 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 18:53:18 by romain           ###   ########.fr       */
+/*   Updated: 2025/01/14 11:23:04 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "game.h"
 #include "mlx_wrapper.h"
-#include "ft_printf.h"
 
 #define OFFSET 100
 
 void	on_key_pressed(int key)
 {
-	t_game	*game;
+	t_game		*game;
+	t_vec2		vec;
+	t_texture	texture;
+	t_direction	direction;
 
 	game = get_game_instance();
+	vec = game->entities->pos;
+	texture = get_texture(PLAYER_TEXTURE);
 	if (!game)
+		return ;
+	if (!game->entities || game->entities->type != PLAYER_TYPE)
 		return ;
 	if (key == W_KEY || key == UP_ARROW_KEY)
 	{
-		game->camera_offsets.y += 100;
+		direction = UP;
+		vec.y -= 1;
+		texture = get_texture(PLAYER_TEXTURE_TOP);
 	}
 	else if (key == S_KEY || key == DOWN_ARROW_KEY)
 	{
-		game->camera_offsets.y -= 100;
+		direction = DOWN;
+		vec.y += 1;
+		texture = get_texture(PLAYER_TEXTURE_BOTTOM);
 	}
 	else if (key == A_KEY || key == LEFT_ARROW_KEY)
 	{
-		game->camera_offsets.x += 100;
+		direction = LEFT;
+		vec.x -= 1;
+		texture = get_texture(PLAYER_TEXTURE_LEFT);
 	}
 	else if (key == D_KEY || key == RIGHT_ARROW_KEY)
 	{
-		game->camera_offsets.x -= 100;
+		direction = RIGHT;
+		vec.x += 1;
+		texture = get_texture(PLAYER_TEXTURE_RIGHT);
 	}
+	if (!is_wall(game->map, vec))
+	{
+		game->entities->pos = vec;
+		game->entities->texture = texture;
+		game->entities->last_direction = direction;
+	}
+
 	printf("x : %d | y : %d h : %d\n", game->camera_offsets.x,
 		game->camera_offsets.y, game->map->height);
 }

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:16:55 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 14:56:00 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:21:27 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,6 @@ void	add_to_list(t_node *prev, t_node *node)
 	prev->next = node;
 	node->next = NULL;
 }
-
-// void	reverse_list(t_node *first)
-// {
-// 	t_node	*last;
-// 	t_node	*current;
-// 	t_node	*new_list;
-
-// 	if (!first)
-// 		return ;
-// 	current = first;
-// 	while (current->prev)
-// 	{
-
-// 	}
-// 	node->next = NULL;
-// }
 
 bool	pass_through_all(t_node *first)
 {

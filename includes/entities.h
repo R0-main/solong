@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 08:58:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 09:58:11 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:07:10 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 # include "animations.h"
 # include "textures.h"
-
+# include "utils.h"
 struct s_game;
 typedef struct s_game	t_game;
 
@@ -37,6 +37,8 @@ typedef struct s_entity
 	t_texture			texture;
 	t_animation_frame	*walking_animations[4];
 	t_animation_frame	*idle_animation;
+	t_direction			direction;
+	t_direction			last_direction;
 	struct s_entity		*next;
 	struct s_entity		*prev;
 }						t_entity;

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:22:19 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 10:13:36 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:07:17 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_entity	*create_entity(t_entity_type type, t_vec2 pos)
 	entity->walking_animations[2] = NULL;
 	entity->walking_animations[3] = NULL;
 	entity->hp = 0;
+	entity->direction = DOWN;
+	entity->last_direction = DOWN;
 	entity->texture = (t_texture){0};
 	add_to_entities_list(entity);
 	return (entity);
@@ -83,7 +85,7 @@ void	entities_loop(t_game *game)
 	current = game->entities;
 	while (current)
 	{
-		pos = get_to_world_coord(game, current->pos.x , current->pos.y);
+		pos = get_to_world_coord(game, current->pos.x, current->pos.y - 1);
 		pos.x += get_min_x(game);
 		pos.x -= game->camera_offsets.x;
 		pos.y -= game->camera_offsets.y;

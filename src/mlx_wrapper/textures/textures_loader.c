@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:24:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 09:52:39 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:25:55 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ int	load_texture(void *mlx, const char *path, int id)
 
 void	load_assets(void *mlx)
 {
-	load_texture(mlx, "assets/grass.xpm", GRASS_TEXTURE);
 	load_texture(mlx, "assets/player.xpm", PLAYER_TEXTURE);
-	load_texture(mlx, "assets/grass122.xpm", SARAH_TEXTURE);
+	load_texture(mlx, "assets/player-bottom.xpm", PLAYER_TEXTURE_BOTTOM);
+	load_texture(mlx, "assets/player-up.xpm", PLAYER_TEXTURE_TOP);
+	load_texture(mlx, "assets/player-left.xpm", PLAYER_TEXTURE_LEFT);
+	load_texture(mlx, "assets/player-right.xpm", PLAYER_TEXTURE_RIGHT);
 	load_texture(mlx, "assets/tile_022.xpm", TILE_TEXTURE);
-	load_texture(mlx, "assets/test_tile.xpm", TEST_TILE_TEXTURE);
 	load_texture(mlx, "assets/rock.xpm", ROCK_TEXTURE);
 	load_texture(mlx, "assets/coin.xpm", COIN_TEXTURE);
 }

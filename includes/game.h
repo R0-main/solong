@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 10:15:40 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:36:57 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void							parse_map(char *path);
 t_map							*get_map(void);
 int								free_map(void);
 void							print_map(void);
+bool							is_wall(t_map *map, t_vec2 pos);
 
 // KEYBINDS
 void							on_key_pressed(int key);
