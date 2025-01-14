@@ -23,6 +23,9 @@ SRCS = ./src/main.c\
 				./src/mlx_wrapper/textures/textures_loader.c\
 		./src/game/game.c\
 			./src/game/coordinates/coordinates.c\
+			./src/game/entities/collectible.c\
+			./src/game/entities/player.c\
+			./src/game/entities/entities.c\
 		./src/game/map/parser/parser.c\
 			./src/game/map/parser/check_borders.c\
 			./src/game/map/parser/check_duplicates.c\
@@ -68,7 +71,7 @@ run : compile ${EXEC}
 	./${EXEC}
 
 dev : compile ${EXEC}
-	valgrind --leak-check=full --show-leak-kinds=all ./${EXEC} ./maps/packman.ber
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./${EXEC} ./maps/packman.ber
 	make fclean
 
 clean_lib :

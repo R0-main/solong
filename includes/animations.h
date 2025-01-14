@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animations.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:25:13 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 18:57:25 by romain           ###   ########.fr       */
+/*   Updated: 2025/01/14 09:51:00 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 # define ANIMATIONS_H
 
-# include "game.h"
 # include "mlx.h"
 # include "mlx_int.h"
 # include "textures.h"
+# include <stdbool.h>
+
+struct s_game;
+typedef struct s_game			t_game;
 
 typedef enum e_animations
 {

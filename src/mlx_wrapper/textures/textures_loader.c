@@ -6,11 +6,12 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:24:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 12:34:49 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 09:52:39 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "textures.h"
+#include "errors.h"
 
 int	load_texture(void *mlx, const char *path, int id)
 {

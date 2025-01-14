@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 08:52:37 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:15:40 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 # define GAME_H
 
+# include "entities.h"
+# include "errors.h"
 # include "mlx.h"
 # include "mlx_int.h"
 # include "mlx_wrapper.h"
@@ -22,13 +24,7 @@
 # include <stdbool.h>
 # include <time.h> // TODO : REMOVE
 
-int								game_init(t_mlx *mlx);
-
-typedef struct s_vec2
-{
-	int							x;
-	int							y;
-}								t_vec2;
+void							game_init(t_mlx *mlx);
 
 typedef struct s_vec2_list
 {
@@ -77,25 +73,8 @@ typedef struct s_game
 	t_mlx						*mlx;
 	t_map						*map;
 	t_rendering_element			*rendering_queue;
+	t_entity					*entities;
 }								t_game;
-
-# define MAP_SPAWN_POINT_ERROR "map has more than 1 player spawn point or doesn't have any!"
-# define MAP_EXIT_ERROR "map has more than 1 exit or doesn't have any!"
-# define MAP_COLLECTIBLE_ERROR "map doesn't have any collectible!"
-# define MAP_WIDTH_ERROR "map width is not the same everywhere!"
-# define MAP_LEFT_OR_AND_RIGHT_BORDER_ERROR "map doesn't have left or/and right border(s)!"
-# define MAP_UPPER_OR_AND_BOTTOM_BORDER_ERROR "map doesn't have upper or/and bottom border(s)!"
-# define MAP_NOT_ALLOWED_CHARS_ERROR "map doesn't have only allowed chars!"
-# define MAP_MAX_COLLECTIBLE_ERROR "You cannot have more than MAX_COLLECTIBLE collectibles"
-# define MAP_PLAYER_CANNOT_EXIT_ERROR "player cannot exit the map!"
-# define MAP_PLAYER_CANNOT_ACCESS_ALL_COLLECTIBLE_ERROR "player cannot access all collectibles!"
-# define MAP_IS_NOT_RECTANGLE_ERROR "map is not a rectangle!"
-
-# define MAP_CANNOT_OPEN_FILE_ERROR "cannot open map file!"
-# define MAP_MALLOC_FAILED_ERROR "map malloc failed!"
-
-# define MAP_BUFFER_ERROR "no map buffer provided at check_valid_map!"
-# define MAP_WIDTH_OR_AND_HEIGHT_ERROR "map height or/and width are negative in check_valid_map!"
 
 void							check_for_possible_paths(t_map *map);
 
@@ -119,16 +98,6 @@ typedef enum s_map_element
 	COLLECTIBLE = 'C',
 }								t_map_element;
 
-typedef struct s_texture
-{
-	t_img						*img;
-	t_img_data					img_data;
-}								t_texture;
-
-# include "animations.h"
-# include "rendering.h"
-# include "textures.h"
-
 t_game							*get_game_instance(void);
 void							process_next_frame(void);
 void							render_next_frame(t_mlx *mlx);
@@ -137,7 +106,6 @@ void							parse_map(char *path);
 t_map							*get_map(void);
 int								free_map(void);
 void							print_map(void);
-int								draw_bg(t_game *game);
 
 // KEYBINDS
 void							on_key_pressed(int key);
@@ -152,6 +120,6 @@ t_vec2							get_to_world_coord(t_game *game, int x, int y);
 int								init_map_asset(t_game *game);
 
 # define POSITION_ZERO ((t_vec2){0, 0})
-# define POSITION_MAX ((t_vec2){WIDTH, HEIGHT})
+# define POSITION_MAX ((t_vec2){WIDTH - 1, HEIGHT})
 
 #endif

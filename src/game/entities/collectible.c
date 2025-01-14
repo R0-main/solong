@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   collectible.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 13:05:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 09:52:12 by rguigneb         ###   ########.fr       */
+/*   Created: 2025/01/14 09:17:34 by rguigneb          #+#    #+#             */
+/*   Updated: 2025/01/14 10:09:02 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
+#include "game.h"
+#include "path_finding.h"
 
-# define UTILS_H
+void	create_collectible_entity(t_game *game, t_vec2 pos)
+{
+	t_entity	*collectible;
 
-# include <stdio.h>
-# include <stdlib.h>
-
-int		endswith(char *str, char *substr);
-void	free_2d_buffer(void **_2d_buffer, int len);
-void	delay(int loop);
-
-int		ft_max(int a, int b);
-int		ft_min(int a, int b);
-
-
-#endif
+	collectible = create_entity(COLLECTIBLE_TYPE, pos);
+	collectible->texture = get_texture(COIN_TEXTURE);
+	collectible->idle_animation = get_animation_first_frame(COIN_ANIMATION);
+}

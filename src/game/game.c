@@ -6,11 +6,12 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:30:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 08:34:06 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:13:59 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
+#include "rendering.h"
 #include "path_finding.h"
 
 t_game	*get_game_instance(void)
@@ -20,7 +21,27 @@ t_game	*get_game_instance(void)
 	return (&game_instance);
 }
 
-int	game_init(t_mlx *mlx)
+void	free_entities(t_game *game)
+{
+	t_entity	*tmp;
+
+	while (game->entities)
+	{
+		tmp = game->entities;
+		game->entities = game->entities->next;
+		free(tmp);
+	}
+}
+
+void	init_games_entities(t_game *game)
+{
+	if (!game)
+		return ;
+	create_player_entity(game);
+	// OTHER COIN + EXIT
+}
+
+void	game_init(t_mlx *mlx)
 {
 	t_game	*game;
 
@@ -29,7 +50,7 @@ int	game_init(t_mlx *mlx)
 	print_map();
 	game->rendering_buffer = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
 	if (!game->rendering_buffer)
-		return (1);
+		exit_error(GAME_RENDERING_BUFFER_MALLOC_FAILED);
 	game->rendering_buffer_data.endian = 0;
 	game->rendering_buffer_data.line_bytes = 0;
 	game->rendering_buffer_data.pixel_bits = 0;
@@ -41,9 +62,10 @@ int	game_init(t_mlx *mlx)
 	game->camera_offsets.x = 0;
 	game->camera_offsets.y = 0;
 	init_map_img(game);
+	game->entities = NULL;
 	mlx_get_data_addr(game->map->map_img, &game->map->map_img_data.pixel_bits,
 		&game->map->map_img_data.line_bytes, &game->map->map_img_data.endian);
-	return (0);
+	init_games_entities(game);
 }
 
 void	render_next_frame(t_mlx *mlx)
@@ -68,8 +90,7 @@ void	render_next_frame(t_mlx *mlx)
 	if (i % (100 / coin->animation.params.speed) == 0)
 		coin = coin->next;
 	i++;
-	render_asset(game, get_texture(PLAYER_TEXTURE), (t_vec2){0
-		+ game->camera_offsets.x, 0 + game->camera_offsets.y});
+	entities_loop(game);
 	proccess_rendering_buffer(game);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, game->rendering_buffer, 0, 0);
 	end = clock();

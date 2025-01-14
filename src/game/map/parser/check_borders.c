@@ -6,11 +6,12 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 08:48:46 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 08:52:51 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 08:55:28 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
+#include "libft.h"
 
 static bool	is_only_wall(char *line)
 {

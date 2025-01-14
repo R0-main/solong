@@ -6,11 +6,12 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:20:01 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 12:35:54 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 09:55:15 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "animations.h"
+#include "errors.h"
 
 bool	load_animation(void *mlx, const char *path, int id,
 		t_animation_parameters params)

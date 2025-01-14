@@ -30,6 +30,8 @@
 		"limits.h": "c",
 		"path_finding_utils.h": "c",
 		"map": "c",
-		"ranges": "c"
+		"ranges": "c",
+		"stdbool.h": "c",
+		"entities.h": "c"
 	}
 }

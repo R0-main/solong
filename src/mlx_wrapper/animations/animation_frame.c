@@ -6,11 +6,12 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:36:20 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/08 12:59:52 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/14 09:55:19 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "animations.h"
+#include "errors.h"
 
 t_img	*extract_img_from(void *mlx, t_animation animation, int i)
 {

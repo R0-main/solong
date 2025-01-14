@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 14:59:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 18:57:20 by romain           ###   ########.fr       */
+/*   Updated: 2025/01/14 09:43:13 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 # define RENDERING_H
 
-# include "game.h"
 # include "animations.h"
+# include "game.h"
+# include "textures.h"
 
 t_rendering_element	*create_rendering_element(t_img *img, t_img_data data,
 						t_vec2 position);
