@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:22:19 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 16:56:52 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:17:59 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,18 @@ void	entities_loop(t_game *game)
 	current = game->entities;
 	while (current)
 	{
-		pos = get_to_world_coord(game, current->pos.x, current->pos.y - 1);
+		pos = get_to_world_coord(game, current->pos.x + 1, current->pos.y - 1);
 		pos.x += get_min_x(game);
-		pos.x -= game->camera_offsets.x;
-		pos.y -= game->camera_offsets.y;
-		pos.x -= TILE_X;
-		pos.y += TILE_Y / 2;
 		if (current->idle_animation && game->tick % (100
 				/ current->idle_animation->animation.params.speed) == 0)
 		{
 			current->texture = current->idle_animation->texture;
 			current->idle_animation = current->idle_animation->next;
 		}
+		pos.x -= current->texture.img->width + game->camera_offsets.x;
+		pos.y -= current->texture.img->height + game->camera_offsets.y;
+		pos.x -= TILE_X / 1.85;
+		pos.y += TILE_Y;
 		if (current->type == PLAYER_TYPE)
 			handle_player(game, current);
 		render_asset(game, current->texture, pos);

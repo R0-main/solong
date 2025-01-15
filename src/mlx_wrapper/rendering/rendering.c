@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:10:08 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/13 18:57:11 by romain           ###   ########.fr       */
+/*   Updated: 2025/01/15 10:15:59 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	render_asset(t_game *game, t_texture asset, t_vec2 position)
 {
 	t_rendering_element	*r_elem;
 
+	if (!asset.img)
+		return ;
 	r_elem = create_rendering_element(asset.img, asset.img_data, position);
 	add_to_rendering_proccess(r_elem, game);
 }

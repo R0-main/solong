@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:06:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 15:20:39 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:12:58 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,14 @@ typedef struct s_texture
 typedef enum e_textures
 {
 	MAP,
-	GRASS_TEXTURE,
-	PLAYER_TEXTURE,
 	PLAYER_TEXTURE_TOP,
 	PLAYER_TEXTURE_BOTTOM,
 	PLAYER_TEXTURE_RIGHT,
 	PLAYER_TEXTURE_LEFT,
-	SARAH_TEXTURE,
 	TILE_TEXTURE,
-	TEST_TILE_TEXTURE,
-	ROCK_TEXTURE,
 	COIN_TEXTURE,
+	EXIT_OPEN_TEXTURE,
+	EXIT_CLOSE_TEXTURE,
 	FONT_ZERO_TEXTURE,
 	FONT_ONE_TEXTURE,
 	FONT_TWO_TEXTURE,

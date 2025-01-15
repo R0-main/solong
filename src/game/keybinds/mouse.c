@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:15:41 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 15:57:45 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:32:21 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,15 @@ void	handle_pressed_mouse_event(int key, t_mlx *mlx)
 	{
 		game->last_mouse_location = (t_vec2){x, y};
 	}
-	else if (key == 3)
+	else if (key == 3 && game->entities)
 	{
-		if (game->entities)
-		{
-			coords = get_to_tile_coord(game, x + game->camera_offsets.x, y
-					+ game->camera_offsets.y);
-			if (is_same_position(game->entities->pos, coords))
-				return ;
-			if (game->entities->path_to_follow)
-				free_path_nodes(game->entities->path_to_follow);
-			game->entities->path_to_follow = find_path(game->entities->pos,
-					coords);
-		}
+		coords = get_to_tile_coord(game, x + game->camera_offsets.x, y
+				+ game->camera_offsets.y);
+		if (is_same_position(game->entities->pos, coords))
+			return ;
+		if (game->entities->path_to_follow)
+			free_path_nodes(game->entities->path_to_follow);
+		game->entities->path_to_follow = find_path(game->entities->pos, coords);
 	}
 }
 

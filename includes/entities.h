@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 08:58:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 16:31:55 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:21:28 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ void					create_enemy_entity(t_game *game, t_vec2 pos);
 
 void					entities_loop(t_game *game);
 void					handle_player(t_game *game, t_entity *player);
+
+bool					move_entity(t_game *game, t_entity *entity,
+							t_direction direction);
 
 t_entity				*get_entity_at_location(t_game *game, t_vec2 pos,
 							t_entity_type type);

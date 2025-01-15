@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:10:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 16:41:57 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:55:10 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	create_player_entity(t_game *game)
 
 	player = create_entity(PLAYER_TYPE, game->map->player_spawnpoint);
 	player->hp = 20;
-	player->texture = get_texture(PLAYER_TEXTURE);
+	player->texture = get_texture(PLAYER_TEXTURE_BOTTOM);
 	player->directions_textures[UP] = get_texture(PLAYER_TEXTURE_TOP);
 	player->directions_textures[DOWN] = get_texture(PLAYER_TEXTURE_BOTTOM);
 	player->directions_textures[RIGHT] = get_texture(PLAYER_TEXTURE_RIGHT);
@@ -40,15 +40,15 @@ void	handle_player(t_game *game, t_entity *player)
 		remove_entity(entity);
 		game->collected_collectible += 1;
 		if (game->collected_collectible == game->map->collectible_count)
-			exit->texture = get_texture(PLAYER_TEXTURE);
+			exit->texture = get_texture(EXIT_OPEN_TEXTURE);
 	}
 	else if (entity && entity->type == ENEMY_TYPE)
 	{
-		exit_error("GAME OVER !");
+		exit_log(GAME_OVER_LOG);
 	}
 	else if (entity && entity->type == EXIT_TYPE
 		&& game->collected_collectible == game->map->collectible_count
 		&& is_same_position(entity->pos, player->pos))
-		exit_error("FINISH GAME");
+		exit_log(GAME_WON_LOG);
 	rotate_entity_texture(game, player, player->last_direction);
 }

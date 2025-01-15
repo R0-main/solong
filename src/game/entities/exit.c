@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:10:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 12:59:45 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:12:53 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void	create_exit_entity(t_game *game)
 
 	exit = create_entity(EXIT_TYPE, game->map->exit_coords);
 	exit->hp = 20;
-	exit->texture = get_texture(ROCK_TEXTURE);
+	exit->texture = get_texture(EXIT_CLOSE_TEXTURE);
 }

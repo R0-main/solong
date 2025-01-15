@@ -54,6 +54,7 @@ SRCS = ./src/main.c\
 		./src/utils/maths/ft_min.c\
 		./src/utils/maths/ft_max.c\
 		./src/utils/exit_error.c\
+		./src/utils/exit_log.c\
 		$(GNL_SRCS)
 
 OBJS = ${SRCS:.c=.o}

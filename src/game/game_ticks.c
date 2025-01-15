@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:43:33 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 16:57:15 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:22:41 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,7 @@ bool	handle_path_finding(t_game *game, t_entity *entity)
 
 	if (!entity->path_to_follow)
 		return (false);
-	pos = entity->pos;
-	if (entity->path_to_follow->direction == UP)
-		pos.y -= 1;
-	if (entity->path_to_follow->direction == DOWN)
-		pos.y += 1;
-	if (entity->path_to_follow->direction == RIGHT)
-		pos.x += 1;
-	if (entity->path_to_follow->direction == LEFT)
-		pos.x -= 1;
-	if (!is_wall(game->map, pos))
+	if (move_entity(game, entity, entity->path_to_follow->direction))
 	{
 		path = entity->path_to_follow;
 		entity->last_direction = entity->path_to_follow->direction;
@@ -50,7 +41,7 @@ void	on_game_tick(t_game *game)
 	if (!game || !game->init)
 		return ;
 	current = game->entities;
-	if (game->tick % 20 == 0)
+	if (game->tick % 100 == 0)
 	{
 		while (current)
 		{

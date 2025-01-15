@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:43:20 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 16:31:45 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:31:57 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,29 @@ t_entity	*get_entity_at_location(t_game *game, t_vec2 pos,
 		current = current->next;
 	}
 	return (NULL);
+}
+
+bool	move_entity(t_game *game, t_entity *entity, t_direction direction)
+{
+	t_vec2	pos;
+
+	if (!entity || direction == -1)
+		return (false);
+	pos = entity->pos;
+	if (direction == UP)
+		pos.y -= 1;
+	if (direction == DOWN)
+		pos.y += 1;
+	if (direction == RIGHT)
+		pos.x += 1;
+	if (direction == LEFT)
+		pos.x -= 1;
+	if (!is_wall(game->map, pos))
+	{
+		entity->pos = pos;
+		return (true);
+	}
+	return (false);
 }
 
 t_entity	*get_entity_at_location_diffrent_from(t_game *game, t_vec2 pos,

@@ -6,10 +6,11 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:24:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 15:21:54 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:12:35 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "textures.h"
 #include "errors.h"
 
@@ -28,13 +29,13 @@ int	load_texture(void *mlx, const char *path, int id)
 
 void	load_assets(void *mlx)
 {
-	load_texture(mlx, "assets/player.xpm", PLAYER_TEXTURE);
 	load_texture(mlx, "assets/player-bottom.xpm", PLAYER_TEXTURE_BOTTOM);
 	load_texture(mlx, "assets/player-up.xpm", PLAYER_TEXTURE_TOP);
 	load_texture(mlx, "assets/player-left.xpm", PLAYER_TEXTURE_LEFT);
 	load_texture(mlx, "assets/player-right.xpm", PLAYER_TEXTURE_RIGHT);
-	load_texture(mlx, "assets/tile_022.xpm", TILE_TEXTURE);
-	load_texture(mlx, "assets/rock.xpm", ROCK_TEXTURE);
+	load_texture(mlx, "assets/tile.xpm", TILE_TEXTURE);
+	load_texture(mlx, "assets/flag-closed.xpm", EXIT_CLOSE_TEXTURE);
+	load_texture(mlx, "assets/flag-open.xpm", EXIT_OPEN_TEXTURE);
 	load_texture(mlx, "assets/coin.xpm", COIN_TEXTURE);
 	load_texture(mlx, "assets/font/0.xpm", FONT_ZERO_TEXTURE);
 	load_texture(mlx, "assets/font/1.xpm", FONT_ONE_TEXTURE);
@@ -62,7 +63,7 @@ void	unload_assets(void *mlx)
 		if (texture.img)
 		{
 			mlx_destroy_image(mlx, texture.img);
-			printf("[ASSETS] UnLoaded !\n");
+			ft_printf("[ASSETS] UnLoaded !\n");
 		}
 	}
 }

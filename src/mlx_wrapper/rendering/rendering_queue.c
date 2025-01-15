@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:10:49 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 14:56:53 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 09:53:32 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,8 @@ void	add_to_rendering_proccess(t_rendering_element *r_elem, t_game *game)
 	else
 	{
 		current = game->rendering_queue;
-		while (current)
-		{
-			if (current->next == NULL)
-			{
-				current->next = r_elem;
-				break ;
-			}
-			current = current->next;
-		}
+		r_elem->next = current;
+		game->rendering_queue = r_elem;
 	}
 }
 

@@ -33,6 +33,7 @@
 		"ranges": "c",
 		"stdbool.h": "c",
 		"entities.h": "c",
-		"numbers": "c"
+		"numbers": "c",
+		"stdlib.h": "c"
 	}
 }
