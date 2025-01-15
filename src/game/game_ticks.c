@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:43:33 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 10:22:41 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:56:28 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 bool	handle_path_finding(t_game *game, t_entity *entity)
 {
-	t_vec2	pos;
 	t_path	*path;
 
 	if (!entity->path_to_follow)
@@ -26,7 +25,7 @@ bool	handle_path_finding(t_game *game, t_entity *entity)
 		entity->path_to_follow = entity->path_to_follow->next;
 		if (entity->type == PLAYER_TYPE)
 			game->steps_made += 1;
-		return (free(path), path = NULL, entity->pos = pos, true);
+		return (free(path), path = NULL, true);
 	}
 	else
 		return (free_path_nodes(entity->path_to_follow), false);
@@ -35,8 +34,6 @@ bool	handle_path_finding(t_game *game, t_entity *entity)
 void	on_game_tick(t_game *game)
 {
 	t_entity	*current;
-	t_vec2		pos;
-	t_path		*path;
 
 	if (!game || !game->init)
 		return ;

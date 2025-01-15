@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:32:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 16:49:16 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:58:20 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_map
 	t_vec2						enemies_coords[MAX_ENEMIES];
 	t_img						*map_img;
 	t_img_data					map_img_data;
-	int							collectible_count;
+	unsigned int				collectible_count;
 }								t_map;
 
 typedef struct s_rendering_element
@@ -123,9 +123,9 @@ void							on_key_pressed(int key);
 // WORLD
 int								get_max_x(t_game *game);
 int								get_max_y(t_game *game);
-int								get_min_y(t_game *game);
+int								get_min_y(void);
 int								get_min_x(t_game *game);
-t_vec2							get_to_world_coord(t_game *game, int x, int y);
+t_vec2							get_to_world_coord(int x, int y);
 
 int								init_map_asset(t_game *game);
 

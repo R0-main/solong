@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 08:48:46 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 16:04:04 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:55:40 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	check_map_borders(t_map *map)
 		exit_error(MAP_WIDTH_OR_AND_HEIGHT_ERROR);
 	while (++y < map->height)
 	{
-		if (ft_strlen(map->buffer[y]) != map->width)
+		if ((int)ft_strlen(map->buffer[y]) != map->width)
 			exit_error(MAP_WIDTH_ERROR);
 		else if (map->buffer[y][0] != '1'
 			|| map->buffer[y][ft_strlen(map->buffer[y])])

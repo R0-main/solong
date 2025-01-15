@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:13:27 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 11:02:32 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 12:03:52 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ t_path	*create_path_from_last_node(t_node *first_node, t_node *last_node)
 {
 	t_path	*path;
 
+	path = NULL;
 	path = create_path_node(path, first_node);
 	while (last_node)
 	{
-		if (last_node->prev_direction != -1)
+		if ((int)last_node->prev_direction != -1)
 		{
 			path->direction = last_node->prev_direction;
 			path->prev = create_path_node(path, first_node);
@@ -82,7 +83,7 @@ void	print_path(t_path *path)
 			put_log("RIGHT");
 		if (path->direction == LEFT)
 			put_log("LEFT");
-		if (path->direction == -1)
+		if ((int)path->direction == -1)
 			put_log("ERROR");
 		path = path->next;
 	}

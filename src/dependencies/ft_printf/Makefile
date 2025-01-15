@@ -20,7 +20,7 @@ INCLUDES_PATH=./includes
 
 all : ${NAME}
 
-${NAME} : ${OBJS} ${LIBFT}
+${NAME} : ${LIBFT} ${OBJS}
 	cp ../libft/libft.a $@
 	ar rcs $@ ${OBJS}
 
@@ -35,12 +35,15 @@ re: fclean all
 libft_clean:
 	make fclean -C ../libft --no-print-directory
 
-clean:
+libft_fclean:
+	make fclean -C ../libft --no-print-directory
+
+clean: libft_clean
 	rm -rf ${OBJS}
 	rm -rf ${TESTS_FAKE_OUT} ${TESTS_REAL_OUT}
 	rm -rf ${TESTS_WRITTEN_FILE_A} ${TESTS_WRITTEN_FILE_B}
 
-fclean: clean libft_clean
+fclean: clean libft_fclean
 	rm -rf ${NAME}
 
-.PHONY: check fclean clean libft_clean re all test
+.PHONY: check fclean clean libft_fclean libft_clean re all test

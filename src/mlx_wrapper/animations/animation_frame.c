@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:36:20 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 09:55:19 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:52:00 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 t_img	*extract_img_from(void *mlx, t_animation animation, int i)
 {
 	t_img	*new_img;
-	int		new_pixel;
-	int		img_pixel;
 
 	new_img = mlx_new_image(mlx, animation.params.frame_length.x * 2,
 			animation.params.frame_length.y * 2);

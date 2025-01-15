@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"path_finding.h": "c",
+		"game.h": "c"
+	}
+}

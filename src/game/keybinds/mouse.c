@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:15:41 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 10:32:21 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 12:07:15 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	handle_pressed_mouse_event(int key, t_mlx *mlx)
 
 	x = 0;
 	y = 0;
+	(void)mlx;
 	game = get_game_instance();
 	if (!game || !game->mlx || !game->mlx->mlx || !game->mlx->win)
 		return ;
@@ -46,7 +47,11 @@ void	handle_release_mouse_event(int x, int y, t_mlx *mlx)
 	t_game	*game;
 
 	game = get_game_instance();
-	if (!game || !game->init)
+	(void)y;
+	(void)x;
+	(void)mlx;
+	if (!game || !game->init || !game->mlx || !game->mlx->win
+		|| !game->mlx->mlx)
 		return ;
 	game->last_mouse_location = (t_vec2){0, 0};
 }
@@ -57,7 +62,11 @@ void	handle_mouse_motion_event(int x, int y, t_mlx *mlx)
 	t_game	*game;
 
 	game = get_game_instance();
-	if (!game || !game->init)
+	(void)y;
+	(void)x;
+	(void)mlx;
+	if (!game || !game->init || !game->mlx || !game->mlx->win
+		|| !game->mlx->mlx)
 		return ;
 	if (!game->last_mouse_location.x || !game->last_mouse_location.y)
 		return ;

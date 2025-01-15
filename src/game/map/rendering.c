@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 14:23:48 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 12:04:17 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	generate_tiles(t_game *game, t_img *map)
 		{
 			if (game->map->buffer[y][x] == '1')
 				continue ;
-			coords = get_to_world_coord(game, x, y);
+			coords = get_to_world_coord(x, y);
 			coords.x += get_min_x(game);
 			put_img_to_into_img(map, texture.img, coords);
 		}
@@ -94,7 +94,6 @@ void	generate_tiles(t_game *game, t_img *map)
 int	init_map_img(t_game *game)
 {
 	t_img	*map;
-	int		i;
 
 	map = mlx_new_image(game->mlx->mlx, get_max_x(game), get_max_y(game));
 	generate_tiles(game, map);

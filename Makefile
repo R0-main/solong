@@ -1,13 +1,18 @@
 CC = clang
-CFLAGS = -Iincludes -O3 -O2 -flto -ffast-math -march=native
+CFLAGS = -Wall -Werror -Wextra -Iincludes -O3 -O2 -flto -ffast-math -march=native
 
 EXEC = game.out
+
 MLX_LIB = ./minilibx_linux/libmlx_Linux.a
+MLX_LIB_PATH = ./minilibx_linux/
 
 DEPENDENCIES_PATH = ./src/dependencies
 
 GNL_SRCS = $(DEPENDENCIES_PATH)/get_next_line/get_next_line.c\
 		$(DEPENDENCIES_PATH)/get_next_line/get_next_line_utils.c
+
+FT_PRINTF_PATH = ./src/dependencies/ft_printf
+FT_PRINTF = ./src/dependencies/ft_printf/libftprintf.a
 
 SRCS = ./src/main.c\
 			./src/mlx_wrapper/animations/animations.c\
@@ -57,37 +62,40 @@ SRCS = ./src/main.c\
 		./src/utils/exit_log.c\
 		$(GNL_SRCS)
 
-OBJS = ${SRCS:.c=.o}
-
-FT_PRINTF_PATH = ./src/dependencies/ft_printf
-FT_PRINTF = ./src/dependencies/ft_printf/libftprintf.a
+OBJS = $(SRCS:.c=.o)
 
 all : compile
 
-compile: $(OBJS) $(FT_PRINTF)
-	$(CC) ${CFLAGS} $(OBJS) ${MLX_LIB} $(FT_PRINTF) -lXext -lX11 -lm -lz -pipe -o ${EXEC}
+compile: $(FT_PRINTF) $(MLX_LIB) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(FT_PRINTF) -lXext -lX11 -lm -lz -pipe -o $(EXEC)
+
+$(MLX_LIB):
+	make re -C $(MLX_LIB_PATH) --no-print-directory
+
+$(FT_PRINTF) :
+	make re -C $(FT_PRINTF_PATH) --no-print-directory
 
 %.o : %.c
-	$(CC) ${CFLAGS} -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
-${FT_PRINTF} :
-	make re -C $(FT_PRINTF_PATH) --no-print-directory
-	cp $(FT_PRINTF) $@
+run : compile $(EXEC)
+	./$(EXEC)
 
-run : compile ${EXEC}
-	./${EXEC}
-
-dev : compile ${EXEC}
-	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./${EXEC} ./maps/packman.ber
+dev : compile $(EXEC)
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(EXEC) ./maps/packman.ber
 	make fclean
 
-clean_lib :
-	make flcean -C $(FT_PRINTF_PATH) --no-print-directory
-
 clean :
-	rm -rf ${OBJS}
+	rm -rf $(OBJS)
+	make clean -C $(MLX_LIB_PATH) --no-print-directory
+	make clean -C $(FT_PRINTF_PATH) --no-print-directory
 
-fclean : clean
-	rm -rf ${EXEC}
+fclean :
+	rm -rf $(OBJS)
+	rm -rf $(EXEC)
+	make clean -C $(MLX_LIB_PATH) --no-print-directory
+	make fclean -C $(FT_PRINTF_PATH) --no-print-directory
 
-.PHONY : run compile all dev
+re: fclean all
+
+.PHONY : run compile all dev re fclean clean

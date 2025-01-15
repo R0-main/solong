@@ -6,13 +6,13 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 13:05:13 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 17:01:35 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 12:00:56 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 
-t_vec2	get_to_world_coord(t_game *game, int x, int y)
+t_vec2	get_to_world_coord(int x, int y)
 {
 	t_vec2	coords;
 
@@ -26,7 +26,6 @@ t_vec2	get_to_world_coord(t_game *game, int x, int y)
 t_vec2	get_to_tile_coord(t_game *game, int x, int y)
 {
 	t_vec2	coords;
-	int		temp_y;
 
 	x /= TILE_X;
 	y /= TILE_Y;

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:22:19 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 10:17:59 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:56:47 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	entities_loop(t_game *game)
 	current = game->entities;
 	while (current)
 	{
-		pos = get_to_world_coord(game, current->pos.x + 1, current->pos.y - 1);
+		pos = get_to_world_coord(current->pos.x + 1, current->pos.y - 1);
 		pos.x += get_min_x(game);
 		if (current->idle_animation && game->tick % (100
 				/ current->idle_animation->animation.params.speed) == 0)

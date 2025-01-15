@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:20:01 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 09:51:35 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:51:47 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ bool	load_animation(void *mlx, const char *path, int id,
 
 void	load_animations(void *mlx)
 {
-	t_animation_parameters	params;
-
 	load_animation(mlx, "./assets/coin.xpm", COIN_ANIMATION,
 		(t_animation_parameters){(t_vec2){25, 24}, 2, 8});
 }
@@ -72,7 +70,6 @@ void	unload_animations(void *mlx)
 	int					i;
 	t_animations_atlas	*animations_atlas;
 	t_animation			animation;
-	t_animation_frame	*first_frame;
 
 	i = 0;
 	animations_atlas = get_animations_atlas();

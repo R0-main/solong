@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:30:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 11:09:48 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:53:15 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ void	init_games_entities(t_game *game)
 	{
 		if (game->map->collectibles_coords[i].x
 			&& game->map->collectibles_coords[i].y)
-			create_collectible_entity(game, game->map->collectibles_coords[i]);
+			create_collectible_entity(game->map->collectibles_coords[i]);
 		i++;
 	}
 	i = 0;
 	while (i < MAX_ENEMIES)
 	{
 		if (game->map->enemies_coords[i].x && game->map->enemies_coords[i].y)
-			create_enemy_entity(game, game->map->enemies_coords[i]);
+			create_enemy_entity(game->map->enemies_coords[i]);
 		i++;
 	}
 }

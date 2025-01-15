@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 08:58:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 10:21:28 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:53:03 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void					remove_entity(t_entity *entity);
 void					add_to_entities_list(t_entity *entity);
 
 void					create_player_entity(t_game *game);
-void					create_collectible_entity(t_game *game, t_vec2 pos);
+void					create_collectible_entity(t_vec2 pos);
 void					create_exit_entity(t_game *game);
-void					create_enemy_entity(t_game *game, t_vec2 pos);
+void					create_enemy_entity(t_vec2 pos);
 
 void					entities_loop(t_game *game);
 void					handle_player(t_game *game, t_entity *player);
