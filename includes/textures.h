@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:06:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 10:12:58 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:17:57 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef enum e_textures
 	PLAYER_TEXTURE_LEFT,
 	TILE_TEXTURE,
 	COIN_TEXTURE,
+	ENEMY_TEXTURE,
 	EXIT_OPEN_TEXTURE,
 	EXIT_CLOSE_TEXTURE,
 	FONT_ZERO_TEXTURE,

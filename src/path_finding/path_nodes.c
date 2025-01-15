@@ -6,13 +6,14 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:13:27 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 09:52:08 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:02:32 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "path_finding.h"
 #include "path_finding_utils.h"
+#include "utils.h"
 
 void	free_path_nodes(t_path *first)
 {
@@ -74,17 +75,15 @@ void	print_path(t_path *path)
 	while (path)
 	{
 		if (path->direction == UP)
-			ft_printf("UP\n");
+			put_log("UP");
 		if (path->direction == DOWN)
-			ft_printf("DOWN\n");
+			put_log("DOWN");
 		if (path->direction == RIGHT)
-			ft_printf("RIGHT\n");
+			put_log("RIGHT");
 		if (path->direction == LEFT)
-			ft_printf("LEFT\n");
+			put_log("LEFT");
 		if (path->direction == -1)
-			ft_printf("ERROR\n");
-		if (path->direction == -2)
-			ft_printf("ERROR@\n");
+			put_log("ERROR");
 		path = path->next;
 	}
 }

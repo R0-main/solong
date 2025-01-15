@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:47:23 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 10:56:08 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:59:42 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 #include "game.h"
 #include "mlx_wrapper.h"
 #include <stdlib.h>
+#include "errors.h"
 
-void	ft_putstr_Log(const char *msg)
+void	put_log(const char *msg)
 {
 	int	i;
 
@@ -37,6 +38,6 @@ void	exit_log(const char *msg)
 	game = get_game_instance();
 	if (game)
 		free_all();
-	ft_putstr_Log(msg);
+	put_log(msg);
 	exit(EXIT_SUCCESS);
 }

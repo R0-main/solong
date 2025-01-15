@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:30:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 09:40:42 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:09:48 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ void	init_games_entities(t_game *game)
 	i = 0;
 	while (i < MAX_ENEMIES)
 	{
-		if (game->map->enemies_coords[i].x
-			&& game->map->enemies_coords[i].y)
+		if (game->map->enemies_coords[i].x && game->map->enemies_coords[i].y)
 			create_enemy_entity(game, game->map->enemies_coords[i]);
 		i++;
 	}
@@ -67,7 +66,6 @@ void	game_init(t_mlx *mlx)
 
 	game = get_game_instance();
 	game->map = get_map();
-	print_map();
 	game->rendering_buffer = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
 	if (!game->rendering_buffer)
 		exit_error(GAME_RENDERING_BUFFER_MALLOC_FAILED);
@@ -89,6 +87,27 @@ void	game_init(t_mlx *mlx)
 	init_games_entities(game);
 }
 
+void	render_next_frame(t_mlx *mlx)
+{
+	t_game			*game;
+
+	game = get_game_instance();
+	if (!game || !game->init)
+		return ;
+	mlx_destroy_image(mlx->mlx, game->rendering_buffer);
+	game->rendering_buffer = mlx_new_image(game->mlx->mlx, WIDTH, HEIGHT);
+	game->tick++;
+	if (!game->rendering_buffer)
+		return ;
+	on_game_tick(game);
+	draw_map(game);
+	entities_loop(game);
+	write_score_on_screen(game);
+	proccess_rendering_buffer(game);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, game->rendering_buffer, 0, 0);
+}
+
+/*
 void	render_next_frame(t_mlx *mlx)
 {
 	double			time_taken;
@@ -118,7 +137,7 @@ void	render_next_frame(t_mlx *mlx)
 		max = time_taken;
 	if (max == 0)
 		max += 0.01;
-	// printf("%d\n", game->tick);
 	printf("Temps d'exécution : %.3f ms | max : %.3f ms | fps : %.0f\n",
 		time_taken, max, 1000 / time_taken);
 }
+*/

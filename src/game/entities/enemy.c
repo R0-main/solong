@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:10:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 16:08:39 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:18:13 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void	create_enemy_entity(t_game *game, t_vec2 pos)
 
 	enemy = create_entity(ENEMY_TYPE, pos);
 	enemy->hp = 20;
-	enemy->texture = get_texture(FONT_ZERO_TEXTURE);
+	enemy->texture = get_texture(ENEMY_TEXTURE);
 }

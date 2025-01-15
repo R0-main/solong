@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:24:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 10:12:35 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:18:02 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	load_assets(void *mlx)
 	load_texture(mlx, "assets/tile.xpm", TILE_TEXTURE);
 	load_texture(mlx, "assets/flag-closed.xpm", EXIT_CLOSE_TEXTURE);
 	load_texture(mlx, "assets/flag-open.xpm", EXIT_OPEN_TEXTURE);
+	load_texture(mlx, "assets/enemy.xpm", ENEMY_TEXTURE);
 	load_texture(mlx, "assets/coin.xpm", COIN_TEXTURE);
 	load_texture(mlx, "assets/font/0.xpm", FONT_ZERO_TEXTURE);
 	load_texture(mlx, "assets/font/1.xpm", FONT_ONE_TEXTURE);
@@ -61,9 +62,6 @@ void	unload_assets(void *mlx)
 	{
 		texture = textures_atlas->atlas[i++];
 		if (texture.img)
-		{
 			mlx_destroy_image(mlx, texture.img);
-			ft_printf("[ASSETS] UnLoaded !\n");
-		}
 	}
 }

@@ -1,3 +1,0 @@
-clang -Iincludes -c src/main.c -o src/main.o
-clang ./src/main.o ./src/mlx_wrapper/textures.o ./src/mlx_wrapper/textures_loader.o ./src/mlx_wrapper/rendering.o ./src/game/game.o ./src/game/coordinates/coordinates.o ./src/game/map/parser.o ./src/game/map/map.o ./src/game/map/rendering.o ./src/game/world/world.o ./src/game/keybinds/keybinds.o ./src/utils/free_2d_buffer.o ./src/utils/endswith.o ./src/utils/delay.o ./src/utils/maths/ft_abs.o ./src/dependencies/get_next_line/get_next_line.o ./src/dependencies/get_next_line/get_next_line_utils.o ./minilibx_linux/libmlx_Linux.a ./src/dependencies/ft_printf/libftprintf.a -lXext -lX11 -lm -lz -O3 -O2 -o game.out
-valgrind --leak-check=full --show-leak-kinds=all ./game.out ./maps/packman.ber
