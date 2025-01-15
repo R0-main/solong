@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:15:41 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 12:07:15 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 12:09:05 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ void	handle_pressed_mouse_event(int key, t_mlx *mlx)
 		return ;
 	mlx_mouse_get_pos(game->mlx->mlx, game->mlx->win, &x, &y);
 	if (key == 1)
-	{
 		game->last_mouse_location = (t_vec2){x, y};
-	}
 	else if (key == 3 && game->entities)
 	{
 		coords = get_to_tile_coord(game, x + game->camera_offsets.x, y
