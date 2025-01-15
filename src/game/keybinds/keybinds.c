@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 09:35:40 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 10:31:33 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:43:24 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	handle_key(int keycode, t_mlx *mlx)
 {
 	if (!mlx || !mlx->mlx || !mlx->win)
 		return (1);
-	if (keycode == 65307 || keycode == -16778664)
+	if (keycode == 65307)
 	{
 		mlx_loop_end(mlx->mlx);
 	}

@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -Iincludes -O3 -O2 -flto -ffast-math -march=native
+CFLAGS = -Wall -Werror -Wextra -Iincludes -Iminilibx_linux -O3 -O2 -flto -ffast-math -march=native
 
 EXEC = game.out
 
@@ -88,7 +88,7 @@ dev : compile $(EXEC)
 clean :
 	rm -rf $(OBJS)
 	make clean -C $(MLX_LIB_PATH) --no-print-directory
-	make clean -C $(FT_PRINTF_PATH) --no-print-directory
+	make fclean -C $(FT_PRINTF_PATH) --no-print-directory
 
 fclean :
 	rm -rf $(OBJS)

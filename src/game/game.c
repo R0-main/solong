@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:30:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 11:53:15 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:19:11 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ void	render_next_frame(t_mlx *mlx)
 		return ;
 	on_game_tick(game);
 	draw_map(game);
-	entities_loop(game);
 	write_score_on_screen(game);
+	entities_loop(game);
 	proccess_rendering_buffer(game);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, game->rendering_buffer, 0, 0);
 }
