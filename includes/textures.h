@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:06:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/16 09:06:55 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/16 09:23:39 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_textures_atlas
 //    Getter Section
 //
 // -----------------------------------------
+
 t_texture			get_texture(int id);
 t_textures_atlas	*get_textures_atlas(void);
 
@@ -71,6 +72,7 @@ t_textures_atlas	*get_textures_atlas(void);
 //   Loader / Unloader Section
 //
 // -----------------------------------------
+
 int					load_texture(void *mlx, const char *path, int id);
 void				load_assets(void *mlx);
 void				unload_assets(void *mlx);
@@ -81,6 +83,7 @@ void				add_asset(int id, t_img *img);
 //    Utils Section
 //
 // -----------------------------------------
+
 void				put_img_to_into_img(t_img *dest_img, t_img *img,
 						t_vec2 offset);
 void				put_img_to_into_img_with_offset(t_img *dest_img,

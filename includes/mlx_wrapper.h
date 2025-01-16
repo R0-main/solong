@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:33:15 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/16 08:58:44 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/16 09:23:11 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ typedef struct s_img_data
 	int		pixel_bits;
 	int		endian;
 }			t_img_data;
+
+// -----------------------------------------
+//
+//    Main Section
+//
+// -----------------------------------------
 
 t_mlx		*get_mlx_vars(void);
 void		free_all(void);

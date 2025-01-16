@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 14:59:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/16 09:12:50 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/16 09:23:32 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_rendering_element
 //    Rendering Buffer Section
 //
 // -----------------------------------------
+
 t_rendering_element				*create_rendering_element(t_img *img,
 									t_img_data data, t_vec2 position);
 void							free_rendering_queue(t_game *game);
@@ -54,6 +55,7 @@ void							put_pixel_into_rendering_buffer(t_game *game,
 //    Map Rendering Section
 //
 // -----------------------------------------
+
 void							draw_map(t_game *game);
 
 // -----------------------------------------
@@ -61,6 +63,7 @@ void							draw_map(t_game *game);
 //    Texture / Animations Rendering Section
 //
 // -----------------------------------------
+
 void							render_asset(t_game *game, t_texture asset,
 									t_vec2 position);
 void							render_animation(t_game *game,

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 15:42:59 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/16 08:46:09 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/16 09:22:14 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,20 @@
 
 # define FT_PRINTF_H
 
+// -----------------------------------------
+//
+//    Main Section
+//
+// -----------------------------------------
+
 int		ft_printf(const char *format, ...);
+
+// -----------------------------------------
+//
+//    Utils Section
+//
+// -----------------------------------------
+
 int		ft_unsigned_putnbr(unsigned int n);
 void	ft_print_hex_x(unsigned long num_hex, int pre);
 void	ft_print_hex_big_x(unsigned long num_hex, int pre);

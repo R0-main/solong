@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:03:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/11/07 10:33:16 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/16 09:22:49 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+// -----------------------------------------
+//
+//    Main Section
+//
+// -----------------------------------------
 
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
@@ -57,7 +63,11 @@ void	*ft_memmove(void *dest, const void *src, size_t n);
 void	*ft_memchr(const void *s, int c, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 
-// BONUS
+// -----------------------------------------
+//
+//    Bonus Section
+//
+// -----------------------------------------
 
 typedef struct s_list
 {

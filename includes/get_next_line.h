@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 14:56:50 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/05 16:11:34 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/16 09:22:33 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,20 @@ typedef struct s_fd_line_state
 	int		end;
 }			t_fd_line_state;
 
+// -----------------------------------------
+//
+//    Main Section
+//
+// -----------------------------------------
+
 char		*get_next_line(int fd);
 
-// UTILS
+// -----------------------------------------
+//
+//    Utils Section
+//
+// -----------------------------------------
+
 long long	get_next_line_index(char *str);
 void		ft_bzero(void *s, size_t n);
 char		*ft_strncatdup(char *src, char *second, size_t max);

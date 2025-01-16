@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:51:17 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/16 09:01:53 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/16 09:21:55 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 //    Errors Section
 //
 // -----------------------------------------
+
 # define MAP_SPAWN_POINT_ERROR "map has more than 1 player spawn point or doesn't have any!"
 # define MAP_EXIT_ERROR "map has more than 1 exit or doesn't have any!"
 # define MAP_COLLECTIBLE_ERROR "map doesn't have any collectible!"
@@ -58,6 +59,7 @@ void	exit_error(const char *msg);
 //    Log Section
 //
 // -----------------------------------------
+
 # define GAME_WON_LOG "well played, you have finally collected all the coins and reached the exit!"
 # define GAME_OVER_LOG "game over, you have been captured by an evil monster!"
 # define GAME_LEAVE_LOG "you closed the game without finishing it!"
