@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:43:20 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 11:53:42 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/16 13:04:35 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ bool	move_entity(t_game *game, t_entity *entity, t_direction direction)
 {
 	t_vec2	pos;
 
-	if (!entity || (int)direction == -1)
+	if (!entity || (int)direction == -1 )
 		return (false);
 	pos = entity->pos;
 	if (direction == UP)

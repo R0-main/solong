@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 09:35:40 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/16 08:58:34 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/16 13:04:58 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	on_key_pressed(int key)
 		direction = LEFT;
 	else if (key == D_KEY || key == RIGHT_ARROW_KEY)
 		direction = RIGHT;
-	if (move_entity(game, player, direction))
+	if (!player->path_to_follow && move_entity(game, player, direction))
 	{
 		game->steps_made += 1;
 		player->last_direction = direction;
