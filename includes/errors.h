@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:51:17 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 10:57:41 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/16 08:25:13 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define MLX_ERROR "mlx creation failed"
 
 # define MAP_FILE_EXTENSION_ERROR "map file is not in .ber"
+# define MAIN_TOO_MANY_ARGS "too many arguments!"
 # define MAIN_NO_ARG "Please provide a map in .ber"
 
 void	exit_error(const char *msg);

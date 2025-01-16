@@ -54,7 +54,6 @@ SRCS = ./src/main.c\
 			./src/path_finding/path_nodes.c\
 		./src/utils/free_2d_buffer.c\
 		./src/utils/endswith.c\
-		./src/utils/delay.c\
 		./src/utils/maths/ft_abs.c\
 		./src/utils/maths/ft_min.c\
 		./src/utils/maths/ft_max.c\

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:01:04 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 11:24:26 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/16 08:25:48 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,10 @@ int	main(int ac, char **av)
 	void	*mlx;
 	t_mlx	*mlx_vars;
 
+	if (ac > 2)
+		exit_error(MAIN_TOO_MANY_ARGS);
 	if (ac == 1)
-		exit_error(MAP_FILE_EXTENSION_ERROR);
+		exit_error(MAIN_NO_ARG);
 	if (!endswith(av[1], ".ber"))
 		exit_error(MAP_FILE_EXTENSION_ERROR);
 	parse_map(av[1]);

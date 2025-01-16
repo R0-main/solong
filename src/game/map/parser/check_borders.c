@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 08:48:46 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 11:55:40 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/16 08:31:37 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	check_map_borders(t_map *map)
 		else if (map->buffer[y][0] != '1'
 			|| map->buffer[y][ft_strlen(map->buffer[y])])
 			exit_error(MAP_LEFT_OR_AND_RIGHT_BORDER_ERROR);
-		else if ((y == 0 || y == map->height) && !is_only_wall(map->buffer[y]))
+		else if ((y == 0 || y == map->height - 1) && !is_only_wall(map->buffer[y]))
 			exit_error(MAP_UPPER_OR_AND_BOTTOM_BORDER_ERROR);
 		else if (!is_only_map_element(map->buffer[y]))
 			exit_error(MAP_NOT_ALLOWED_CHARS_ERROR);
