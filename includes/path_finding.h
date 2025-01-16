@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:08:33 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 13:48:36 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/16 08:54:53 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,5 @@ typedef struct s_node
 void				free_path_nodes(t_path *first);
 t_path				*find_path(t_vec2 pos, t_vec2 to);
 void				print_path(t_path *path);
-t_path				*A_star(t_vec2 from, t_vec2 to);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 15:42:59 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/07 10:38:58 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/16 08:46:09 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,5 @@ int		handle_num(va_list args);
 int		handle_hex(va_list args);
 int		handle_big_hex(va_list args);
 int		handle_address(va_list args);
-
-char	*ft_get_hex(unsigned long freeze, unsigned long num, int pre);
 
 #endif

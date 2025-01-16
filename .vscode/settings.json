@@ -1,6 +1,12 @@
 {
 	"files.associations": {
 		"path_finding.h": "c",
-		"game.h": "c"
+		"game.h": "c",
+		"utils.h": "c",
+		"rendering.h": "c",
+		"textures.h": "c",
+		"animations.h": "c",
+		"mlx_wrapper.h": "c",
+		"entities.h": "c"
 	}
 }

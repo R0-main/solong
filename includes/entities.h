@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 08:58:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 11:53:03 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/16 09:13:50 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@
 # include "textures.h"
 # include "utils.h"
 
-struct s_game;
 typedef struct s_game	t_game;
-
-# define MAX_ENTITIES 255
 
 typedef enum e_entity_type
 {
@@ -47,30 +44,46 @@ typedef struct s_entity
 	struct s_entity		*prev;
 }						t_entity;
 
+// -----------------------------------------
+//
+//    Main Section
+//
+// -----------------------------------------
+void					entities_loop(t_game *game);
 void					free_entities(t_game *game);
-
 t_entity				*create_entity(t_entity_type type, t_vec2 pos);
 void					remove_entity(t_entity *entity);
-void					add_to_entities_list(t_entity *entity);
 
+// -----------------------------------------
+//
+//    Game Entities Section
+//
+// -----------------------------------------
 void					create_player_entity(t_game *game);
 void					create_collectible_entity(t_vec2 pos);
 void					create_exit_entity(t_game *game);
 void					create_enemy_entity(t_vec2 pos);
-
-void					entities_loop(t_game *game);
 void					handle_player(t_game *game, t_entity *player);
 
-bool					move_entity(t_game *game, t_entity *entity,
-							t_direction direction);
-
+// -----------------------------------------
+//
+//    Getter Section
+//
+// -----------------------------------------
 t_entity				*get_entity_at_location(t_game *game, t_vec2 pos,
 							t_entity_type type);
-
-void					rotate_entity_texture(t_game *game, t_entity *entity,
-							t_direction direction);
-
 t_entity				*get_entity_at_location_diffrent_from(t_game *game,
 							t_vec2 pos, t_entity *entity);
+
+// -----------------------------------------
+//
+//    Utils Section
+//
+// -----------------------------------------
+bool					move_entity(t_game *game, t_entity *entity,
+							t_direction direction);
+void					rotate_entity_texture(t_game *game, t_entity *entity,
+							t_direction direction);
+void					add_to_entities_list(t_entity *entity);
 
 #endif

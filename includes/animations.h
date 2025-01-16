@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:25:13 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 09:51:00 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/16 09:08:34 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,12 @@
 # include "textures.h"
 # include <stdbool.h>
 
-struct s_game;
-typedef struct s_game			t_game;
+# define MAX_ANIMATIONS 256
 
 typedef enum e_animations
 {
 	COIN_ANIMATION,
 }								t_animation_id;
-
-# define MAX_ANIMATIONS 256
 
 typedef struct s_animation_parameters
 {
@@ -64,27 +61,34 @@ typedef struct s_load_animation
 	int							i;
 }								t_load_animation;
 
+// -----------------------------------------
+//
+//    Getter Section
+//
+// -----------------------------------------
+t_animation						get_animation(t_animation_id id);
 t_animations_atlas				*get_animations_atlas(void);
+t_animation_frame				*get_animation_first_frame(t_animation_id id);
 void							add_animation_asset(int id, t_img *img,
 									t_animation_parameters params);
+
+// -----------------------------------------
+//
+//   Loader / Unloader Section
+//
+// -----------------------------------------
+void							load_animations(void *mlx);
 bool							load_animation(void *mlx, const char *path,
 									int id, t_animation_parameters params);
-
-t_animation						get_animation(t_animation_id id);
-t_img							*get_animation_asset(t_animation_id id);
-
-t_animation_frame				*create_animation_frames(void *mlx,
-									t_animation_id id);
-
-void							set_animation_first_frame(t_animation_id id,
-									t_animation_frame *first_frame);
-t_animation_frame				*get_animation_first_frame(t_animation_id id);
-
-void							load_animations(void *mlx);
 void							unload_animations(void *mlx);
 
-void							render_animation(t_game *game,
-									t_animation_frame *asset, t_vec2 position);
-;
-
+// -----------------------------------------
+//
+//   Animation Frame Section
+//
+// -----------------------------------------
+t_animation_frame				*create_animation_frames(void *mlx,
+									t_animation_id id);
+void							set_animation_first_frame(t_animation_id id,
+									t_animation_frame *first_frame);
 #endif
