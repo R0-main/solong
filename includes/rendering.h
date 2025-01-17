@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 14:59:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/16 13:08:28 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/17 14:16:38 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 # define RENDERING_H
 
+# include "animations.h"
+# include "game.h"
 # include "mlx_int.h"
 # include "mlx_wrapper.h"
+# include "textures.h"
 # include "utils.h"
 
-typedef struct s_game t_game;
+typedef struct s_game			t_game;
 
 typedef struct s_rendering_element
 {
@@ -27,10 +30,6 @@ typedef struct s_rendering_element
 	t_img_data					img_data;
 	struct s_rendering_element	*next;
 }								t_rendering_element;
-
-# include "game.h"
-# include "textures.h"
-# include "animations.h"
 
 // -----------------------------------------
 //
@@ -41,14 +40,12 @@ typedef struct s_rendering_element
 t_rendering_element				*create_rendering_element(t_img *img,
 									t_img_data data, t_vec2 position);
 void							free_rendering_queue(t_game *game);
-void							add_to_rendering_proccess(t_rendering_element *r_elem,
+void							add_to_rendering_proccess(
+									t_rendering_element *r_elem,
 									t_game *game);
 void							proccess_rendering_buffer(t_game *game);
 void							put_img_to_rendering_buffer(t_game *game,
 									t_rendering_element *r_elem);
-void							put_pixel_into_rendering_buffer(t_game *game,
-									int32_t *buffer, int buffer_line_bits,
-									t_vec2 coords, int32_t color);
 
 // -----------------------------------------
 //

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 12:04:17 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/17 14:15:43 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	draw_map(t_game *game)
 	struct s_draw_map_params	t;
 
 	init_draw_map_data(game, &t);
-	if (!fast_is_between(t.length, POSITION_ZERO, POSITION_MAX))
+	if (!fast_is_between(t.length, (t_vec2){0, 0}, (t_vec2){WIDTH - 1, HEIGHT}))
 		t.length = (t_vec2){WIDTH, HEIGHT};
 	while (t.y < t.length.y)
 	{

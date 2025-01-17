@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:11:28 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/14 16:58:13 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/17 14:15:46 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	put_img_to_rendering_buffer(t_game *game, t_rendering_element *r_elem)
 		while (++x < r_elem->img->width)
 		{
 			if (is_between((t_vec2){r_elem->position.x + x, r_elem->position.y
-					+ y}, POSITION_ZERO, POSITION_MAX))
+					+ y}, (t_vec2){0, 0}, (t_vec2){WIDTH - 1, HEIGHT}))
 			{
 				buffer_pixel = ((r_elem->position.y + y) * (c))
 					+ ((r_elem->position.x + x));
