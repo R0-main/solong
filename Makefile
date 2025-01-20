@@ -97,4 +97,6 @@ fclean :
 
 re: fclean all
 
-.PHONY : run compile all dev re fclean clean
+bonus : all
+
+.PHONY : run compile all dev re fclean clean bonus
