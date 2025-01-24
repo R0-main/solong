@@ -1,7 +1,7 @@
 CC = clang
 CFLAGS = -Wall -Werror -Wextra -Iincludes -Iminilibx_linux -O3 -O2 -flto -ffast-math -march=native
 
-EXEC = game.out
+EXEC = so_long
 
 MLX_LIB = ./minilibx_linux/libmlx_Linux.a
 MLX_LIB_PATH = ./minilibx_linux/
@@ -63,10 +63,10 @@ SRCS = ./src/main.c\
 
 OBJS = $(SRCS:.c=.o)
 
-all : compile
+all : $(EXEC)
 
-compile: $(FT_PRINTF) $(MLX_LIB) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(FT_PRINTF) -lXext -lX11 -lm -lz -pipe -o $(EXEC)
+$(EXEC): $(FT_PRINTF) $(MLX_LIB) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(FT_PRINTF) -lXext -lX11 -lm -lz -pipe -o $@
 
 $(MLX_LIB):
 	make re -C $(MLX_LIB_PATH) --no-print-directory

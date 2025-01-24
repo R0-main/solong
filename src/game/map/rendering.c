@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/17 14:15:43 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:34:42 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,16 @@ void	draw_map(t_game *game)
 	struct s_draw_map_params	t;
 
 	init_draw_map_data(game, &t);
-	if (!fast_is_between(t.length, (t_vec2){0, 0}, (t_vec2){WIDTH - 1, HEIGHT}))
-		t.length = (t_vec2){WIDTH, HEIGHT};
-	while (t.y < t.length.y)
+	while (t.y < HEIGHT)
 	{
 		t.x = 0;
-		while (t.x < t.length.x)
+		while (t.x < WIDTH)
 		{
 			t.pixel = ((t.y + game->camera_offsets.y) * t.d) + (t.x
 					+ game->camera_offsets.x);
+			if (is_between_zero_and((t_vec2){t.x + game->camera_offsets.x, t.y
+					+ game->camera_offsets.y}, t.length))
+				return ;
 			if (t.map_buffer[t.pixel] != 0)
 			{
 				t.buffer[(t.y * t.c) + (t.x)] = t.map_buffer[t.pixel];
