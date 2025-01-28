@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:01:51 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/24 17:38:01 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/28 09:23:23 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,9 @@ void	draw_map(t_game *game)
 		{
 			t.pixel = ((t.y + game->camera_offsets.y) * t.d) + (t.x
 					+ game->camera_offsets.x);
-			if (!is_between_zero_and((t_vec2){t.x + game->camera_offsets.x, t.y
-					+ game->camera_offsets.y}, t.length))
-				return ;
-			if (t.map_buffer[t.pixel] != 0)
+			if (is_between_zero_and((t_vec2){t.x + game->camera_offsets.x, t.y
+					+ game->camera_offsets.y}, t.length)
+				&& t.map_buffer[t.pixel] != 0)
 			{
 				t.buffer[(t.y * t.c) + (t.x)] = t.map_buffer[t.pixel];
 				t.buffer[((t.y + 1) * t.c) + (t.x)] = t.map_buffer[t.pixel];

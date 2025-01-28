@@ -1,7 +1,7 @@
 CC = clang
 CFLAGS = -Wall -Werror -Wextra -Iincludes -Iminilibx_linux -O3 -O2 -flto -ffast-math -march=native
 
-EXEC = so_long
+EXEC = solong
 
 MLX_LIB = ./minilibx_linux/libmlx_Linux.a
 MLX_LIB_PATH = ./minilibx_linux/
@@ -66,9 +66,13 @@ OBJS = $(SRCS:.c=.o)
 all : $(EXEC)
 
 $(EXEC): $(FT_PRINTF) $(MLX_LIB) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(FT_PRINTF) -lXext -lX11 -lm -lz -pipe -o $@
+	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(FT_PRINTF) -lXext -lX11 -lm -lz -pipe -o $(EXEC)
 
 $(MLX_LIB):
+	@if [ ! -e "$($@)" ]; then \
+		git clone https://github.com/42Paris/minilibx-linux.git $(shell dirname $@); \
+		cd $(shell dirname $@) && ./configure && cd .. ;\
+	fi;
 	make re -C $(MLX_LIB_PATH) --no-print-directory
 
 $(FT_PRINTF) :
@@ -77,10 +81,10 @@ $(FT_PRINTF) :
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-run : compile $(EXEC)
+run : $(EXEC) $(EXEC)
 	./$(EXEC)
 
-dev : compile $(EXEC)
+dev : $(EXEC) $(EXEC)
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(EXEC) ./maps/packman.ber
 	make fclean
 
@@ -99,4 +103,4 @@ re: fclean all
 
 bonus : all
 
-.PHONY : run compile all dev re fclean clean bonus
+.PHONY : run all dev re fclean clean bonus
