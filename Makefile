@@ -1,5 +1,6 @@
-CC = clang
-CFLAGS = -Wall -Werror -Wextra -Iincludes -Iminilibx_linux -O3 -O2 -flto -ffast-math -march=native
+CC = gcc
+# -Werror
+CFLAGS = -Wall -Wextra -Iincludes -Iminilibx_linux -O3 -O2 -flto -ffast-math -march=native
 
 EXEC = solong
 

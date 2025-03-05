@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_buffer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:11:28 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/17 14:15:46 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:43:48 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,11 @@ void	put_img_to_rendering_buffer(t_game *game, t_rendering_element *r_elem)
 void	proccess_rendering_buffer(t_game *game)
 {
 	t_rendering_element	*r_elem;
-	int					i;
 
 	if (!game || !game->init)
 		return ;
 	if (!game->rendering_buffer)
 		return ;
-	i = 0;
 	r_elem = game->rendering_queue;
 	while (r_elem)
 	{

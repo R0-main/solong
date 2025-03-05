@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 14:59:00 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/17 14:16:38 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:49:05 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 # include "animations.h"
 # include "game.h"
-# include "mlx_int.h"
 # include "mlx_wrapper.h"
 # include "textures.h"
 # include "utils.h"

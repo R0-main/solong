@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:15:41 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 12:09:05 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:53:06 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	handle_mouse_motion_event(int x, int y, t_mlx *mlx)
 	t_game	*game;
 
 	game = get_game_instance();
-	(void)y;
-	(void)x;
 	(void)mlx;
 	if (!game || !game->init || !game->mlx || !game->mlx->win
 		|| !game->mlx->mlx)

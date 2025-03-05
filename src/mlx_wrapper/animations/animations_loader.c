@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animations_loader.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:20:01 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 13:43:21 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:57:20 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	load_animation(void *mlx, const char *path, int id,
 void	load_animations(void *mlx)
 {
 	load_animation(mlx, "./assets/coin.xpm", COIN_ANIMATION,
-		(t_animation_parameters){(t_vec2){25, 24}, 2, 8});
+		(t_animation_parameters){(t_vec2){25, 24}, 12, 8});
 }
 
 void	unload_animations_first_frame(void *mlx)

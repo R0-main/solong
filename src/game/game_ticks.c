@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_ticks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:43:33 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/15 11:56:28 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/03/05 22:00:18 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	on_game_tick(t_game *game)
 	if (!game || !game->init)
 		return ;
 	current = game->entities;
-	if (game->tick % 100 == 0)
+	if (game->tick % 10 == 0)
 	{
 		while (current)
 		{

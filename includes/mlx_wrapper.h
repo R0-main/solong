@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_wrapper.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:33:15 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/17 10:01:34 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:51:04 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 # define MLX_WRAPPER_H
 
-# define HEIGHT 520
-# define WIDTH 856
+# define HEIGHT 850
+# define WIDTH 1500
 
 typedef struct s_mlx
 {
