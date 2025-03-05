@@ -6,108 +6,82 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:01:04 by rguigneb          #+#    #+#             */
-/*   Updated: 2024/12/03 08:15:56 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:35:07 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minilibx_linux/mlx.h"
-#include "../minilibx_linux/mlx_int.h"
+#include "ft_printf.h"
+#include "game.h"
+#include "mlx.h"
+#include "mlx_int.h"
+#include "mlx_wrapper.h"
+#include "textures.h"
+#include "utils.h"
 #include <stdio.h>
 #include <unistd.h>
 
-// void	*add_img(void *mlx, void *mlx_window)
-// {
-// 	mlx_pixel_put(mlx, mlx_window, 5, 5, 0x00FF0000);
-// 	// mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-// }
+int	destroy_close(t_mlx *mlx)
+{
+	mlx_loop_end(mlx->mlx);
+	return (0);
+}
 
-// define those from parsing
-#define HEIGHT 920
-#define WIDTH 1280
+int	main_loop(t_mlx *mlx)
+{
+	static int	is_init = 0;
 
-typedef struct s_vars
+	if (is_init == 0)
+	{
+		game_init(mlx);
+		is_init = 1;
+	}
+	else
+		render_next_frame(mlx);
+	return (0);
+}
+
+void	init_mlx_hooks(t_mlx *mlx)
+{
+	mlx_key_hook(mlx->win, handle_key, mlx);
+	mlx_hook(mlx->win, MotionNotify, (1L << 8),
+		(int (*)())handle_mouse_motion_event, &mlx);
+	mlx_hook(mlx->win, ButtonRelease, (1L << 3),
+		(int (*)())handle_release_mouse_event, mlx);
+	mlx_hook(mlx->win, ButtonPress, (1L << 2),
+		(int (*)())handle_pressed_mouse_event, &mlx);
+	mlx_hook(mlx->win, DestroyNotify, 0, destroy_close, mlx);
+	mlx_loop_hook(mlx->mlx, main_loop, mlx);
+}
+
+void	load_ressources(t_mlx *mlx)
+{
+	load_assets(mlx->mlx);
+	load_animations(mlx->mlx);
+}
+
+int	main(int ac, char **av)
 {
 	void	*mlx;
-	void	*win;
-}			t_vars;
+	t_mlx	*mlx_vars;
 
-// slow
-int	init_window_bg(t_vars *vars)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (++i < WIDTH)
-	{
-		j = -1;
-		while (++j < HEIGHT)
-		{
-			mlx_pixel_put(vars->mlx, vars->win, i, j, 0x00FF0000);
-		}
-	}
-	return (0);
-}
-
-int	load_img(t_vars *vars)
-{
-	t_img	*img;
-	int		h;
-	int		w;
-
-	img = mlx_xpm_file_to_image(vars->mlx, "./assets/test.xpm", &w, &h);
-	if (!img)
-	{
-		printf("img loading failed\n");
-		return (1);
-	}
-	mlx_put_image_to_window(vars->mlx, vars->win, img, w, h);
-	return (0);
-}
-
-int	close_win(int keycode, t_vars *vars)
-{
-	if (keycode == 65307)
-	{
-		mlx_destroy_window(vars->mlx, vars->win);
-		mlx_loop_end(vars->mlx);
-		// free(vars->mlx);
-	}
-	else if (keycode == 113)
-	{
-		init_window_bg(vars);
-	}
-	else if (keycode == 114)
-	{
-		mlx_string_put(vars->mlx, vars->win, 15, 15, 0xFFFFFFFF,
-			"fqwfwqfqfqfqwfq");
-	}
-	else if (keycode == 108)
-	{
-		load_img(vars);
-		printf("tried to load img\n");
-	}
-	printf("pressed : %d\n", keycode);
-	return (0);
-}
-
-int	main(void)
-{
-	void *mlx;
-	void *mlx_window;
-	t_vars vars;
-
+	if (ac > 2)
+		exit_error(MAIN_TOO_MANY_ARGS);
+	if (ac == 1)
+		exit_error(MAIN_NO_ARG);
+	if (!endswith(av[1], ".ber"))
+		exit_error(MAP_FILE_EXTENSION_ERROR);
+	parse_map(av[1]);
 	mlx = mlx_init();
-	mlx_window = NULL;
-	if (mlx != 0)
-	{
-		mlx_window = mlx_new_window(mlx, WIDTH, HEIGHT, "PackPackMan");
-		vars.mlx = mlx;
-		vars.win = mlx_window;
-
-		mlx_key_hook(vars.win, close_win, &vars);
-		mlx_loop(mlx);
-	}
-	mlx_destroy_display(mlx);
-	free(mlx);
+	mlx_vars = get_mlx_vars();
+	mlx_vars->win = NULL;
+	mlx_vars->mlx = mlx;
+	if (!mlx)
+		exit_error(MLX_ERROR);
+	mlx_vars->win = mlx_new_window(mlx, WIDTH, HEIGHT, "So Long");
+	if (!mlx_vars->win)
+		exit_error(MLX_WINDOW_ERROR);
+	load_ressources(mlx_vars);
+	init_mlx_hooks(mlx_vars);
+	mlx_loop(mlx);
+	exit_log(GAME_LEAVE_LOG);
 }
