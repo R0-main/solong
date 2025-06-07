@@ -1,125 +1,237 @@
+# Solong (Isometric Edition)
 
-<h1 align="center">
-  <br>
-   SoLong (Isometric Edition)
-  <br>
-</h1>
-
-<h4 align="center">A minimal Markdown Editor desktop app built on top of <a href="http://electron.atom.io" target="_blank">Electron</a>.</h4>
-
-<p align="center">
-  <a href="https://badge.fury.io/js/electron-markdownify">
-    <img src="https://badge.fury.io/js/electron-markdownify.svg"
-         alt="Gitter">
-  </a>
-  <a href="https://gitter.im/amitmerchant1990/electron-markdownify"><img src="https://badges.gitter.im/amitmerchant1990/electron-markdownify.svg"></a>
-  <a href="https://saythanks.io/to/bullredeyes@gmail.com">
-      <img src="https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg">
-  </a>
-  <a href="https://www.paypal.me/AmitMerchant">
-    <img src="https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&amp;style=flat">
-  </a>
-</p>
-
-<p align="center">
-  <a href="#key-features">Key Features</a> •
-  <a href="#how-to-use">How To Use</a> •
-  <a href="#download">Download</a> •
-  <a href="#credits">Credits</a> •
-  <a href="#related">Related</a> •
-  <a href="#license">License</a>
-</p>
+Solong is a small 2D adventure game built in C using the MinilibX (MLX) library. It features:
+- Tile-based map rendering
+- Player movement and animation
+- Collectibles (coins)
+- Enemies with simple AI
+- Step counter displayed using texture-based digits
 
 ![screenshot](images/showcase.gif)
 
-## Key Features
+## Table of Contents
 
-* LivePreview - Make changes, See changes
-  - Instantly see what your Markdown documents look like in HTML as you create them.
-* Sync Scrolling
-  - While you type, LivePreview will automatically scroll to the current location you're editing.
-* GitHub Flavored Markdown  
-* Syntax highlighting
-* [KaTeX](https://khan.github.io/KaTeX/) Support
-* Dark/Light mode
-* Toolbar for basic Markdown formatting
-* Supports multiple cursors
-* Save the Markdown preview as PDF
-* Emoji support in preview :tada:
-* App will keep alive in tray for quick usage
-* Full screen mode
-  - Write distraction free.
-* Cross platform
-  - Windows, macOS and Linux ready.
+- [Features](#features)
+- [Dependencies](#dependencies)
+- [Building](#building)
+- [Running](#running)
+- [Project Structure](#project-structure)
+- [Texture Management](#texture-management)
+- [Animation Management](#animation-management)
+- [Code Examples](#code-examples)
+- [License](#license)
 
-## How To Use
+## Features
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+- Load `.ber` map files with walls, floor tiles, coins, enemies, exit
+- Render map and entities using MLX textures
+- Track and display player's steps as a score
+- Simple enemy pathfinding and movement
+- Clean resource loading and unloading
+
+## Dependencies
+
+- [MinilibX](https://github.com/42Paris/minilibx-linux)  
+- Standard C libraries: `libft`, `ft_printf`, `get_next_line`
+
+## Building
 
 ```bash
-# Clone this repository
-$ git clone https://github.com/amitmerchant1990/electron-markdownify
-
-# Go into the repository
-$ cd electron-markdownify
-
-# Install dependencies
-$ npm install
-
-# Run the app
-$ npm start
+git clone https://github.com/R0-main/solong.git
+cd solong
+make
 ```
 
-> **Note**
-> If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
+This compiles the executable `so_long`.
 
+## Running
 
-## Download
+```bash
+./so_long path/to/map.ber
+```
 
-You can [download](https://github.com/amitmerchant1990/electron-markdownify/releases/tag/v1.2.0) the latest installable version of Markdownify for Windows, macOS and Linux.
+- If no argument or too many arguments are given, the game will exit with an error.
+- Map file must have the `.ber` extension.
 
-## Emailware
+## Project Structure
 
-Markdownify is an [emailware](https://en.wiktionary.org/wiki/emailware). Meaning, if you liked using this app or it has helped you in any way, I'd like you send me an email at <bullredeyes@gmail.com> about anything you'd want to say about this software. I'd really appreciate it!
+```
+.
+├── assets/                # XPM images for tiles, player, coins, fonts
+├── includes/
+│   ├── animations.h
+│   ├── entities.h
+│   ├── game.h
+│   ├── rendering.h
+│   ├── textures.h
+│   └── utils.h
+├── src/
+│   ├── game/              # Game logic, map parsing, entities, score
+│   ├── mlx_wrapper/       # MLX wrappers: textures & animations loaders
+│   ├── dependencies/      # libft, ft_printf, get_next_line
+│   └── main.c
+└── Makefile
+```
 
-## Credits
+## Texture Management
 
-This software uses the following open source packages:
+All textures are stored in an atlas and referenced by enum IDs.  
+In `includes/textures.h`:
 
-- [Electron](http://electron.atom.io/)
-- [Node.js](https://nodejs.org/)
-- [Marked - a markdown parser](https://github.com/chjj/marked)
-- [showdown](http://showdownjs.github.io/showdown/)
-- [CodeMirror](http://codemirror.net/)
-- Emojis are taken from [here](https://github.com/arvida/emoji-cheat-sheet.com)
-- [highlight.js](https://highlightjs.org/)
+```c
+#define MAX_TEXTURES 256
 
-## Related
+typedef struct s_texture
+{
+    t_img      *img;
+    t_img_data img_data;
+} t_texture;
 
-[Try Web version of Markdownify](https://notepad.js.org/markdown-editor/)
+typedef enum e_textures
+{
+    PLAYER_TEXTURE_TOP,
+    PLAYER_TEXTURE_BOTTOM,
+    PLAYER_TEXTURE_LEFT,
+    PLAYER_TEXTURE_RIGHT,
+    TILE_TEXTURE,
+    COIN_TEXTURE,
+    ENEMY_TEXTURE,
+    EXIT_OPEN_TEXTURE,
+    EXIT_CLOSE_TEXTURE,
+    FONT_ZERO_TEXTURE,
+    // ...
+    FONT_NINE_TEXTURE,
+} t_textures_definition;
 
-## Support
+t_texture get_texture(int id);
+void     load_assets(void *mlx);
+void     unload_assets(void *mlx);
+```
 
-<a href="https://buymeacoffee.com/amitmerchant" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+To load all assets at startup:
 
-<p>Or</p> 
+```c
+void load_assets(void *mlx)
+{
+    load_texture(mlx, "assets/player-bottom.xpm", PLAYER_TEXTURE_BOTTOM);
+    load_texture(mlx, "assets/player-up.xpm",     PLAYER_TEXTURE_TOP);
+    load_texture(mlx, "assets/tile.xpm",          TILE_TEXTURE);
+    load_texture(mlx, "assets/coin.xpm",          COIN_TEXTURE);
+    // load font digits 0–9, exit flags, enemy...
+}
+```
 
-<a href="https://www.patreon.com/amitmerchant">
-	<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
-</a>
+Retrieve a texture during rendering:
 
-## You may also like...
+```c
+t_texture tile = get_texture(TILE_TEXTURE);
+render_asset(game, tile, (t_vec2){x * TILE_X, y * TILE_Y});
+```
 
-- [Pomolectron](https://github.com/amitmerchant1990/pomolectron) - A pomodoro app
-- [Correo](https://github.com/amitmerchant1990/correo) - A menubar/taskbar Gmail App for Windows and macOS
+## Animation Management
+
+Animations use a similar atlas of frames. In `includes/animations.h`:
+
+```c
+typedef enum e_animations { COIN_ANIMATION } t_animation_id;
+
+bool load_animation(void *mlx, const char *path, int id,
+    t_animation_parameters params);
+void load_animations(void *mlx);
+void unload_animations(void *mlx);
+```
+
+Load the coin animation:
+
+```c
+void load_animations(void *mlx)
+{
+    load_animation(mlx,
+        "./assets/coin.xpm",
+        COIN_ANIMATION,
+        (t_animation_parameters){ .frame_length = {25, 24},
+                                 .speed        = 12,
+                                 .frames_count = 8 });
+}
+```
+
+Render frames in your game loop:
+
+```c
+render_animation(game,
+    get_animation_first_frame(COIN_ANIMATION), position);
+```
+
+## Code Examples
+
+### Main Loop (src/main.c)
+
+```c
+int main(int ac, char **av)
+{
+    if (ac != 2)
+        exit_error("Usage: ./so_long map.ber");
+    if (!endswith(av[1], ".ber"))
+        exit_error("Map file must end with .ber");
+    parse_map(av[1]);
+
+    void   *mlx = mlx_init();
+    t_mlx  *vars = get_mlx_vars();
+    vars->mlx = mlx;
+    vars->win = mlx_new_window(mlx, WIDTH, HEIGHT, "So Long");
+
+    load_assets(vars);
+    load_animations(vars);
+    init_mlx_hooks(vars);
+    mlx_loop(mlx);
+}
+```
+
+### Rendering a Map Tile (src/rendering.c)
+
+```c
+void draw_map(t_game *game)
+{
+    for (int y = 0; y < game->map->height; y++)
+        for (int x = 0; x < game->map->width; x++)
+        {
+            t_texture tile = get_texture(TILE_TEXTURE);
+            render_asset(game,
+                         tile,
+                         (t_vec2){x * TILE_X, y * TILE_Y});
+            // draw coins, walls, exit, etc.
+        }
+}
+```
+
+### Displaying Score (src/game/score/score.c)
+
+```c
+void write_score_on_screen(t_game *game)
+{
+    unsigned long score = game->steps_made;
+    t_texture nums[10];
+    set_numbers_textures(nums);  // maps 0–9 textures
+
+    int offset = 0;
+    if (score == 0)
+        render_asset(game,
+                     nums[0],
+                     (t_vec2){WIDTH - nums[0].img->width,
+                              HEIGHT - nums[0].img->height});
+    while (score)
+    {
+        int digit = score % 10;
+        render_asset(game,
+                     nums[digit],
+                     (t_vec2){WIDTH - nums[digit].img->width - offset,
+                              HEIGHT - nums[digit].img->height});
+        score /= 10;
+        offset += nums[digit].img->width;
+    }
+}
+```
 
 ## License
 
-MIT
-
----
-
-> [amitmerchant.com](https://www.amitmerchant.com) &nbsp;&middot;&nbsp;
-> GitHub [@amitmerchant1990](https://github.com/amitmerchant1990) &nbsp;&middot;&nbsp;
-> Twitter [@amit_merchant](https://twitter.com/amit_merchant)
-
+This project is released under [MIT](LICENSE).
