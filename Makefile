@@ -77,7 +77,7 @@ $(MLX_LIB):
 	make re -C $(MLX_LIB_PATH) --no-print-directory
 
 $(FT_PRINTF) :
-	make re -C $(FT_PRINTF_PATH) --no-print-directory
+	make re -C $(FT_PRINTF_PATH) CFLAGS+=-fPIE --no-print-directory
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
