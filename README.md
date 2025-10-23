@@ -19,7 +19,6 @@ Solong is a small 2D adventure game built in C using the MinilibX (MLX) library.
 - [Texture Management](#texture-management)
 - [Animation Management](#animation-management)
 - [Code Examples](#code-examples)
-- [License](#license)
 
 ## Features
 
@@ -47,7 +46,7 @@ This compiles the executable `so_long`.
 ## Running
 
 ```bash
-./so_long path/to/map.ber
+./so_long maps/valids/map_2.ber
 ```
 
 - If no argument or too many arguments are given, the game will exit with an error.
@@ -231,7 +230,3 @@ void write_score_on_screen(t_game *game)
     }
 }
 ```
-
-## License
-
-This project is released under [MIT](LICENSE).
